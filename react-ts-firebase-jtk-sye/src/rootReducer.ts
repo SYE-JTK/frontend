@@ -3,8 +3,8 @@
 */
 
 import { combineReducers } from 'redux';
-import simpleReducer from './simpleReducer';
+import TicketsReducer from './ticket-homepage/reducers/TicketsReducer';
 
 export default combineReducers({
- simpleReducer
+ TicketsReducer,
 });
