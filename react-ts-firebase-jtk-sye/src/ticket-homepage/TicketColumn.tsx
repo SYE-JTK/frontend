@@ -24,14 +24,14 @@ const TicketColumn: React.FunctionComponent<IOwnProps> = (props) => {
       />
 
       <Ticket
-        title='First Ticket'
-        description='This is the first ticket'
+        title='Second Ticket'
+        description='This is the second ticket'
         status={props.title}
       />
 
       <Ticket
-        title='First Ticket'
-        description='This is the first ticket'
+        title='Third Ticket'
+        description='This is the third ticket'
         status={props.title}
       />
       
