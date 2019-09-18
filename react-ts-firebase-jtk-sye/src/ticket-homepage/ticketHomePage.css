@@ -1,6 +1,7 @@
 
 .ticket-container {
   display: flex;
+  padding: 30px;
   flex-direction: row;
   justify-content: space-evenly;
 }
@@ -21,7 +22,10 @@
 }
 
 .ticket-header {
-
+  margin-bottom: 5px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 26px;
+  text-decoration: underline solid rgb(68, 68, 68);
 }
 
 .ticket-row-container {
@@ -30,6 +34,8 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  border: 1px dotted gray;
+  border-radius: 5px;
 }
 
 .ticket-row-blue {
@@ -46,4 +52,12 @@
 
 .ticket-row-black {
   background-color: black;
+}
+
+.ticket-row-yellow {
+  background-color: yellow;
+}
+
+.ticket-row-grey {
+  background-color: #E2E2E2;
 }

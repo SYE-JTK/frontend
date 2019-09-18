@@ -14,10 +14,23 @@ const Ticket: React.FunctionComponent<IOwnProps> = (props) => {
 
   const { title, description, owner, status } = props;
 
-  const classes = status === TICKET_STATUS_TYPES.PENDING ? 'red' : 'green';
+  const classes = () => {
+    switch(status){
+      case TICKET_STATUS_TYPES.PENDING:
+        return 'red';
+      case TICKET_STATUS_TYPES.STARTED:
+        return 'yellow';
+      case TICKET_STATUS_TYPES.IN_REVIEW:
+        return 'yellow';
+      case TICKET_STATUS_TYPES.DONE:
+        return 'green';
+      default:
+        return 'red';
+    }
+  }
 
   return (
-    <div className={`single-ticket-container ticket-row-${classes}`}>
+    <div className={`single-ticket-container ticket-row-${classes()}`}>
       <div className='ticket-text-container'>
       
         <div className='ticket-text-spacer'>{ title }</div>

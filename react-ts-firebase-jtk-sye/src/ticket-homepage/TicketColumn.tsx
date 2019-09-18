@@ -5,8 +5,9 @@ import Ticket from './Ticket';
 import './ticketHomePage.css';
 
 interface IOwnProps {
-  title: string;
+  title: TICKET_STATUS_TYPES;
   color: string;
+  tickets?: object[];
 }
 
 const TicketColumn: React.FunctionComponent<IOwnProps> = (props) => {
@@ -19,19 +20,19 @@ const TicketColumn: React.FunctionComponent<IOwnProps> = (props) => {
       <Ticket
         title='First Ticket'
         description='This is the first ticket'
-        status={TICKET_STATUS_TYPES.PENDING}
+        status={props.title}
       />
 
       <Ticket
         title='First Ticket'
         description='This is the first ticket'
-        status={TICKET_STATUS_TYPES.DONE}
+        status={props.title}
       />
 
       <Ticket
         title='First Ticket'
         description='This is the first ticket'
-        status={TICKET_STATUS_TYPES.IN_REVIEW}
+        status={props.title}
       />
       
     </div>

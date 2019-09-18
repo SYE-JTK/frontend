@@ -12,19 +12,19 @@ const TicketHomePage = () => {
     <div className='ticket-container'>
       <TicketColumn
         title={TICKET_STATUS_TYPES.PENDING}
-        color='blue'
+        color='grey'
       />
       <TicketColumn
         title={TICKET_STATUS_TYPES.STARTED}
-        color='blue'
+        color='grey'
       />
       <TicketColumn
         title={TICKET_STATUS_TYPES.IN_REVIEW}
-        color='blue'
+        color='grey'
       />
       <TicketColumn
         title={TICKET_STATUS_TYPES.DONE}
-        color='blue'
+        color='grey'
       />
     </div>
   );
