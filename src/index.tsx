@@ -1,5 +1,5 @@
 
-import App from './App';
+import App from './components/App';
 import configureStore from './jtk.store.root-reducer';
 import registerServiceWorker from './registerServiceWorker';
 
