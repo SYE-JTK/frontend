@@ -5,12 +5,14 @@ import _ from "lodash";
 import * as actions from "../actions";
 import TicketColumn from './TicketColumn';
 import './ticketHomePage.css';
+import './page_layout/page.css';
 
 class ToDoList extends Component {
   state = {
     addFormVisible: false,
     addFormValue: "",
-    addFormDescription: ""
+    addFormDescription: "",
+    addFormOwner: ""
   };
 
   handleInputChange = event => {
@@ -21,17 +23,26 @@ class ToDoList extends Component {
     this.setState({ addFormDescription: event.target.value });
   };
 
+  handleOwnerChange = event => {
+    this.setState({ addFormOwner: event.target.value });
+  };
+
   handleFormSubmit = event => {
-    const { addFormValue, addFormDescription } = this.state;
+    const { addFormValue, addFormDescription, addFormOwner } = this.state;
     const { addTicket } = this.props;
     event.preventDefault();
-    addTicket({ title: addFormValue, status: 'Pending', description: addFormDescription });
+    addTicket({ 
+      title: addFormValue, status: 'Pending', 
+      description: addFormDescription, 
+      owner: addFormOwner 
+    });
     this.setState({ addFormValue: "" });
     this.setState({ addFormStatus: "" });
+    this.setState({ addFormOwner: "" });
   };
 
   renderAddForm = () => {
-    const { addFormVisible, addFormValue, addFormDescription } = this.state;
+    const { addFormVisible, addFormValue, addFormDescription, addFormOwner } = this.state;
     if (addFormVisible) {
       return (
         <div id="todo-add-form" className="col s10 offset-s1">
@@ -44,6 +55,13 @@ class ToDoList extends Component {
                 id="ticketTitle"
                 type="text"
               /> <br/>
+              <i className="material-icons prefix">Ticket Owner: </i>
+              <input
+                value={addFormOwner}
+                onChange={this.handleOwnerChange}
+                id="ticketOwner"
+                type="text"
+              /> <br/>
               <i className="material-icons prefix">Ticket Description</i><br/>
               <textarea
                 value={addFormDescription}
@@ -51,7 +69,7 @@ class ToDoList extends Component {
                 id="ticketDescription"
                 type="textarea"
               /><br/>
-              <input type="submit" value="Submit"></input>
+              <input className='button-main' type="submit" value="Submit"></input>
             </div>
           </form>
         </div>
@@ -122,22 +140,20 @@ class ToDoList extends Component {
   render() {
     const { addFormVisible } = this.state;
     return (
-      <div className="to-do-list-container">
+      <div>
         <div className='ticket-container'>
           {this.renderToDos()}
         </div>
         {this.renderAddForm()}
         <div className="fixed-action-btn">
-          <button
-            onClick={() => this.setState({ addFormVisible: !addFormVisible })}
-            className="btn-floating btn-large teal darken-4"
-          >
-            {addFormVisible ? (
-              <i className="large material-icons">close</i>
-            ) : (
-              <i className="large material-icons">add</i>
-            )}
-          </button>
+          <div className='button-container'>
+            <button
+              onClick={() => this.setState({ addFormVisible: !addFormVisible })}
+              className='button-main'
+            >
+              {addFormVisible ? 'close' : 'add'}
+            </button>
+          </div>
         </div>
       </div>
     );

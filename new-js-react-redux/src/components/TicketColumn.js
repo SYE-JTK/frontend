@@ -18,6 +18,7 @@ class TicketColumn extends Component {
           ticketId={value.ticketKey}
           title={value.ticketValue.title}
           description={value.ticketValue.description}
+          owner={value.ticketValue.owner}
           status={value.ticketValue.status}
         />
       );

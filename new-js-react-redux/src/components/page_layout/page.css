@@ -1,0 +1,79 @@
+
+.color-bg-main {
+  background-color: #06E1D0;
+}
+
+.color-main {
+  color: #06E1D0;
+}
+
+.color-bg-success {
+  background-color: #25F179;
+}
+
+.color-success {
+  color: #25F179;
+}
+
+.color-bg-failure {
+  background-color: #FA4536;
+}
+
+.color-failure {
+  color: #FA4536;
+}
+
+.color-bg-pending {
+  background-color: #F7F131;
+}
+
+.color-pending {
+  color: #F7F131;
+}
+
+.page-header {
+  height: 60px;
+  background-color: #06E1D0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.page-header-text {
+  margin-left: 25px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+body {
+  margin: 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.button-main {
+	/* background-color:#5cbf2a; */
+	border-radius:5px;
+	border:1px solid #5cbf2a;
+	display:inline-block;
+	cursor:pointer;
+	/* color:#ffffff; */
+	font-family:Trebuchet MS;
+	font-size:15px;
+  padding:5px 19px;
+  align-self: center;
+}
+.button-main:hover {
+	background-color:#5cbf2a;
+	border:1px solid #5cbf2a;
+}
+.button-main:active {
+	position:relative;
+	top:1px;
+}
+
+        
