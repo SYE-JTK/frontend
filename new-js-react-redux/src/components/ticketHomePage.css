@@ -11,6 +11,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
 }
 
 .ticket-text-container {
@@ -18,7 +20,12 @@
 }
 
 .ticket-text-spacer {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   margin-bottom: 10px;
+}
+
+.ticket-text-header {
+  text-decoration: underline;
 }
 
 .ticket-header {
