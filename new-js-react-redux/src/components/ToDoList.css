@@ -22,9 +22,16 @@
   right: 20px;
 }
 
+.fixed-action-btn {
+  margin-bottom: 40px
+}
+
 #todo-add-form {
   animation-duration: 1s;
   animation-name: slidein;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #nothing-was-found {

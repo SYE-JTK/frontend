@@ -47,25 +47,30 @@ class ToDoList extends Component {
       return (
         <div id="todo-add-form" className="col s10 offset-s1">
           <form onSubmit={this.handleFormSubmit}>
-            <div className="input-field">
-              <i className="material-icons prefix">Ticket Title: </i>
-              <input
-                value={addFormValue}
-                onChange={this.handleInputChange}
-                id="ticketTitle"
-                type="text"
-              /> <br/>
-              <i className="material-icons prefix">Ticket Owner: </i>
-              <input
-                value={addFormOwner}
-                onChange={this.handleOwnerChange}
-                id="ticketOwner"
-                type="text"
-              /> <br/>
-              <i className="material-icons prefix">Ticket Description</i><br/>
+            <div className="input-field display-fc-c">
+              <div className='display-f-c margin-b-1'>
+                <input
+                  className='input-main margin-r-1'
+                  value={addFormValue}
+                  onChange={this.handleInputChange}
+                  placeholder='enter ticket title'
+                  id="ticketTitle"
+                  type="text"
+                /> <br/>
+                <input
+                  className='input-main margin-l-1'
+                  value={addFormOwner}
+                  onChange={this.handleOwnerChange}
+                  placeholder='enter ticket owner'
+                  id="ticketOwner"
+                  type="text"
+                /> <br/>
+              </div>
               <textarea
+                className='textarea-main'
                 value={addFormDescription}
                 onChange={this.handleDescriptionChange}
+                placeholder='enter ticket description'
                 id="ticketDescription"
                 type="textarea"
               /><br/>
@@ -145,15 +150,13 @@ class ToDoList extends Component {
           {this.renderToDos()}
         </div>
         {this.renderAddForm()}
-        <div className="fixed-action-btn">
-          <div className='button-container'>
-            <button
-              onClick={() => this.setState({ addFormVisible: !addFormVisible })}
-              className='button-main'
-            >
-              {addFormVisible ? 'close' : 'add'}
-            </button>
-          </div>
+        <div className='button-container fixed-action-btn margin-t-1'>
+          <button
+            onClick={() => this.setState({ addFormVisible: !addFormVisible })}
+            className='button-main'
+          >
+            {addFormVisible ? 'close' : 'add'}
+          </button>
         </div>
       </div>
     );
