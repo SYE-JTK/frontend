@@ -1,3 +1,4 @@
+/* Colors */
 
 .color-bg-main {
   background-color: #06E1D0;
@@ -31,6 +32,8 @@
   color: #F7F131;
 }
 
+/* Page components */
+
 .page-header {
   height: 60px;
   background-color: #06E1D0;
@@ -49,6 +52,8 @@ body {
   margin: 0;
 }
 
+/* Buttons */
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -56,12 +61,10 @@ body {
 }
 
 .button-main {
-	/* background-color:#5cbf2a; */
 	border-radius:5px;
 	border:1px solid #5cbf2a;
 	display:inline-block;
 	cursor:pointer;
-	/* color:#ffffff; */
 	font-family:Trebuchet MS;
 	font-size:15px;
   padding:5px 19px;
@@ -76,4 +79,88 @@ body {
 	top:1px;
 }
 
+.button-close {
+	border-radius:5px;
+	border:1px solid #FA4536;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Trebuchet MS;
+	font-size:15px;
+  padding:5px 19px;
+  align-self: center;
+}
+.button-close:hover {
+	background-color:#FA4536;
+	border:1px solid #FA4536;
+}
+.button-close:active {
+	position:relative;
+	top:1px;
+}
+
+/* Spacing */
+
+.margin-1 {
+  margin: 5px
+}
+
+.margin-2 {
+  margin: 10px
+}
+
+.margin-2 {
+  margin: 15px
+}
+
+.margin-t-1 {
+  margin-top: 5px
+}
+
+.margin-t-2 {
+  margin-top: 10px
+}
+
+.margin-t-2 {
+  margin-top: 15px
+}
+
+.margin-b-1 {
+  margin-bottom: 5px
+}
+
+.margin-b-2 {
+  margin-bottom: 10px
+}
+
+.margin-b-2 {
+  margin-bottom: 15px
+}
+
+.margin-r-1 {
+  margin-right: 5px
+}
+
+.margin-r-2 {
+  margin-right: 10px
+}
+
+.margin-r-2 {
+  margin-right: 15px
+}
+
+.margin-l-1 {
+  margin-left: 5px
+}
+
+.margin-l-2 {
+  margin-left: 10px
+}
+
+.margin-l-2 {
+  margin-left: 15px
+}
+
+.width-100 {
+  width: 100%
+}
         
