@@ -195,4 +195,28 @@ body {
 .width-100 {
   width: 100%
 }
-        
+
+.routes{
+  width: 40%;
+  display: flex; 
+  justify-content: space-around;
+  align-items: center;
+  color: #06E1D0;
+  list-style: none; 
+}
+
+.header{
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: #06E1D0;
+  width: 100%
+  
+}
+
+.header-text {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  margin-bottom: 10px;
+  color: black;
+  text-decoration: none;
+}

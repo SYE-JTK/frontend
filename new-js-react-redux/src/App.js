@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-// import TicketHomePage from "./components/TicketHomePage";
-import ToDoList from "./components/ToDoList";
 import './components/page_layout/page.css';
-import Header from './components/page_layout/Header';
 
-class App extends Component {
+
+class App extends React.Component {
   render() {
     return (
-      <>
-        <Header text='JTK-SYE Tickets'/>
-        <ToDoList/>
-      </>
-    );
+      <div className='app'>
+        
+      </div>
+    )
   }
 }
+export default App
 
-export default App;
+
+
+
+
+

@@ -8,6 +8,7 @@ class Header extends Component {
     return (
       <header className='page-header'>
         <div className='page-header-text'>{ text }</div>
+        { this.props.children }
       </header>
     );
   }
