@@ -33,6 +33,7 @@ class Ticket extends Component {
   };
 
   handleRestartTicket = (ticketId) => {
+    // eslint-disable-next-line
     const { completeToDo, updateTicket } = this.props;
     
     updateTicket(ticketId, 'Pending');

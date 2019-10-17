@@ -14,9 +14,11 @@ import './components/page_layout/page.css';
 
 import Header from './components/page_layout/Header';
 
+import * as firebase from 'firebase/app';
 
-
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 const Root = ({store}) =>(
   <Provider store={store}>
@@ -53,3 +55,9 @@ ReactDOM.render(
    document.getElementById("root")
 );
 //ReactDOM.render(routing, document.getElementById('root'))
+  } else {
+    // No user is signed in.
+  }
+});
+
+
