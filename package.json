@@ -1,36 +1,39 @@
 {
-  "name": "react-ts-firebase-jtk-sye",
+  "name": "new-js-react-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^6.6.0",
-    "node": "^12.10.0",
+    "@types/react": "^16.9.2",
+    "firebase": "^6.6.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
-    "react-router-dom": "^5.0.1",
-    "react-scripts-ts": "3.1.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.1.2",
     "react-with-firebase-auth": "^1.0.4",
-    "recompose": "^0.30.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.6.3"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.5",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.2",
-    "@types/react-router": "^5.0.5",
-    "@types/react-router-dom": "^4.3.5",
-    "@types/recompose": "^0.30.7",
-    "redux-devtools": "^3.5.0",
-    "typescript": "^3.6.3"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
