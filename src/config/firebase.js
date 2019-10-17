@@ -6,5 +6,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(FirebaseConfig);
 }
 
+
+
 const databaseRef = firebase.database().ref();
 export const ticketsRef = databaseRef.child("tickets");
