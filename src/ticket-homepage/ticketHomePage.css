@@ -1,0 +1,63 @@
+
+.ticket-container {
+  display: flex;
+  padding: 30px;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.single-ticket-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+
+.ticket-text-container {
+  padding: 5px;
+}
+
+.ticket-text-spacer {
+  margin-bottom: 10px;
+}
+
+.ticket-header {
+  margin-bottom: 5px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 26px;
+  text-decoration: underline solid rgb(68, 68, 68);
+}
+
+.ticket-row-container {
+  width: auto;
+  height: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  border: 1px dotted gray;
+  border-radius: 5px;
+}
+
+.ticket-row-blue {
+  background-color: blue;
+}
+
+.ticket-row-red {
+  background-color: red;
+}
+
+.ticket-row-green {
+  background-color: green;
+}
+
+.ticket-row-black {
+  background-color: black;
+}
+
+.ticket-row-yellow {
+  background-color: yellow;
+}
+
+.ticket-row-grey {
+  background-color: #E2E2E2;
+}
