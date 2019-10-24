@@ -196,22 +196,14 @@ body {
   width: 100%
 }
 
-.routes{
-  width: 40%;
-  display: flex; 
-  justify-content: space-around;
+.routes {
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 50px;
+  justify-content: space-between;
   align-items: center;
-  color: #06E1D0;
   list-style: none; 
-}
-
-.header{
-  justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
-  background: #06E1D0;
-  width: 100%
-  
 }
 
 .header-text {

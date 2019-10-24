@@ -19,18 +19,16 @@ import * as firebase from 'firebase/app';
 const Root = () =>(
   <Router>
     <Header text='jtk-sye'>
-      <div>
-        <ul className='routes header'>
-          <li>
-            <Link className='header-text' to="/">Home</Link>
-          </li>
-          <li>
-            <Link className='header-text' to="/users">Users</Link>
-          </li>
-          <li>
-            <Link className='header-text' to="/ToDoList">ToDoList</Link>
-          </li>
-        </ul>
+      <div className='routes'>
+        <li>
+          <Link className='header-text' to="/">Home</Link>
+        </li>
+        <li>
+          <Link className='header-text' to="/users">Users</Link>
+        </li>
+        <li>
+          <Link className='header-text' to="/ToDoList">ToDoList</Link>
+        </li>
       </div>
     </Header>
     <Route exact path="/" component={App} />
