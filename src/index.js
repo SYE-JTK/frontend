@@ -15,6 +15,7 @@ import './components/page_layout/page.css';
 import Header from './components/page_layout/Header';
 
 import * as firebase from 'firebase/app';
+import NoteTaking from "./components/note/NoteTaking";
 
 const Root = () =>(
   <Router>
@@ -29,11 +30,15 @@ const Root = () =>(
         <li>
           <Link className='header-text' to="/ToDoList">ToDoList</Link>
         </li>
+        <li>
+        <Link className='header-text' to="/NoteTaking">Notes</Link>
+        </li>
       </div>
     </Header>
     <Route exact path="/" component={App} />
     <Route path="/users" component={Users} />
     <Route path="/ToDoList" component={ToDoList} />
+    <Route path="/NoteTaking" component={NoteTaking} />
   </Router>
 )
 
