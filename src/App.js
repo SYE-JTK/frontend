@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { Component } from "react";
+import React from "react";
 import './components/page_layout/page.css';
 import AuthLogin from './components/signIn'
 
