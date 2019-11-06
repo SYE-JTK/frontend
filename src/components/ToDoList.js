@@ -7,6 +7,8 @@ import TicketColumn from './TicketColumn';
 import './ticketHomePage.css';
 import './page_layout/page.css';
 
+import store from '../store'
+
 class ToDoList extends Component {
   state = {
     addFormVisible: false,
@@ -141,24 +143,33 @@ class ToDoList extends Component {
   componentWillMount() {
     this.props.fetchToDos();
   }
-
+  
   render() {
+    const session = store.getState().session;
     const { addFormVisible } = this.state;
     return (
-      <div>
-        <div className='ticket-container'>
-          {this.renderToDos()}
+      <>
+      { session.currentUser ?
+        <div>
+          <div className='ticket-container'>
+            {this.renderToDos()}
+          </div>
+          {this.renderAddForm()}
+          <div className='button-container fixed-action-btn margin-t-1'>
+            <button
+              onClick={() => this.setState({ addFormVisible: !addFormVisible })}
+              className='button-main'
+            >
+              {addFormVisible ? 'close' : 'add'}
+            </button>
+          </div>
         </div>
-        {this.renderAddForm()}
-        <div className='button-container fixed-action-btn margin-t-1'>
-          <button
-            onClick={() => this.setState({ addFormVisible: !addFormVisible })}
-            className='button-main'
-          >
-            {addFormVisible ? 'close' : 'add'}
-          </button>
-        </div>
-      </div>
+        :
+        <h1>
+          Login to see tickets
+        </h1>
+      }
+      </>
     );
   }
 }
