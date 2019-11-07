@@ -119,3 +119,4 @@ const mapStateToProps = ({ notes }) => {
 };
 
 export default connect(mapStateToProps, actions)(NoteTaking);
+

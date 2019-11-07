@@ -9,3 +9,4 @@ const notes = (state = {}, action) => {
 };
 
 export default notes;
+
