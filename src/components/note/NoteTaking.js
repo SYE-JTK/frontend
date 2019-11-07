@@ -3,6 +3,7 @@ import React from "react";
 
 import '../ticketHomePage.css';
 import '../page_layout/page.css';
+import './note.css';
 
 import _ from "lodash";
 
@@ -50,9 +51,11 @@ class NoteTaking extends React.Component {
       _.map(notes, (value, key) => {
         if (value.owner === store.getState().session.currentUser) {
           return (
-            <div key={ key }>
-              <div>Title: { value.title }</div>
-              <div>Content: { value.content }</div>
+            <div>
+              <div key={ key } className='note-container'>
+                <div className='note-title'>{ value.title }</div>
+                <div className='note-content'>{ value.content }</div>
+              </div>
               <br/>
             </div>
           )
@@ -81,7 +84,7 @@ class NoteTaking extends React.Component {
                 { this.renderNotes() }
               </div>
             </div>
-            <footer>
+            <footer className='margin-l-2'>
               <form onSubmit = {this.addNote}> 
                 <input
                   className='input-main margin-b-2'
