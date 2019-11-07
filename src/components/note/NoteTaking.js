@@ -4,43 +4,67 @@ import React from "react";
 import '../ticketHomePage.css';
 import '../page_layout/page.css';
 
+import _ from "lodash";
+
+import { connect } from "react-redux";
+
+import * as actions from "../../actions/notesActions";
+
 import store from '../../store';
 
 class NoteTaking extends React.Component {
 
-  constructor(props){
-    super(props);
+  state = {
+    noteTitle: "",
+    noteContent: "",
+    noteOwner: null
+  };
 
-    this.state = {
-      items: []
+  handleTitleChange = event => {
+    this.setState({ noteTitle: event.target.value });
+    if (this.state.noteOwner === null) {
+      this.setState({ noteOwner: store.getState().session.currentUser });
     }
+  };
 
-    this.addNote = this.addNote.bind(this);
-  }
+  handleContentChange = event => {
+    this.setState({ noteContent: event.target.value });
+  };
 
-  addNote(event){
-    console.log("working");
-
-    if(this.theTitle.value !== ""){
-      var newItem = {
-        title: this.theTitle.value,
-        note: this.theNote.value
-      };
-    }
-
-    this.setState((prevState) => {
-      return{
-        items: prevState.items.concat(newItem)
-      };
-    });
-
-    this.theNote.value = "";
-    this.theTitle.value = "";
-
-    console.log(this.state.items)
-
+  handleAddNote = event => {
+    const { noteTitle, noteContent, noteOwner } = this.state;
+    const { addNotes } = this.props;
     event.preventDefault();
+    addNotes({ 
+      title: noteTitle,
+      content: noteContent, 
+      owner: noteOwner 
+    });
+    this.setState({ noteTitle: "" });
+    this.setState({ noteContent: "" });
+  };
 
+  renderNotes() {
+    const notes = store.getState().notes;
+    return (
+      _.map(notes, (value, key) => {
+        if (value.owner === store.getState().session.currentUser) {
+          return (
+            <div key={ key }>
+              <div>Title: { value.title }</div>
+              <div>Content: { value.content }</div>
+              <br/>
+            </div>
+          )
+        }
+      })
+    )
+
+    
+  };
+
+  componentWillMount() {
+    this.props.fetchNotes();
   }
 
   render() {
@@ -54,7 +78,7 @@ class NoteTaking extends React.Component {
             </header>
             <div className = "main-content margin-b-3">
               <div>
-                {this.state.items.map( (val) => <li>{val.title}-{val.note}</li>)}
+                { this.renderNotes() }
               </div>
             </div>
             <footer>
@@ -62,15 +86,19 @@ class NoteTaking extends React.Component {
                 <input
                   className='input-main margin-b-2'
                   type="text"
+                  onChange={ this.handleTitleChange }
                   placeholder = "Enter note title here"
-                  ref = {(title) => this.theTitle = title}
                 /><br/>
                 <textarea
                   className='textarea-main margin-b-2' 
                   placeholder = "Enter note here"
-                  ref = {(note) => this.theNote = note}
+                  onChange={ this.handleContentChange }
                 /><br/>
-                <button className='button-main' type="submit">Add Note</button>
+                <button
+                  className='button-main'
+                  type="submit"
+                  onClick={ this.handleAddNote }
+                >Add Note</button>
               </form>
             </footer>
           </div>
@@ -84,4 +112,10 @@ class NoteTaking extends React.Component {
   }
 }
 
-export default NoteTaking;
+const mapStateToProps = ({ notes }) => {
+  return {
+    notes
+  };
+};
+
+export default connect(mapStateToProps, actions)(NoteTaking);
