@@ -17,7 +17,7 @@ import * as actions from './actions/userActions'
 
 class Root extends Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     this.props.fetchUsers();
   }
 

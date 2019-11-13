@@ -51,8 +51,8 @@ class NoteTaking extends React.Component {
       _.map(notes, (value, key) => {
         if (value.owner === store.getState().session.currentUser) {
           return (
-            <div>
-              <div key={ key } className='note-container'>
+            <div key={ key }>
+              <div className='note-container'>
                 <div className='note-title'>{ value.title }</div>
                 <div className='note-content'>{ value.content }</div>
               </div>
