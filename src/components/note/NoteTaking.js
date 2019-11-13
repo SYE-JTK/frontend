@@ -62,8 +62,6 @@ class NoteTaking extends React.Component {
         }
       })
     )
-
-    
   };
 
   componentWillMount() {
