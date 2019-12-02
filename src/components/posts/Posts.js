@@ -7,9 +7,9 @@ import _ from "lodash";
 
 import { connect } from "react-redux";
 
-import * as actions from "../actions/notesActions";
+import * as actions from "../../actions/notesActions";
 
-import store from '../store';
+import store from '../../store';
 
 class Posts extends React.Component {
 
@@ -43,8 +43,6 @@ class Posts extends React.Component {
     this.setState({ noteContent: "" });
   };
 
-  
-
   renderPosts() {
     const posts = store.getState().notes;
     return (
@@ -62,7 +60,7 @@ class Posts extends React.Component {
               <br/>
             </div>
           )
-        }else{
+        } else{
             return (
                 <div key={ key }>
                 <header>
@@ -80,10 +78,6 @@ class Posts extends React.Component {
       })
     )
   };
-
-  componentWillMount() {
-    this.props.fetchNotes();
-  }
 
   render() {
     const session = store.getState().session;

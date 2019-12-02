@@ -4,7 +4,7 @@ import App from "./App";
 
 import Users from './users'
 import ToDoList from "./components/ToDoList";
-import Posts from "./components/Posts";
+import Posts from "./components/posts/Posts";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import './components/page_layout/page.css';
 
@@ -14,12 +14,14 @@ import NoteTaking from "./components/note/NoteTaking";
 
 import { connect } from 'react-redux';
 
-import * as actions from './actions/userActions'
+import { fetchNotes } from './actions/notesActions'
+import { fetchUsers } from './actions/userActions'
 
 class Root extends Component {
 
   async componentDidMount() {
     this.props.fetchUsers();
+    this.props.fetchNotes();
   }
 
   render() {
@@ -60,4 +62,9 @@ const mapStateToProps = ({ user }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(Root)
+const mapDispatchToProps = {
+  fetchUsers,
+  fetchNotes,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root)
