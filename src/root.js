@@ -4,6 +4,7 @@ import App from "./App";
 
 import Users from './users'
 import ToDoList from "./components/ToDoList";
+import Posts from "./components/Posts";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import './components/page_layout/page.css';
 
@@ -38,12 +39,16 @@ class Root extends Component {
             <li>
             <Link className='header-text' to="/NoteTaking">Notes</Link>
             </li>
+            <li>
+              <Link className='header-text' to="/PostFeed">Posts</Link>
+            </li>
           </div>
         </Header>
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ToDoList" component={ToDoList} />
         <Route path="/NoteTaking" component={NoteTaking} />
+        <Route path ="/PostFeed" component={Posts}/>
       </Router>
     )
   }

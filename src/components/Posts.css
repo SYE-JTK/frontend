@@ -1,0 +1,19 @@
+@import '../page_layout/page.css';
+
+
+.post-container {
+  border-left: 4px solid #06E1D0;
+  padding-left: 10px;
+  margin-left: 10px;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.post-title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.post-content {
+  font-size: 12px;
+  margin-left: 20px;
+}
