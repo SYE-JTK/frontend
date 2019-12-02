@@ -75,7 +75,7 @@ class NoteTaking extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='main-content'>
         <header>
           <h1> Notes </h1>
         </header>

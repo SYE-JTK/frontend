@@ -29,7 +29,7 @@ class Users extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='main-content'>
         <h1>
           Users
         </h1>

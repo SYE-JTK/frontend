@@ -34,6 +34,10 @@
 
 /* Page components */
 
+.main-content {
+  margin: 10px;
+}
+
 .page-header {
   height: 60px;
   background-color: #06E1D0;

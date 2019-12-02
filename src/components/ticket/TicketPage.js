@@ -147,7 +147,7 @@ class TicketPage extends Component {
     const session = store.getState().session;
     const { addFormVisible } = this.state;
     return (
-      <>
+      <div className='main-content'>
       { session.currentUser ?
         <div>
           <div className='ticket-container'>
@@ -168,7 +168,7 @@ class TicketPage extends Component {
           Login to see tickets
         </h1>
       }
-      </>
+      </div>
     );
   }
 }
