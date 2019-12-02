@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './ticketHomePage.css';
-import './page_layout/page.css';
+import '../page_layout/page.css';
 
 import { connect } from "react-redux";
-import { completeToDo, updateTicket } from "../actions";
-import Modal from './page_layout/Modal';
+import { completeToDo, updateTicket } from "../../actions";
+import Modal from '../page_layout/Modal';
 
 
 class Ticket extends Component {

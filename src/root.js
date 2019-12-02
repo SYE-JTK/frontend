@@ -1,9 +1,10 @@
 
 import React, { Component } from "react";
 import App from "./App";
+import { bindActionCreators } from 'redux'
 
 import Users from './users'
-import ToDoList from "./components/ToDoList";
+import TicketPage from "./components/ticket/TicketPage";
 import Posts from "./components/posts/Posts";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import './components/page_layout/page.css';
@@ -17,6 +18,12 @@ import { connect } from 'react-redux';
 import { fetchNotes } from './actions/notesActions'
 import { fetchUsers } from './actions/userActions'
 
+const admins = {
+  "jonaspeek@gmail.com": 'jonas',
+  "timwjones98@gmail.com": 'tim',
+  "kmurphh27@gmail.com": 'kira',
+}
+
 class Root extends Component {
 
   async componentDidMount() {
@@ -25,30 +32,38 @@ class Root extends Component {
   }
 
   render() {
+    const { user } = this.props;
     return(
       <Router>
         <Header text='jtk-sye'>
-          <div className='routes'>
-            <li>
-              <Link className='header-text' to="/">Home</Link>
-            </li>
-            <li>
-              <Link className='header-text' to="/users">Users</Link>
-            </li>
-            <li>
-              <Link className='header-text' to="/ToDoList">ToDoList</Link>
-            </li>
-            <li>
-            <Link className='header-text' to="/NoteTaking">Notes</Link>
-            </li>
-            <li>
-              <Link className='header-text' to="/PostFeed">Posts</Link>
-            </li>
-          </div>
+          { user ? 
+            <div className='routes'>
+              <li>
+                <Link className='header-text' to="/">Home</Link>
+              </li>
+              <li>
+                <Link className='header-text' to="/PostFeed">Posts</Link>
+              </li>
+              <li>
+                <Link className='header-text' to="/users">Users</Link>
+              </li>
+              <li>
+              <Link className='header-text' to="/NoteTaking">Notes</Link>
+              </li>
+              { admins[user] ?
+                <li>
+                  <Link className='header-text' to="/ticket-tracker">Ticket Tracker</Link>
+                </li>
+                :
+                <></>
+              }
+            </div>
+            : <></>
+          }
         </Header>
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
-        <Route path="/ToDoList" component={ToDoList} />
+        <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/NoteTaking" component={NoteTaking} />
         <Route path ="/PostFeed" component={Posts}/>
       </Router>
@@ -56,15 +71,14 @@ class Root extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = (state) => {
   return {
-    user
+    user: state.session.currentUser
   };
 };
 
-const mapDispatchToProps = {
-  fetchUsers,
-  fetchNotes,
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ fetchUsers, fetchNotes }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root)

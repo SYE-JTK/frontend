@@ -18,6 +18,7 @@ class Users extends React.Component {
                 :
                 <div className='note-title'>{ value.name }</div>
               }
+              <div className='note-content'>{ value.email }</div>
             </div>
             <br/>
           </div>
@@ -28,23 +29,14 @@ class Users extends React.Component {
 
   render() {
     return (
-      <>
-        { 
-          store.getState().session.currentUser ?
-          <div>
-            <h1>
-              Users
-            </h1>
-            <div>
-              { this.displayUsers() }
-            </div>
-          </div>
-          :
-          <h1>
-            Login to see users
-          </h1>
-        }
-      </>
+      <div>
+        <h1>
+          Users
+        </h1>
+        <div>
+          { this.displayUsers() }
+        </div>
+      </div>
     );
   }
 }
