@@ -57,7 +57,7 @@ class AuthLogin extends Component {
             ? <p className='note-title'>
                 Hello, {user.displayName}!
               </p>
-            : <h1 className='note-title'>Please sign in.</h1>
+            : <h1 className='note-title'>Sign in to see content</h1>
           }
           {
             user

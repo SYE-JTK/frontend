@@ -1,9 +1,11 @@
 // eslint-disable-next-line
 import React from "react";
 
-import '../ticketHomePage.css';
+import '../ticket/ticketHomePage.css';
 import '../page_layout/page.css';
 import './note.css';
+
+import * as firebase from 'firebase/app';
 
 import _ from "lodash";
 
@@ -18,13 +20,15 @@ class NoteTaking extends React.Component {
   state = {
     noteTitle: "",
     noteContent: "",
-    noteOwner: null
+    noteOwner: null,
+    noteOwnerName: null
   };
 
   handleTitleChange = event => {
     this.setState({ noteTitle: event.target.value });
     if (this.state.noteOwner === null) {
       this.setState({ noteOwner: store.getState().session.currentUser });
+      this.setState({ noteOwnerName: firebase.auth().currentUser.displayName });
     }
   };
 
@@ -33,13 +37,14 @@ class NoteTaking extends React.Component {
   };
 
   handleAddNote = event => {
-    const { noteTitle, noteContent, noteOwner } = this.state;
+    const { noteTitle, noteContent, noteOwner, noteOwnerName } = this.state;
     const { addNotes } = this.props;
     event.preventDefault();
     addNotes({ 
       title: noteTitle,
       content: noteContent, 
-      owner: noteOwner 
+      owner: noteOwner,
+      ownerName: noteOwnerName
     });
     this.setState({ noteTitle: "" });
     this.setState({ noteContent: "" });
@@ -69,46 +74,37 @@ class NoteTaking extends React.Component {
   }
 
   render() {
-    const session = store.getState().session;
     return (
-      <>
-        { session.currentUser ?
+      <div>
+        <header>
+          <h1> Notes </h1>
+        </header>
+        <div className = "main-content margin-b-3">
           <div>
-            <header>
-              <h1> Notes </h1>
-            </header>
-            <div className = "main-content margin-b-3">
-              <div>
-                { this.renderNotes() }
-              </div>
-            </div>
-            <footer className='margin-l-2'>
-              <form onSubmit = {this.addNote}> 
-                <input
-                  className='input-main margin-b-2'
-                  type="text"
-                  onChange={ this.handleTitleChange }
-                  placeholder = "Enter note title here"
-                /><br/>
-                <textarea
-                  className='textarea-main margin-b-2' 
-                  placeholder = "Enter note here"
-                  onChange={ this.handleContentChange }
-                /><br/>
-                <button
-                  className='button-main'
-                  type="submit"
-                  onClick={ this.handleAddNote }
-                >Add Note</button>
-              </form>
-            </footer>
+            { this.renderNotes() }
           </div>
-          :
-          <h1>
-            Login to take notes
-          </h1>
-        }
-      </>
+        </div>
+        <footer className='margin-l-2'>
+          <form onSubmit = {this.addNote}> 
+            <input
+              className='input-main margin-b-2'
+              type="text"
+              onChange={ this.handleTitleChange }
+              placeholder = "Enter note title here"
+            /><br/>
+            <textarea
+              className='textarea-main margin-b-2' 
+              placeholder = "Enter note here"
+              onChange={ this.handleContentChange }
+            /><br/>
+            <button
+              className='button-main'
+              type="submit"
+              onClick={ this.handleAddNote }
+            >Add Note</button>
+          </form>
+        </footer>
+      </div>
     )
   }
 }

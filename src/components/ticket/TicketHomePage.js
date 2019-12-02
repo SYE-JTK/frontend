@@ -5,7 +5,7 @@ import './ticketHomePage.css';
 
 import { TICKET_STATUS_TYPES } from './ticketStatus';
 
-import store from '../store';
+import store from '../../store';
 
 const TicketHomePage = () => {
   const session = store.getState().session;

@@ -13,38 +13,8 @@ import store from '../../store';
 
 class Posts extends React.Component {
 
-  state = {
-    noteTitle: "",
-    noteContent: "",
-    noteOwner: null
-  };
-
-  handleTitleChange = event => {
-    this.setState({ noteTitle: event.target.value });
-    if (this.state.noteOwner === null) {
-      this.setState({ noteOwner: store.getState().session.currentUser });
-    }
-  };
-
-  handleContentChange = event => {
-    this.setState({ noteContent: event.target.value });
-  };
-
-  handleAddNote = event => {
-    const { noteTitle, noteContent, noteOwner } = this.state;
-    const { addNotes } = this.props;
-    event.preventDefault();
-    addNotes({ 
-      title: noteTitle,
-      content: noteContent, 
-      owner: noteOwner 
-    });
-    this.setState({ noteTitle: "" });
-    this.setState({ noteContent: "" });
-  };
-
   renderPosts() {
-    const posts = store.getState().notes;
+    const { posts } = this.props;
     return (
       _.map(posts, (value, key) => {
         if (value.owner === store.getState().session.currentUser) {
@@ -64,7 +34,7 @@ class Posts extends React.Component {
             return (
                 <div key={ key }>
                 <header>
-                    <h3>{value.owner}</h3>
+                  <h3>{value.ownerName}</h3>
                 </header>
                   <div className='note-container'>
                     <div className='note-title'>{ value.title }</div>
@@ -80,35 +50,26 @@ class Posts extends React.Component {
   };
 
   render() {
-    const session = store.getState().session;
     return (
-      <>
-        { session.currentUser ?
+      <div>
+        <header>
+          <h1> Posts </h1>
+        </header>
+        <div className = "main-content margin-b-3">
           <div>
-            <header>
-              <h1> Posts </h1>
-            </header>
-            <div className = "main-content margin-b-3">
-              <div>
-                { this.renderPosts() }
-              </div>
-            </div>
-            <footer className='margin-l-2'>
-            </footer>
+            { this.renderPosts() }
           </div>
-          :
-          <h1>
-            Login to see posts
-          </h1>
-        }
-      </>
+        </div>
+        <footer className='margin-l-2'>
+        </footer>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({ notes }) => {
+const mapStateToProps = (state) => {
   return {
-    notes
+    posts: state.notes
   };
 };
 

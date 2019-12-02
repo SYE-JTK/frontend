@@ -1,15 +1,14 @@
-import "./ToDoList.css";
+import './ToDoList.css';
 import React, { Component } from 'react';
-import { connect } from "react-redux";
-import _ from "lodash";
-import * as actions from "../actions";
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import * as actions from '../../actions';
 import TicketColumn from './TicketColumn';
 import './ticketHomePage.css';
-import './page_layout/page.css';
+import '../page_layout/page.css';
+import store from '../../store';
 
-import store from '../store'
-
-class ToDoList extends Component {
+class TicketPage extends Component {
   state = {
     addFormVisible: false,
     addFormValue: "",
@@ -180,4 +179,4 @@ const mapStateToProps = ({ data }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(ToDoList);
+export default connect(mapStateToProps, actions)(TicketPage);
