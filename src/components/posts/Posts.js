@@ -1,8 +1,6 @@
 // eslint-disable-next-line
 import React from "react";
 
-import * as firebase from 'firebase/app';
-
 import _ from "lodash";
 
 import { connect } from "react-redux";

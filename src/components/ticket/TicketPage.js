@@ -8,12 +8,15 @@ import './ticketHomePage.css';
 import '../page_layout/page.css';
 import store from '../../store';
 
+import emailjs from 'emailjs-com';
+
 class TicketPage extends Component {
   state = {
     addFormVisible: false,
     addFormValue: "",
     addFormDescription: "",
-    addFormOwner: ""
+    addFormOwner: "",
+    addFormOwnerEmail: ""
   };
 
   handleInputChange = event => {
@@ -28,22 +31,48 @@ class TicketPage extends Component {
     this.setState({ addFormOwner: event.target.value });
   };
 
+  handleOwnerEmailChange = event => {
+    this.setState({ addFormOwnerEmail: event.target.value });
+  };
+
   handleFormSubmit = event => {
-    const { addFormValue, addFormDescription, addFormOwner } = this.state;
+    const { addFormValue, addFormDescription, addFormOwner, addFormOwnerEmail } = this.state;
     const { addTicket } = this.props;
     event.preventDefault();
+
     addTicket({ 
       title: addFormValue, status: 'Pending', 
       description: addFormDescription, 
-      owner: addFormOwner 
+      owner: addFormOwner, 
+      owner_email: addFormOwnerEmail
     });
     this.setState({ addFormValue: "" });
     this.setState({ addFormStatus: "" });
     this.setState({ addFormOwner: "" });
+    if (addFormOwnerEmail) {
+      emailjs.sendForm('default_service', 'template_uhnkcDia', event.target, 'user_zXK507imVLccNNarRQTGN')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+    }
+    this.setState({ addFormOwnerEmail: "" });
   };
 
+  sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('default_service', 'template_uhnkcDia', e.target, 'user_zXK507imVLccNNarRQTGN')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  }
+
   renderAddForm = () => {
-    const { addFormVisible, addFormValue, addFormDescription, addFormOwner } = this.state;
+    const { addFormVisible, addFormValue, addFormDescription, addFormOwner, addFormOwnerEmail } = this.state;
     if (addFormVisible) {
       return (
         <div id="todo-add-form" className="col s10 offset-s1">
@@ -51,6 +80,7 @@ class TicketPage extends Component {
             <div className="input-field display-fc-c">
               <div className='display-f-c margin-b-1'>
                 <input
+                  name='ticket_title'
                   className='input-main margin-r-1'
                   value={addFormValue}
                   onChange={this.handleInputChange}
@@ -59,6 +89,7 @@ class TicketPage extends Component {
                   type="text"
                 /> <br/>
                 <input
+                  name='to_name'
                   className='input-main margin-l-1'
                   value={addFormOwner}
                   onChange={this.handleOwnerChange}
@@ -66,8 +97,18 @@ class TicketPage extends Component {
                   id="ticketOwner"
                   type="text"
                 /> <br/>
+                <input
+                  name='user_email'
+                  className='input-main margin-l-1'
+                  value={addFormOwnerEmail}
+                  onChange={this.handleOwnerEmailChange}
+                  placeholder='enter owner email'
+                  id="ticketOwnerEmail"
+                  type="text"
+                />
               </div>
               <textarea
+                name='message_html'
                 className='textarea-main'
                 value={addFormDescription}
                 onChange={this.handleDescriptionChange}
