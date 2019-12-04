@@ -80,6 +80,16 @@ body {
   border-width:1px;
 }
 
+.select-main { 
+  border-color:#cccccc;
+  border-style:solid;
+  width: 170px;
+  height: 40px;
+  background-color:#5CBF2A99;
+  border-radius:5px;
+  border-width:1px;
+}
+
 .textarea-main { 
   border-color:#cccccc;
   border-style:solid;

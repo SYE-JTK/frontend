@@ -59,13 +59,33 @@ class TicketPage extends Component {
                   type="text"
                 /> <br/>
                 <input
+<<<<<<< Updated upstream
                   className='input-main margin-l-1'
+=======
+                  name='to_name'
+                  className='input-main margin-x-1'
+>>>>>>> Stashed changes
                   value={addFormOwner}
                   onChange={this.handleOwnerChange}
                   placeholder='enter ticket owner'
                   id="ticketOwner"
                   type="text"
                 /> <br/>
+<<<<<<< Updated upstream
+=======
+                <select
+                  name='user_email'
+                  className='select-main margin-l-1'
+                  value={addFormOwnerEmail}
+                  onChange={this.handleOwnerEmailChange}
+                  id="ticketOwnerEmail"
+                >
+                  <option selected value="">-- none --</option>
+                  <option value="twjone16@stlawu.edu">twjone16@stlawu.edu</option>
+                  <option value="knmurp16@stlawu.edu">knmurp16@stlawu.edu</option>
+                  <option value="jbpeek16@stlawu.edu">jbpeek16@stlawu.edu</option>
+                </select>
+>>>>>>> Stashed changes
               </div>
               <textarea
                 className='textarea-main'
