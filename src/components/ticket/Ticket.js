@@ -139,16 +139,20 @@ class Ticket extends Component {
             </>
             :
             <>
-            { status !== 'Done' &&
+            { status !== 'Done' ?
               <div className='button-container'>
                 <button className='button-main' onClick={() => this.expandToggle()}>
                   expand
                 </button>
               </div>
+              :
+              <div className='ticket-text-spacer'>
+                { owner }
+              </div>
             }
             </>
           }
-          {
+          {/* {
             !isExpanded && status === 'Done' &&
             <div className='button-container margin-t-1 margin-r-1'>
               <button
@@ -158,7 +162,7 @@ class Ticket extends Component {
                 delete
               </button>
             </div>
-          }
+          } */}
         </div>
       </div>
     );

@@ -75,7 +75,7 @@ class TicketPage extends Component {
     const { addFormVisible, addFormValue, addFormDescription, addFormOwner, addFormOwnerEmail } = this.state;
     if (addFormVisible) {
       return (
-        <div id="todo-add-form" className="col s10 offset-s1">
+        // <div id="todo-add-form" className="col s10 offset-s1">
           <form onSubmit={this.handleFormSubmit}>
             <div className="input-field display-fc-c">
               <div className='display-f-c margin-b-1'>
@@ -104,7 +104,7 @@ class TicketPage extends Component {
                   onChange={this.handleOwnerEmailChange}
                   id="ticketOwnerEmail"
                 >
-                  <option selected value="">-- none --</option>
+                  <option value="">-- none --</option>
                   <option value="twjone16@stlawu.edu">twjone16@stlawu.edu</option>
                   <option value="knmurp16@stlawu.edu">knmurp16@stlawu.edu</option>
                   <option value="jbpeek16@stlawu.edu">jbpeek16@stlawu.edu</option>
@@ -122,7 +122,7 @@ class TicketPage extends Component {
               <input className='button-main' type="submit" value="Submit"></input>
             </div>
           </form>
-        </div>
+        // </div>
       );
     }
   };
@@ -183,7 +183,7 @@ class TicketPage extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchToDos();
   }
   
@@ -194,17 +194,17 @@ class TicketPage extends Component {
       <div className='main-content'>
       { session.currentUser ?
         <div>
-          <div className='ticket-container'>
-            {this.renderToDos()}
-          </div>
-          {this.renderAddForm()}
-          <div className='button-container fixed-action-btn margin-t-1'>
+          <div className='button-container margin-b-2 margin-t-1'>
             <button
               onClick={() => this.setState({ addFormVisible: !addFormVisible })}
               className='button-main'
             >
-              {addFormVisible ? 'close' : 'add'}
+              {addFormVisible ? 'close' : 'Add Ticket'}
             </button>
+          </div>
+          {this.renderAddForm()}
+          <div className='ticket-container'>
+            {this.renderToDos()}
           </div>
         </div>
         :
