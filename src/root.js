@@ -15,8 +15,9 @@ import NoteTaking from "./components/note/NoteTaking";
 
 import { connect } from 'react-redux';
 
-import { fetchNotes } from './actions/notesActions'
-import { fetchUsers } from './actions/userActions'
+import { fetchNotes } from './actions/notesActions';
+import { fetchUsers } from './actions/userActions';
+import APIClient from './apiClient';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -26,13 +27,21 @@ const admins = {
 
 class Root extends Component {
 
+  state = { students: null }
+
   async componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchNotes();
+    
+    this.apiClient = new APIClient();
+    this.apiClient.getStud().then((data) =>
+      this.setState({students: data})
+    );
   }
 
   render() {
     const { user } = this.props;
+    console.log(this.state.students);
     return(
       <Router>
         <Header text='jtk-sye'>

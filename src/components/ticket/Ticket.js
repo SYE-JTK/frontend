@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { completeToDo, updateTicket } from "../../actions";
 import Modal from '../page_layout/Modal';
 
+import * as firebase from 'firebase/app';
 
 class Ticket extends Component {
 
@@ -92,79 +93,88 @@ class Ticket extends Component {
     }
   }
 
+  currentUserIsOwner = (name) => {
+    const currName = firebase.auth().currentUser.displayName;
+    const firstName = currName.split(' ')[0];
+    if (firstName === name) {
+      return true
+    }
+  }
+
   render() {
     const { ticketId, title, description, owner, status } = this.props;
     const { isEditOpen, isExpanded } = this.state;
     return (
-      <div className={`single-ticket-container ${this.classes(status)}`}>
-        <div className='ticket-text-container'>
-          { !isExpanded && 
-            <>
-            <div className='ticket-text-spacer'>Title: { title }</div>
-            {this.nextButton(ticketId, status)}
-            </>
-          }
-          { isExpanded ?
-            <>
-              <div className='ticket-text-spacer ticket-text-header'>Title</div>
-              <div className='ticket-text-spacer'>{ title }</div>
-              <div className='ticket-text-spacer ticket-text-header'>Description</div>
-              {description ? <div className='ticket-text-spacer'>{ description }</div> : null}
-              {owner? <div className='ticket-text-spacer ticket-text-header'>Owner</div> : null}
-              <div className='ticket-text-spacer'>{ owner }</div>
-              { isEditOpen &&
-                <Modal>
-                  <div>Text is here</div>
-                </Modal>
+      <>
+        {
+          <div className={`single-ticket-container ${this.classes(status)}`}>
+            <div className='ticket-text-container'>
+              { !isExpanded && 
+                <>
+                <div className='ticket-text-spacer'>{ title }</div>
+                <div className='ticket-text-spacer'>Owner: { owner }</div>
+                {this.nextButton(ticketId, status)}
+                </>
               }
-              <div className='button-container margin-t-1'>
-                <button className='button-close width-100' onClick={() => this.expandToggle()}>
-                  collapse
-                </button>
-              </div>
-              <div className='button-container margin-t-1'>
-                <button className='button-main width-100' onClick={() => this.handleClick()}>
-                  edit
-                </button>
-              </div>
-              <div className='button-container margin-t-1'>
-                <button
-                  className='button-close width-100'
-                  onClick={() => this.handleDeleteTicket(ticketId, status)}
-                >
-                  delete ticket
-                </button>
-              </div>
-              { this.nextButton(ticketId, status) }
-            </>
-            :
-            <>
-            { status !== 'Done' ?
-              <div className='button-container'>
-                <button className='button-main' onClick={() => this.expandToggle()}>
-                  expand
-                </button>
-              </div>
-              :
-              <div className='ticket-text-spacer'>
-                { owner }
-              </div>
-            }
-            </>
-          }
-          {/* {
-            !isExpanded && status === 'Done' &&
-            <div className='button-container margin-t-1 margin-r-1'>
-              <button
-                className='button-close'
-                onClick={() => this.handleDeleteTicket(ticketId, status)}
-              >
-                delete
-              </button>
+              { isExpanded ?
+                <>
+                  <div className='ticket-text-spacer ticket-text-header'>Title</div>
+                  <div className='ticket-text-spacer'>{ title }</div>
+                  <div className='ticket-text-spacer ticket-text-header'>Description</div>
+                  {description ? <div className='ticket-text-spacer'>{ description }</div> : null}
+                  {owner? <div className='ticket-text-spacer ticket-text-header'>Owner</div> : null}
+                  <div className='ticket-text-spacer'>{ owner }</div>
+                  { isEditOpen &&
+                    <Modal>
+                      <div>Text is here</div>
+                    </Modal>
+                  }
+                  <div className='button-container margin-t-1'>
+                    <button className='button-close width-100' onClick={() => this.expandToggle()}>
+                      collapse
+                    </button>
+                  </div>
+                  <div className='button-container margin-t-1'>
+                    <button className='button-main width-100' onClick={() => this.handleClick()}>
+                      edit
+                    </button>
+                  </div>
+                  <div className='button-container margin-t-1'>
+                    <button
+                      className='button-close width-100'
+                      onClick={() => this.handleDeleteTicket(ticketId, status)}
+                    >
+                      delete ticket
+                    </button>
+                  </div>
+                  { this.nextButton(ticketId, status) }
+                </>
+                :
+                <>
+                { status !== 'Done' &&
+                  <div className='button-container'>
+                    <button className='button-main' onClick={() => this.expandToggle()}>
+                      expand
+                    </button>
+                  </div>
+                }
+                </>
+              }
+              {/* {
+                !isExpanded && status === 'Done' &&
+                <div className='button-container margin-t-1 margin-r-1'>
+                  <button
+                    className='button-close'
+                    onClick={() => this.handleDeleteTicket(ticketId, status)}
+                  >
+                    delete
+                  </button>
+                </div>
+              } */}
             </div>
-          } */}
-        </div>
-      </div>
+          </div>
+        }
+      </>
     );
   }
 }
