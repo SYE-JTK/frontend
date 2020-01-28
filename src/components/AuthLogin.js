@@ -66,11 +66,11 @@ class AuthLogin extends Component {
     return (
       <>
         <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=1020686348315232&autoLogAppEvents=1"></script>
+        <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=1020686348315232&autoLogAppEvents=1"></script>
         
         <div className="text-center mt-10">
-          <form className="form-signin">
-            <img class="mb-4" src={logo} alt="" width="100" height="100"/>
+          <div className="form-signin">
+            <img className="mb-4" src={logo} alt="" width="100" height="100"/>
             <div className="App-header"/>
             {
               user
@@ -87,7 +87,7 @@ class AuthLogin extends Component {
                   <FacebookLoginButton className='form-label-group' onClick={signInWithFacebook}>Sign in with Facebook</FacebookLoginButton>
                 </div>
             }
-          </form>
+          </div>
         </div>
       </>
     );
