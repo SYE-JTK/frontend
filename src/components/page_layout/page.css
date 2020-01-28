@@ -12,6 +12,18 @@
   background-color: #25F179;
 }
 
+.color-bg-jonas {
+  background-color: #25F179;
+}
+
+.color-bg-kira {
+  background-color: #25F179;
+}
+
+.color-bg-tim {
+  background-color: #25F179;
+}
+
 .color-success {
   color: #25F179;
 }
@@ -142,6 +154,12 @@ body {
 .button-close:active {
 	position:relative;
 	top:1px;
+}
+
+/* Right */
+.push-right {
+  position: absolute;
+  right: 25px;
 }
 
 /* Spacing */
