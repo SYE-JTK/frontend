@@ -61,6 +61,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
   showAddToHomeScreen();
 });
 
+window.addEventListener('appinstalled', (evt) => {
+  console.log('a2hs installed');
+  var a2hsBtn = document.getElementById('ad2hs-prompt');
+  a2hsBtn.style.display = 'none';
+});
+
 class Root extends Component {
 
   state = { students: null }
@@ -80,7 +86,6 @@ class Root extends Component {
     console.log(this.state.students);
     return(
       <Router>
-        <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main">Would ya like to add to your homescreen?</button>
         <Header text='jtk-sye'>
           { user ? 
             <div className='routes'>
@@ -106,6 +111,9 @@ class Root extends Component {
             </div>
             : <></>
           }
+          <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main">
+            Would ya like to add to your homescreen?
+          </button>
         </Header>
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
