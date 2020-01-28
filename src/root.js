@@ -103,11 +103,11 @@ class Root extends Component {
                 <></>
               }
             </div>
-            :
-            <button id="ad2hs-prompt" onClick={addToHomeScreen} className="button-main push-right">
-              Download Web App
-            </button>
+            :<> </>
           }
+          <button id="ad2hs-prompt" onClick={addToHomeScreen} className="button-main push-right">
+            Download Web App
+          </button>
         </Header>
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
