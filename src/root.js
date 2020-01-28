@@ -15,6 +15,7 @@ import NoteTaking from "./components/note/NoteTaking";
 
 import { connect } from 'react-redux';
 
+import { fetchConversations } from './actions/messagesActions';
 import { fetchNotes } from './actions/notesActions';
 import { fetchUsers } from './actions/userActions';
 
@@ -71,6 +72,7 @@ class Root extends Component {
   state = { students: null }
 
   async componentDidMount() {
+    this.props.fetchConversations();
     this.props.fetchUsers();
     this.props.fetchNotes();
   }
@@ -126,7 +128,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchUsers, fetchNotes }, dispatch)
+  return bindActionCreators({ fetchUsers, fetchNotes, fetchConversations }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root)
