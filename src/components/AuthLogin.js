@@ -6,6 +6,8 @@ import 'firebase/auth';
 
 import { FirebaseConfig } from "../config/keys";
 
+import GoogleButton from 'react-google-button';
+
 import withFirebaseAuth from 'react-with-firebase-auth';
 
 import { setUserId } from '../actions/sessionActions'
@@ -50,6 +52,14 @@ class AuthLogin extends Component {
     } = this.props;
 
     return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center"
+           
+        }}>
+
+        
         <div className="App margin-l-2">
           <div className="App-header"/>
           {
@@ -57,13 +67,14 @@ class AuthLogin extends Component {
             ? <p className='note-title'>
                 Hello, {user.displayName}!
               </p>
-            : <h1 className='note-title'>Sign in to see content</h1>
+            : <h1 className='note-title'>Sign in to view content</h1>
           }
           {
             user
             ? <button className='button-close margin-t-1' onClick={signOut}>Sign out</button>
-            : <button className='button-main margin-t-1' onClick={signInWithGoogle}>Sign in with Google</button>
+            : <GoogleButton className='button-main margin-t-1' onClick={signInWithGoogle}>Sign in with Google</GoogleButton>
           }
+        </div>
         </div>
     );
   };
