@@ -25,6 +25,42 @@ const admins = {
   "kmurphh27@gmail.com": 'kira',
 }
 
+function addToHomeScreen() {
+  var a2hsBtn = document.getElementById('ad2hs-prompt');  // hide our user interface that shows our A2HS button
+  a2hsBtn.style.display = 'none';  // Show the prompt
+  deferredPrompt.prompt();  // Wait for the user to respond to the prompt
+  deferredPrompt.userChoice
+    .then(function(choiceResult){
+
+  if (choiceResult.outcome === 'accepted') {
+    console.log('User accepted the A2HS prompt');
+  } else {
+    console.log('User dismissed the A2HS prompt');
+  }
+
+  deferredPrompt = null;
+
+});}
+
+function showAddToHomeScreen() {
+  var a2hsBtn = document.getElementById('ad2hs-prompt');
+
+  console.log("Button info: " + a2hsBtn);
+
+  a2hsBtn.style.display = "block";
+
+  a2hsBtn.addEventListener("click", addToHomeScreen);
+}
+
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  console.log("about to show add to homescreen");
+  showAddToHomeScreen();
+});
+
 class Root extends Component {
 
   state = { students: null }
@@ -44,6 +80,7 @@ class Root extends Component {
     console.log(this.state.students);
     return(
       <Router>
+        <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main">Would ya like to add to your homescreen?</button>
         <Header text='jtk-sye'>
           { user ? 
             <div className='routes'>

@@ -7,9 +7,11 @@ import './components/page_layout/page.css';
 
 import * as firebase from 'firebase/app';
 
-import Root from './root'
+import Root from './root';
 
-import store from './store'
+import store from './store';
+
+import * as serviceWorker from './serviceWorker';
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -28,3 +30,5 @@ firebase.auth().onAuthStateChanged(function(user) {
     );
   }
 });
+
+serviceWorker.register();

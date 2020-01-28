@@ -14,7 +14,7 @@ class APIClient {
  }
 
  getStud() {
-   return this.perform('get', `/all`);
+   return this.perform('get', '/all');
  }
 
  getCourses() {
