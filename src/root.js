@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 
 import { fetchNotes } from './actions/notesActions';
 import { fetchUsers } from './actions/userActions';
-import APIClient from './apiClient';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -74,11 +73,6 @@ class Root extends Component {
   async componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchNotes();
-    
-    this.apiClient = new APIClient();
-    this.apiClient.getStud().then((data) =>
-      this.setState({students: data})
-    );
   }
 
   render() {
@@ -109,11 +103,11 @@ class Root extends Component {
                 <></>
               }
             </div>
-            : <></>
+            : 
+            <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main">
+              Download Web App
+            </button>
           }
-          <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main">
-            Would ya like to add to your homescreen?
-          </button>
         </Header>
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
