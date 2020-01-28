@@ -4,8 +4,8 @@ import App from "./App";
 import { bindActionCreators } from 'redux'
 
 import Users from './users'
+
 import TicketPage from "./components/ticket/TicketPage";
-import Posts from "./components/posts/Posts";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import './components/page_layout/page.css';
 
@@ -87,14 +87,11 @@ class Root extends Component {
                 <Link className='header-text' to="/">Home</Link>
               </li>
               <li>
-                <Link className='header-text' to="/PostFeed">Posts</Link>
+              <Link className='header-text' to="/NoteTaking">Messages</Link>
               </li>
               <li>
-                <Link className='header-text' to="/users">Users</Link>
-              </li>
-              <li>
-              <Link className='header-text' to="/NoteTaking">Notes</Link>
-              </li>
+                <Link className='header-text' to="/users">People</Link>
+              </li>              
               { admins[user] ?
                 <li>
                   <Link className='header-text' to="/ticket-tracker">Ticket Tracker</Link>
@@ -113,7 +110,7 @@ class Root extends Component {
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/NoteTaking" component={NoteTaking} />
-        <Route path ="/PostFeed" component={Posts}/>
+
       </Router>
     )
   }
