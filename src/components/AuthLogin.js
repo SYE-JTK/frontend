@@ -6,7 +6,10 @@ import 'firebase/auth';
 
 import { FirebaseConfig } from "../config/keys";
 
-import GoogleButton from 'react-google-button';
+import { GoogleLoginButton }from 'react-social-login-buttons';
+import { FacebookLoginButton } from "react-social-login-buttons";
+
+import Button from 'react-bootstrap/Button'
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 
@@ -23,9 +26,15 @@ const firebaseAppAuth = firebase.auth();
 
 const providers ={
   googleProvider: new firebase.auth.GoogleAuthProvider(),
+  facebookProvider: new firebase.auth.FacebookAuthProvider(),
 };
 
+
+
 class AuthLogin extends Component {
+
+  signInWithFacebook = () =>
+    this.auth.signInWithPopup(this.facebookProvider);
 
   async componentDidUpdate() {
     const usersState = store.getState().user;
@@ -49,15 +58,21 @@ class AuthLogin extends Component {
       user,
       signOut,
       signInWithGoogle,
+      signInWithFacebook
     } = this.props;
 
     return (
+        
         <div
           style={{
             display: "flex",
             justifyContent: "center"
            
         }}>
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=1020686348315232&autoLogAppEvents=1"></script>
+        
+
 
         
         <div className="App margin-l-2">
@@ -71,14 +86,19 @@ class AuthLogin extends Component {
           }
           {
             user
-            ? <button className='button-close margin-t-1' onClick={signOut}>Sign out</button>
-            : <GoogleButton className='button-main margin-t-1' onClick={signInWithGoogle}>Sign in with Google</GoogleButton>
+            ? <Button  onClick={signOut}>Sign out</Button>
+            : <div>
+                <GoogleLoginButton className='button-main margin-t-1' onClick={signInWithGoogle}>Sign in with Google</GoogleLoginButton>
+                <FacebookLoginButton onClick={signInWithFacebook}>Sign in with Facebook</FacebookLoginButton>
+              </div>
           }
         </div>
         </div>
     );
   };
 }
+
+
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
