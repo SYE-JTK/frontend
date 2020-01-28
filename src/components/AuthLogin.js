@@ -9,6 +9,8 @@ import { FirebaseConfig } from "../config/keys";
 import { GoogleLoginButton }from 'react-social-login-buttons';
 import { FacebookLoginButton } from "react-social-login-buttons";
 
+import logo from '../images/logo512.png';
+
 import Button from 'react-bootstrap/Button'
 
 import withFirebaseAuth from 'react-with-firebase-auth';
@@ -62,38 +64,32 @@ class AuthLogin extends Component {
     } = this.props;
 
     return (
-        
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-           
-        }}>
+      <>
         <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=1020686348315232&autoLogAppEvents=1"></script>
+        <script async defer crossOrigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=1020686348315232&autoLogAppEvents=1"></script>
         
-
-
-        
-        <div className="App margin-l-2">
-          <div className="App-header"/>
-          {
-            user
-            ? <p className='note-title'>
-                Hello, {user.displayName}!
-              </p>
-            : <h1 className='note-title'>Sign in to view content</h1>
-          }
-          {
-            user
-            ? <Button  onClick={signOut}>Sign out</Button>
-            : <div>
-                <GoogleLoginButton className='button-main margin-t-1' onClick={signInWithGoogle}>Sign in with Google</GoogleLoginButton>
-                <FacebookLoginButton onClick={signInWithFacebook}>Sign in with Facebook</FacebookLoginButton>
-              </div>
-          }
+        <div className="text-center mt-10">
+          <div className="form-signin">
+            <img className="mb-4" src={logo} alt="" width="100" height="100"/>
+            <div className="App-header"/>
+            {
+              user
+              ? <p className='h3 mb-3 font-weight-normal'>
+                  Hello, {user.displayName}!
+                </p>
+              : <h1 className='h3 mb-3 font-weight-normal'>Sign in to view content</h1>
+            }
+            {
+              user
+              ? <Button className="btn btn-lg btn-primary btn-block" onClick={signOut}>Sign out</Button>
+              : <div>
+                  <GoogleLoginButton className='button-main margin-t-1 form-label-group' onClick={signInWithGoogle}>Sign in with Google</GoogleLoginButton>
+                  <FacebookLoginButton className='form-label-group' onClick={signInWithFacebook}>Sign in with Facebook</FacebookLoginButton>
+                </div>
+            }
+          </div>
         </div>
-        </div>
+      </>
     );
   };
 }

@@ -104,7 +104,7 @@ class Root extends Component {
               }
             </div>
             :
-            <button id="ad2hs-prompt" onclick={addToHomeScreen} className="button-main push-right">
+            <button id="ad2hs-prompt" onClick={addToHomeScreen} className="button-main push-right">
               Download Web App
             </button>
           }

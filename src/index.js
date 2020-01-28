@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 
 import './components/page_layout/page.css';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import * as firebase from 'firebase/app';
 
 import Root from './root';
