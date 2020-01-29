@@ -25,6 +25,7 @@ const admins = {
 }
 
 function addToHomeScreen() {
+  console.log("clicked");
   var a2hsBtn = document.getElementById('ad2hs-prompt');  // hide our user interface that shows our A2HS button
   a2hsBtn.style.display = 'none';  // Show the prompt
   deferredPrompt.prompt();  // Wait for the user to respond to the prompt
@@ -43,10 +44,9 @@ function addToHomeScreen() {
 
 function showAddToHomeScreen() {
   var a2hsBtn = document.getElementById('ad2hs-prompt');
+  a2hsBtn.style.display = 'inline-block';
 
   console.log("Button info: " + a2hsBtn);
-
-  a2hsBtn.style.display = "block";
 
   a2hsBtn.addEventListener("click", addToHomeScreen);
 }
@@ -105,7 +105,7 @@ class Root extends Component {
             </div>
             :<> </>
           }
-          <button id="ad2hs-prompt" onClick={addToHomeScreen} className="button-main push-right">
+          <button id="ad2hs-prompt" className="button-main download-app-button">
             Download Web App
           </button>
         </Header>

@@ -132,10 +132,6 @@ body {
 	background-color:#5cbf2a;
 	border:1px solid #5cbf2a;
 }
-.button-main:active {
-	position:relative;
-	top:1px;
-}
 
 .button-close {
 	border-radius:5px;
@@ -158,8 +154,14 @@ body {
 
 /* Right */
 .push-right {
-  position: absolute;
-  right: 25px;
+  position: absolute!important;
+  right: 25px!important;
+}
+
+.download-app-button {
+  display: none;
+  position: absolute!important;
+  right: 25px!important;
 }
 
 .mt-10 {
