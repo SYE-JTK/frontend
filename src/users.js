@@ -8,7 +8,7 @@ import './components/page_layout/page.css';
 // import { async } from 'q';
 
 class Users extends React.Component {
-  handleClick = (event) =>ç{
+  handleClick = (event) => {
 
       event.preventDefault();
       console.log("here");
