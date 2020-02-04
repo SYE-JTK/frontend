@@ -1,7 +1,12 @@
 import { userRef } from "../config/firebase";
 
 export const addUser = newUser => async dispatch => {
-  userRef.push().set(newUser);
+  var newUserRef = userRef.push();
+  console.log("new: " + newUserRef);
+  newUserRef.set({
+    id: newUserRef.key,
+    ...newUser
+  });
 }
 
 export const fetchUsers = () => async dispatch => {
