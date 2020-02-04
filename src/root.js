@@ -106,7 +106,7 @@ class Root extends Component {
             :<> </>
           }
           <button id="ad2hs-prompt" className="button-main download-app-button">
-            Download  Web App
+            Download Web App
           </button>
         </Header>
         <Route exact path="/" component={App} />
