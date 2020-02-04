@@ -70,7 +70,9 @@ class Root extends Component {
   state = { students: null }
 
   async componentDidMount() {
-    this.props.fetchConversations(firebase.auth().currentUser.uid);
+    if (this.props.user) {
+      this.props.fetchConversations(firebase.auth().currentUser.uid);
+    }
     this.props.fetchUsers();
     this.props.fetchNotes();
   }

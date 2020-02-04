@@ -18,7 +18,11 @@ class Messages extends Component {
     this.setState({ newMessageContent: event.target.value });
   };
 
-  handlePickUser = id => {
+  handlePickUser = event => {
+    this.setState({ newMessageUser2: event.target.value });
+  };
+
+  handlePickExistingUser = (id) => {
     this.setState({ newMessageUser2: id });
   };
 
@@ -58,8 +62,9 @@ class Messages extends Component {
                 placeholder='message'
                 id="messageContent"
                 type="text"
+                key='message_content'
               /> <br/>
-              <input className='button-main' type="submit" value="Submit"></input>
+              <input className='button-main' type="submit" value="Submit" key='submit'></input>
             </div>
           </div>
         </form>
@@ -92,32 +97,34 @@ class Messages extends Component {
   renderConversations() {
     const { conversations } = this.props;
     return (
-      <div>
+      <ul
+      >
        {
          _.map(conversations, (value, key) => {
             return (
-              <div key={key}>
+              <>
                 {
                   (value.user1 === firebase.auth().currentUser.uid) ?
-                  <a href='#' onClick={this.handlePickUser(value.user2)}>
-                    {value.user2}
-                  </a>
+                  <li key={value.user2}>
+                    <button onClick={() => this.handlePickExistingUser(value.user2)}>{value.user2}</button>
+                  </li>
                   :
-                  <a href='#' onClick={this.handlePickUser(value.user1)}>
-                    {value.user1}
-                  </a>
+                  <li key={value.user2}>
+                    <button onClick={() => this.handlePickExistingUser(value.user1)}>{value.user1}</button>
+                  </li>
                 }
-              </div>
+              </>
             )
           })
         }
-      </div>
+      </ul>
     )
 
   }
   
   render() {
     const session = store.getState().session;
+    console.log(this.state.newMessageUser2);
     return (
       <div className='main-content'>
       { session.currentUser ?
