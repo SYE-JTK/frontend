@@ -18,8 +18,8 @@ import { connect } from 'react-redux';
 import { fetchConversations, sendMessage } from './actions/messagesActions';
 import { fetchNotes } from './actions/notesActions';
 import { fetchUsers } from './actions/userActions';
-import messages from "./components/messaging/messages";
-import store from "./store";
+import Messages from "./components/messaging/messages";
+import * as firebase from 'firebase/app';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -70,12 +70,7 @@ class Root extends Component {
   state = { students: null }
 
   async componentDidMount() {
-    this.props.sendMessage({
-      user1: "68qhinwefoni",
-      user2: "2345tghjgy",
-      content: "Ohhh jeez"
-    });
-    this.props.fetchConversations(store.getState().session.currentUser);
+    this.props.fetchConversations(firebase.auth().currentUser.uid);
     this.props.fetchUsers();
     this.props.fetchNotes();
   }
@@ -120,7 +115,7 @@ class Root extends Component {
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/note-taking" component={NoteTaking} />
-        <Route path="/messages" component={messages} />
+        <Route path="/messages" component={Messages} />
         <Route path ="/post-feed" component={Posts}/>
       </Router>
     )

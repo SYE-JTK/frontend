@@ -3,7 +3,7 @@ import * as firebase from 'firebase/app';
 
 export const addUser = newUser => async dispatch => {
   var newUserRef = userRef.push();
-  newUserRef.set({
+  newUserRef.child(firebase.auth().currentUser.uid).set({
     id: firebase.auth().currentUser.uid,
     ...newUser
   });

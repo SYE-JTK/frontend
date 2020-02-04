@@ -9,9 +9,9 @@ export const startNewConversation = users => async dispatch => {
     user1: lowUID,
     user2: highUID
   });
-}
+};
 
-export const sendMessage = newMessage => {
+export const sendMessage = newMessage => async dispatch => {
   let less = (newMessage.user1 < newMessage.user2) ? newMessage.user1 : newMessage.user2;
   let more = (newMessage.user1 > newMessage.user2) ? newMessage.user1 : newMessage.user2;
   
@@ -22,7 +22,7 @@ export const sendMessage = newMessage => {
     content: newMessage.content,
     sender: newMessage.user1
   });
-}
+};
 
 export const fetchConversations = userId => async dispatch => {
   messagesRef.orderByChild('user1').equalTo(userId).on('value', snapshot => {
