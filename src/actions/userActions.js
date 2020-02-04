@@ -1,10 +1,10 @@
 import { userRef } from "../config/firebase";
+import * as firebase from 'firebase/app';
 
 export const addUser = newUser => async dispatch => {
   var newUserRef = userRef.push();
-  console.log("new: " + newUserRef);
   newUserRef.set({
-    id: newUserRef.key,
+    id: firebase.auth().currentUser.uid,
     ...newUser
   });
 }

@@ -1,17 +1,17 @@
 import { messagesRef } from "../config/firebase";
 
 export const startNewConversation = users => async dispatch => {
-  let less = (users.user1 < users.user2) ? users.user1 : users.user2;
-  let more = (users.user1 > users.user2) ? users.user1 : users.user2;
+  let lowUID = (users.user1 < users.user2) ? users.user1 : users.user2;
+  let highUID = (users.user1 > users.user2) ? users.user1 : users.user2;
   
-  let newConversationRef = messagesRef.child(`${less}@${more}`);
+  let newConversationRef = messagesRef.child(`${lowUID}@${highUID}`);
   newConversationRef.set({
-    user1: users.user1,
-    user2: users.user2
+    user1: lowUID,
+    user2: highUID
   });
 }
 
-export const sendMessage = newMessage => async dispatch => {
+export const sendMessage = newMessage => {
   let less = (newMessage.user1 < newMessage.user2) ? newMessage.user1 : newMessage.user2;
   let more = (newMessage.user1 > newMessage.user2) ? newMessage.user1 : newMessage.user2;
   
