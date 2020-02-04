@@ -4,19 +4,20 @@ import _ from "lodash";
 
 import store from './store'
 import './components/page_layout/page.css';
+// import user from './reducers/userReducer';
 // import { async } from 'q';
 
 class Users extends React.Component {
+  handleClick = (event) =>ç{
+
+      event.preventDefault();
+      console.log("here");
+  }
+  
   
   
   displayUsers() {
     const usersState = store.getState().user;
-
-    function handleClick(e) {
-      e.preventDefault();
-      console.log('The link was clicked.');
-    }
-    
     return (
       _.map(usersState, (value, key) => {
         return (
@@ -28,7 +29,8 @@ class Users extends React.Component {
                 <div className='note-title'>{ value.name }</div>
               }
               <div className='note-content'>{ value.email }</div>
-              <button className= 'friend-button' onClick = {handleClick}>ADD FRIEND</button>
+              <button className= 'friend-button' onClick = {this.handleClick}>ADD FRIEND</button>
+
             </div>
             <br/>
           </div>
@@ -46,6 +48,7 @@ class Users extends React.Component {
         <div>
           { this.displayUsers() }
         </div>
+        
       </div>
     );
   }
