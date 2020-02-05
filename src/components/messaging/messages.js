@@ -175,8 +175,8 @@ class Messages extends Component {
           _.map(conversations, (value, key) => {
             if(newMessageUser2) {
               if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
-                const av1 = getNameFromId(value.user1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                const av2 = getNameFromId(value.user2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
                 return(
                   _.map(value.conversation, (value, key) => {
                     if (value.sender === newMessageUser1) {
