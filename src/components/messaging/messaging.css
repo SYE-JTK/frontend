@@ -1,0 +1,10 @@
+
+.from-you {
+  position: absolute;
+  right: 20px;
+}
+
+.from-them {
+  position: absolute;
+  left: 20px;
+}
