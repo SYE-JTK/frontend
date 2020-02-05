@@ -1,4 +1,8 @@
 
+.message-field-header {
+  text-align: center;
+}
+
 .from-you {
   float: right;
   margin-right: 20%;

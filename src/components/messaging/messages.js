@@ -8,6 +8,8 @@ import store from '../../store';
 import * as firebase from 'firebase';
 import './messaging.css';
 
+import { getNameFromId } from '../../utils/getNameFromId';
+
 import Avatar from '@material-ui/core/Avatar';
 
 class Messages extends Component {
@@ -24,6 +26,7 @@ class Messages extends Component {
 
   handlePickUser = event => {
     this.setState({ newMessageUser2: event.target.value });
+
   };
 
   handlePickExistingUser = (id) => {
@@ -34,11 +37,13 @@ class Messages extends Component {
     const { newMessageContent, newMessageUser1, newMessageUser2 } = this.state;
     const { sendMessage } = this.props;
     event.preventDefault();
-    sendMessage({ 
-      content: newMessageContent, 
-      user1: newMessageUser1, 
-      user2: newMessageUser2
-    });
+    if (newMessageUser2) {
+      sendMessage({ 
+        content: newMessageContent, 
+        user1: newMessageUser1, 
+        user2: newMessageUser2
+      });
+    }
     this.setState({ newMessageContent: "" });
   };
 
@@ -47,28 +52,31 @@ class Messages extends Component {
     const { user } = this.props;
     return (
       <>
-      <select value={newMessageUser2} onChange={this.handlePickUser}>
-      {
-        _.map(user, (value, key) => {
-          return (
-            <option value={value.id}>{value.email}</option>
-          )
-        })
-      }
-      </select>
-      <button onClick={this.handleCreateNewConversation}>New Conversation</button>
+        <select value={newMessageUser2} onChange={this.handlePickUser}>
+        {
+          _.map(user, (value, key) => {
+            return (
+              <option value={value.id} key={value.id}>{value.email}</option>
+            )
+          })
+        }
+        </select>
+        <button className='button-main ml-3' onClick={this.handleCreateNewConversation}>
+          New Conversation
+        </button>
       </>
     )
-    
   }
 
   handleCreateNewConversation = () => {
     const { newMessageUser1, newMessageUser2 } = this.state;
     const { startNewConversation } = this.props;
-    startNewConversation({
-      user1: newMessageUser1,
-      user2: newMessageUser2
-    })
+    if (newMessageUser2) {
+      startNewConversation({
+        user1: newMessageUser1,
+        user2: newMessageUser2
+      })
+    }
   }
 
   componentDidMount() {
@@ -84,8 +92,9 @@ class Messages extends Component {
   }
 
   renderMessageField = () => {
-    const { newMessageContent } = this.state;
-    return (
+    const { newMessageContent, newMessageUser2 , newMessageUser1} = this.state;
+    if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
+      return (
         <form onSubmit={this.handleFormSubmit}>
           <div className="input-field display-fc-c">
             <div className='display-f-c margin-b-1'>
@@ -99,11 +108,12 @@ class Messages extends Component {
                 type="text"
                 key='message_content'
               /> <br/>
-              <input className='button-main' type="submit" value="Submit" key='submit'></input>
+              <input className='button-main' type="submit" value="Send" key='send'></input>
             </div>
           </div>
         </form>
-    );
+      );
+    }
   };
 
   renderNewConversationField = () => {
@@ -158,60 +168,69 @@ class Messages extends Component {
   renderMessages = () => {
     const { conversations } = this.props;
     const { newMessageUser2, newMessageUser1 } = this.state;
-    return (
-      <div className='message-field'>
-       {
-         _.map(conversations, (value, key) => {
-            if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
-              return(
-                _.map(value.conversation, (value, key) => {
-                  console.log(value.content);
-                  if (value.sender === newMessageUser1) {
-                    console.log("sender");
-                    return(
-                      <div className='message-container'>
-                        <div className='from-you'>
-                          <div key={value.id} className='speech-bubble-you'>
-                            {value.content}
-                          </div>
-                          <Avatar className="mt-1 mb-2">Y</Avatar>
-                        </div>
-                      </div>
-                    )
-                  } else {
-                    return (
-                      <div className='message-container'>
-                        <div className='from-them'>
-                          <Avatar className="mt-1 mb-2">T</Avatar>
-                          <div key={value.id} className='speech-bubble-them'>
-                            {value.content}
+    if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
+      return (
+        <div className='message-field'>
+        {
+          _.map(conversations, (value, key) => {
+            if(newMessageUser2) {
+              if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
+                const av1 = getNameFromId(value.user1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                const av2 = getNameFromId(value.user2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                return(
+                  _.map(value.conversation, (value, key) => {
+                    if (value.sender === newMessageUser1) {
+                      return(
+                        <div key={value.id} className='message-container'>
+                          <div className='from-you'>
+                            <div className='speech-bubble-you'>
+                              {value.content}
+                            </div>
+                            <Avatar className="mt-1 mb-2">{av1}</Avatar>
                           </div>
                         </div>
-                      </div>
-                    )
-                  }
-                })
-              );
-            }
-          })
-        }
-      </div>
-    )
+                      )
+                    } else {
+                      return (
+                        <div key={value.id} className='message-container'>
+                          <div className='from-them'>
+                            <Avatar className="mt-1 mb-2">{av2}</Avatar>
+                            <div className='speech-bubble-them'>
+                              {value.content}
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    }
+                  })
+                );
+              }
+          }})
+          }
+        </div>
+      )
+    }
   }
   
   render() {
     const session = store.getState().session;
-    console.log(this.state.newMessageUser2);
+    const {newMessageUser2, newMessageUser1 } = this.state;
     return (
       <div className='main-content'>
       { session.currentUser ?
-        <div>
+        <div className='message-field-header'>
+          {this.handleNewConversation()}
+          <br/>
+          {newMessageUser2 && (newMessageUser2 !== newMessageUser1) ?
+            <h5 className='mt-3'>Your conversation with {getNameFromId(newMessageUser2)}</h5>
+            :
+            <h5 className='mt-3'>Pick Someone to Chat With</h5>
+          }
           <br/>
           {this.renderMessages()}
           <br/>
           {this.renderMessageField()}
           <br/>
-          {this.handleNewConversation()}
         </div>
         :
         <h1>
