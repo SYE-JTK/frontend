@@ -16,9 +16,13 @@ class Messages extends Component {
   state = {
     newMessageContent: "",
     newMessageUser1: firebase.auth().currentUser.uid,
-    newMessageUser2: "",
+    newMessageUser2: "AkcEORd8ZNYBf8BZwTMDkYHgUP73",
     time: Date.now()
   };
+
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView(false);
+  }
 
   handleNewMessageContent = event => {
     this.setState({ newMessageContent: event.target.value });
@@ -85,10 +89,15 @@ class Messages extends Component {
     if (newMessageUser1){
       this.props.fetchConversations(newMessageUser1);
     }
+    this.scrollToBottom();
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   renderMessageField = () => {
@@ -170,43 +179,48 @@ class Messages extends Component {
     const { newMessageUser2, newMessageUser1 } = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
-        <div className='message-field'>
-        {
-          _.map(conversations, (value, key) => {
-            if(newMessageUser2) {
-              if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
-                const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                return(
-                  _.map(value.conversation, (value, key) => {
-                    if (value.sender === newMessageUser1) {
-                      return(
-                        <div key={value.id} className='message-container'>
-                          <div className='from-you'>
-                            <div className='speech-bubble-you'>
-                              {value.content}
-                            </div>
-                            <Avatar className="mt-1 mb-2">{av1}</Avatar>
-                          </div>
-                        </div>
-                      )
-                    } else {
-                      return (
-                        <div key={value.id} className='message-container'>
-                          <div className='from-them'>
-                            <Avatar className="mt-1 mb-2">{av2}</Avatar>
-                            <div className='speech-bubble-them'>
-                              {value.content}
+        <div className='message-box'>
+          <div className='message-field'>
+          {
+            _.map(conversations, (value, key) => {
+              if(newMessageUser2) {
+                if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
+                  const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                  const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                  return(
+                    _.map(value.conversation, (value, key) => {
+                      if (value.sender === newMessageUser1) {
+                        return(
+                          <div key={value.id} className='message-container'>
+                            <div className='from-you'>
+                              <div className='speech-bubble-you'>
+                                {value.content}
+                              </div>
+                              <Avatar className="mt-1 mb-2">{av1}</Avatar>
                             </div>
                           </div>
-                        </div>
-                      )
-                    }
-                  })
-                );
-              }
-          }})
-          }
+                        )
+                      } else {
+                        return (
+                          <div key={value.id} className='message-container'>
+                            <div className='from-them'>
+                              <Avatar className="mt-1 mb-2">{av2}</Avatar>
+                              <div className='speech-bubble-them'>
+                                {value.content}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      }
+                    })
+                  );
+                }
+            }})
+            }
+            <div style={{ float:"left", clear: "both" }}
+                ref={(el) => { this.messagesEnd = el; }}>
+            </div>
+          </div>
         </div>
       )
     }
