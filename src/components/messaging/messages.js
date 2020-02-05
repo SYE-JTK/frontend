@@ -43,12 +43,32 @@ class Messages extends Component {
   };
 
   handleNewConversation = () => {
+    const { newMessageUser2 } = this.state;
+    const { user } = this.props;
+    return (
+      <>
+      <select value={newMessageUser2} onChange={this.handlePickUser}>
+      {
+        _.map(user, (value, key) => {
+          return (
+            <option value={value.id}>{value.email}</option>
+          )
+        })
+      }
+      </select>
+      <button onClick={this.handleCreateNewConversation}>New Conversation</button>
+      </>
+    )
+    
+  }
+
+  handleCreateNewConversation = () => {
     const { newMessageUser1, newMessageUser2 } = this.state;
     const { startNewConversation } = this.props;
     startNewConversation({
       user1: newMessageUser1,
       user2: newMessageUser2
-    });
+    })
   }
 
   componentDidMount() {
@@ -182,14 +202,14 @@ class Messages extends Component {
       <div className='main-content'>
       { session.currentUser ?
         <div>
-          {this.renderConversations()}
-          <br/>
           <br/>
           {this.renderMessages()}
           <br/>
-          <br/>
           {this.renderMessageField()}
           <br/>
+          {this.renderConversations()}
+          <br/>
+          {this.handleNewConversation()}
         </div>
         :
         <h1>
@@ -201,9 +221,10 @@ class Messages extends Component {
   }
 }
 
-const mapStateToProps = ({ conversations }) => {
+const mapStateToProps = ({ conversations, user }) => {
   return {
-    conversations
+    conversations,
+    user
   };
 };
 
