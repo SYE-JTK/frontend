@@ -14,7 +14,8 @@ class Messages extends Component {
   state = {
     newMessageContent: "",
     newMessageUser1: firebase.auth().currentUser.uid,
-    newMessageUser2: ""
+    newMessageUser2: "",
+    time: Date.now()
   };
 
   handleNewMessageContent = event => {
@@ -52,9 +53,14 @@ class Messages extends Component {
 
   componentDidMount() {
     const { newMessageUser1 } = this.state;
+    this.interval = setInterval(() => this.setState({ time: Date.now() }), 100);
     if (newMessageUser1){
       this.props.fetchConversations(newMessageUser1);
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   renderMessageField = () => {
@@ -63,7 +69,7 @@ class Messages extends Component {
         <form onSubmit={this.handleFormSubmit}>
           <div className="input-field display-fc-c">
             <div className='display-f-c margin-b-1'>
-              <input
+              <textarea
                 name='message_content'
                 className='input-main margin-r-1'
                 value={newMessageContent}
