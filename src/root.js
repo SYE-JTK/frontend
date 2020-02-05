@@ -11,12 +11,15 @@ import './components/page_layout/page.css';
 
 import Header from './components/page_layout/Header';
 
-import NoteTaking from "./components/note/NoteTaking";
+import Profile from "./components/Profile/ProfileForm";
 
 import { connect } from 'react-redux';
 
+import { fetchConversations, sendMessage } from './actions/messagesActions';
 import { fetchNotes } from './actions/notesActions';
 import { fetchUsers } from './actions/userActions';
+import Messages from "./components/messaging/messages";
+import * as firebase from 'firebase/app';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -25,7 +28,6 @@ const admins = {
 }
 
 function addToHomeScreen() {
-  console.log("clicked");
   var a2hsBtn = document.getElementById('ad2hs-prompt');  // hide our user interface that shows our A2HS button
   a2hsBtn.style.display = 'none';  // Show the prompt
   deferredPrompt.prompt();  // Wait for the user to respond to the prompt
@@ -46,8 +48,6 @@ function showAddToHomeScreen() {
   var a2hsBtn = document.getElementById('ad2hs-prompt');
   a2hsBtn.style.display = 'inline-block';
 
-  console.log("Button info: " + a2hsBtn);
-
   a2hsBtn.addEventListener("click", addToHomeScreen);
 }
 
@@ -56,7 +56,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
-  console.log("about to show add to homescreen");
   showAddToHomeScreen();
 });
 
@@ -71,13 +70,15 @@ class Root extends Component {
   state = { students: null }
 
   async componentDidMount() {
+    if (this.props.user) {
+      this.props.fetchConversations(firebase.auth().currentUser.uid);
+    }
     this.props.fetchUsers();
     this.props.fetchNotes();
   }
 
   render() {
     const { user } = this.props;
-    console.log(this.state.students);
     return(
       <Router>
         <Header text='jtk-sye'>
@@ -87,13 +88,16 @@ class Root extends Component {
                 <Link className='header-text' to="/">Home</Link>
               </li>
               <li>
+                <Link className='header-text' to="/MyProfile">My Profile</Link>
+              </li>
+              <li>
                 <Link className='header-text' to="/PostFeed">Posts</Link>
               </li>
               <li>
                 <Link className='header-text' to="/users">Users</Link>
               </li>
               <li>
-              <Link className='header-text' to="/NoteTaking">Notes</Link>
+                <Link className='header-text' to="/messages">Messages</Link>
               </li>
               { admins[user] ?
                 <li>
@@ -112,8 +116,9 @@ class Root extends Component {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
-        <Route path="/NoteTaking" component={NoteTaking} />
+        <Route path="/messages" component={Messages} />
         <Route path ="/PostFeed" component={Posts}/>
+        <Route path="/MyProfile" component={Profile}/>
       </Router>
     )
   }
@@ -126,7 +131,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchUsers, fetchNotes }, dispatch)
+  return bindActionCreators({ fetchUsers, fetchNotes, fetchConversations, sendMessage }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root)
