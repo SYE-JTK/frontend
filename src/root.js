@@ -13,6 +13,8 @@ import Header from './components/page_layout/Header';
 
 import NoteTaking from "./components/note/NoteTaking";
 
+import Profile from "./components/Profile/ProfileForm";
+
 import { connect } from 'react-redux';
 
 import { fetchConversations, sendMessage } from './actions/messagesActions';
@@ -88,7 +90,10 @@ class Root extends Component {
                 <Link className='header-text' to="/">Home</Link>
               </li>
               <li>
-                <Link className='header-text' to="/post-feed">Posts</Link>
+                <Link className='header-text' to="/MyProfile">My Profile</Link>
+              </li>
+              <li>
+                <Link className='header-text' to="/PostFeed">Posts</Link>
               </li>
               <li>
                 <Link className='header-text' to="/users">Users</Link>
@@ -116,9 +121,10 @@ class Root extends Component {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
-        <Route path="/note-taking" component={NoteTaking} />
+        <Route path="/NoteTaking" component={NoteTaking} />
         <Route path="/messages" component={Messages} />
-        <Route path ="/post-feed" component={Posts}/>
+        <Route path ="/PostFeed" component={Posts}/>
+        <Route path="/MyProfile" component={Profile}/>
       </Router>
     )
   }

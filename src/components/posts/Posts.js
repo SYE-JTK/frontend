@@ -13,8 +13,6 @@ import store from '../../store';
 
 class Posts extends React.Component {
 
-
-
   renderPosts() {
     
     const { posts } = this.props;
