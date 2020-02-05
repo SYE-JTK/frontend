@@ -169,7 +169,6 @@ class Messages extends Component {
                   if (value.sender === newMessageUser1) {
                     console.log("sender");
                     return(
-<<<<<<< HEAD
                       <div className='message-container'>
                         <div className='from-you'>
                           <div key={value.id} className='speech-bubble-you'>
@@ -177,30 +176,16 @@ class Messages extends Component {
                           </div>
                           <Avatar className="mt-1 mb-2">Y</Avatar>
                         </div>
-=======
-                      <div className='from-you'>
-                        <div key={value.id} className='mine message'>
-                          {value.content}
-                        </div>
-                        <Avatar className="mt-1">Y</Avatar>
->>>>>>> f59c06191281679024f0404558075b0578821601
                       </div>
                     )
                   } else {
                     return (
-<<<<<<< HEAD
                       <div className='message-container'>
                         <div className='from-them'>
                           <Avatar className="mt-1 mb-2">T</Avatar>
                           <div key={value.id} className='speech-bubble-them'>
                             {value.content}
                           </div>
-=======
-                      <div className='from-them'>
-                        <Avatar className="mt-1">T</Avatar>
-                        <div key={value.id} className='yours message'>
-                          {value.content}
->>>>>>> f59c06191281679024f0404558075b0578821601
                         </div>
                       </div>
                     )
@@ -226,11 +211,6 @@ class Messages extends Component {
           <br/>
           {this.renderMessageField()}
           <br/>
-<<<<<<< HEAD
-=======
-          {this.renderConversations()}
-          <br/>
->>>>>>> f59c06191281679024f0404558075b0578821601
           {this.handleNewConversation()}
         </div>
         :
