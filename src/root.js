@@ -4,6 +4,7 @@ import App from "./App";
 import { bindActionCreators } from 'redux'
 
 import Users from './users'
+import Friends from './friends'
 
 import TicketPage from "./components/ticket/TicketPage";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
@@ -91,7 +92,10 @@ class Root extends Component {
               </li>
               <li>
                 <Link className='header-text' to="/users">People</Link>
-              </li>              
+              </li> 
+              <li>
+                <Link className='header-text' to="/friends"> Friends </Link>
+              </li>             
               { admins[user] ?
                 <li>
                   <Link className='header-text' to="/ticket-tracker">Ticket Tracker</Link>
@@ -110,6 +114,7 @@ class Root extends Component {
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/NoteTaking" component={NoteTaking} />
+        <Route path="/Friends" component={Friends}/>
 
       </Router>
     )

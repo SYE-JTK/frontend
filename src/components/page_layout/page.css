@@ -81,6 +81,20 @@ body {
   align-items: center;
 }
 
+.listFriends{
+
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.addFriends{
+  
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
 /* Buttons */
 
 .input-main { 
@@ -151,6 +165,9 @@ body {
 .button-close:active {
 	position:relative;
 	top:1px;
+}
+.li{
+  list-style-type: none;
 }
 
 /* Right */
@@ -263,22 +280,6 @@ body {
   color:red;
   text-decoration: none;
 }
-.friend-button {
-  color: #fff !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #60a3bc;
-  padding: 20px;
-  border-radius: 35px;
-  display: inline-block;
-  border: none;
-  transition: all 0.4s ease 0s;
-  }
-  .friend-button:hover{
-    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    transition: all 0.4s ease 0s;
-    }
+
 
 

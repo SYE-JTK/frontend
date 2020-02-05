@@ -4,18 +4,37 @@ import _ from "lodash";
 
 import store from './store'
 import './components/page_layout/page.css';
-// import user from './reducers/userReducer';
-// import { async } from 'q';
+
+import * as firebase from 'firebase/app'
+
+import {userRef} from './config/firebase'
+
 
 class Users extends React.Component {
-  handleClick = (event) => {
 
-      event.preventDefault();
-      console.log("here");
+  state = {
+    name: ""
   }
   
-  
-  
+  handleAddFriend = event =>{
+
+    
+    const id = event.target.id;
+    this.setState({name: event.target.id});
+    const currUser = firebase.auth().currentUser;
+    console.log(currUser.uid)
+    var user = userRef.child(currUser.uid);
+    console.log(user)
+
+    user.update({
+       "friends": id
+    });
+
+    event.preventDefault();
+    console.log(id);
+  }
+
+ 
   displayUsers() {
     const usersState = store.getState().user;
     return (
@@ -29,8 +48,7 @@ class Users extends React.Component {
                 <div className='note-title'>{ value.name }</div>
               }
               <div className='note-content'>{ value.email }</div>
-              <button className= 'friend-button' onClick = {this.handleClick}>ADD FRIEND</button>
-
+              <button className= 'button-main' id= {value.name} onClick = {this.handleAddFriend} >ADD FRIEND</button>
             </div>
             <br/>
           </div>
@@ -48,10 +66,10 @@ class Users extends React.Component {
         <div>
           { this.displayUsers() }
         </div>
-        
       </div>
     );
   }
 }
 
-export default Users
+
+export default Users;
