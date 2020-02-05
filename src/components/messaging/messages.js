@@ -8,6 +8,8 @@ import store from '../../store';
 import * as firebase from 'firebase';
 import './messaging.css';
 
+import Avatar from '@material-ui/core/Avatar';
+
 class Messages extends Component {
   state = {
     newMessageContent: "",
@@ -37,7 +39,6 @@ class Messages extends Component {
       user2: newMessageUser2
     });
     this.setState({ newMessageContent: "" });
-    this.setState({ newMessageUser2: "" });
   };
 
   handleNewConversation = () => {
@@ -47,6 +48,13 @@ class Messages extends Component {
       user1: newMessageUser1,
       user2: newMessageUser2
     });
+  }
+
+  componentDidMount() {
+    const { newMessageUser1 } = this.state;
+    if (newMessageUser1){
+      this.props.fetchConversations(newMessageUser1);
+    }
   }
 
   renderMessageField = () => {
@@ -125,7 +133,7 @@ class Messages extends Component {
     const { conversations } = this.props;
     const { newMessageUser2, newMessageUser1 } = this.state;
     return (
-      <div>
+      <div className='message-field'>
        {
          _.map(conversations, (value, key) => {
             if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
@@ -135,21 +143,21 @@ class Messages extends Component {
                   if (value.sender === newMessageUser1) {
                     console.log("sender");
                     return(
-                      <>
-                      <div key={value.id} className='from-you'>
-                        You: {value.content}
+                      <div className='from-you'>
+                        <div key={value.id} className='mine message'>
+                          {value.content}
+                        </div>
+                        <Avatar className="mt-1">Y</Avatar>
                       </div>
-                      <br/>
-                      </>
                     )
                   } else {
                     return (
-                      <>
-                      <div key={value.id} className='from-them'>
-                        {newMessageUser2}: {value.content}
+                      <div className='from-them'>
+                        <Avatar className="mt-1">T</Avatar>
+                        <div key={value.id} className='yours message'>
+                          {value.content}
+                        </div>
                       </div>
-                      <br/>
-                      </>
                     )
                   }
                 })
