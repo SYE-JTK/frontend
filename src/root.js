@@ -11,8 +11,6 @@ import './components/page_layout/page.css';
 
 import Header from './components/page_layout/Header';
 
-import NoteTaking from "./components/note/NoteTaking";
-
 import Profile from "./components/Profile/ProfileForm";
 
 import { connect } from 'react-redux';
@@ -99,9 +97,6 @@ class Root extends Component {
                 <Link className='header-text' to="/users">Users</Link>
               </li>
               <li>
-                <Link className='header-text' to="/note-taking">Notes</Link>
-              </li>
-              <li>
                 <Link className='header-text' to="/messages">Messages</Link>
               </li>
               { admins[user] ?
@@ -121,7 +116,6 @@ class Root extends Component {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
-        <Route path="/NoteTaking" component={NoteTaking} />
         <Route path="/messages" component={Messages} />
         <Route path ="/PostFeed" component={Posts}/>
         <Route path="/MyProfile" component={Profile}/>
