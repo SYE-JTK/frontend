@@ -16,21 +16,24 @@ class Messages extends Component {
   state = {
     newMessageContent: "",
     newMessageUser1: firebase.auth().currentUser.uid,
-    newMessageUser2: "AkcEORd8ZNYBf8BZwTMDkYHgUP73",
-    time: Date.now()
+    newMessageUser2: "",
+    time: Date.now(),
+    messages: null
   };
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView(false);
+    if (this.state.newMessageUser2) {
+      this.messagesEnd.scrollIntoView(false);
+    }
   }
 
   handleNewMessageContent = event => {
+    this.scrollToBottom();
     this.setState({ newMessageContent: event.target.value });
   };
 
   handlePickUser = event => {
     this.setState({ newMessageUser2: event.target.value });
-
   };
 
   handlePickExistingUser = (id) => {
@@ -85,19 +88,18 @@ class Messages extends Component {
 
   componentDidMount() {
     const { newMessageUser1 } = this.state;
-    this.interval = setInterval(() => this.setState({ time: Date.now() }), 100);
+    // this.interval = setInterval(() => this.setState({ time: Date.now() }), 100);
     if (newMessageUser1){
       this.props.fetchConversations(newMessageUser1);
     }
-    this.scrollToBottom();
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
+  }
+
+  componentWillUnmount() {
+    // clearInterval(this.interval);
   }
 
   renderMessageField = () => {
@@ -179,7 +181,7 @@ class Messages extends Component {
     const { newMessageUser2, newMessageUser1 } = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
-        <div className='message-box'>
+        <div onUpdate={this.scrollToBottom} className='message-box'>
           <div className='message-field'>
           {
             _.map(conversations, (value, key) => {
@@ -231,26 +233,26 @@ class Messages extends Component {
     const {newMessageUser2, newMessageUser1 } = this.state;
     return (
       <div className='main-content'>
-      { session.currentUser ?
-        <div className='message-field-header'>
-          {this.handleNewConversation()}
-          <br/>
-          {newMessageUser2 && (newMessageUser2 !== newMessageUser1) ?
-            <h5 className='mt-3'>Your conversation with {getNameFromId(newMessageUser2)}</h5>
-            :
-            <h5 className='mt-3'>Pick Someone to Chat With</h5>
-          }
-          <br/>
-          {this.renderMessages()}
-          <br/>
-          {this.renderMessageField()}
-          <br/>
-        </div>
-        :
-        <h1>
-          Login to see tickets
-        </h1>
-      }
+        { session.currentUser ?
+          <div className='message-field-header'>
+            {this.handleNewConversation()}
+            <br/>
+            {newMessageUser2 && (newMessageUser2 !== newMessageUser1) ?
+              <h5 className='mt-3'>Your conversation with {getNameFromId(newMessageUser2)}</h5>
+              :
+              <h5 className='mt-3'>Pick Someone to Chat With</h5>
+            }
+            <br/>
+            {this.renderMessages()}
+            <br/>
+            {this.renderMessageField()}
+            <br/>
+          </div>
+          :
+          <h1>
+            Login to see messages
+          </h1>
+        }
       </div>
     );
   }

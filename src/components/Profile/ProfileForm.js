@@ -82,11 +82,6 @@ class ProfileForm extends Component {
       );
     
   };
-
-
-  componentDidMount() {
-    this.props.fetchToDos();
-  }
   
   render() {
     const session = store.getState().session;

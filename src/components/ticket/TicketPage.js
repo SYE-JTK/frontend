@@ -180,7 +180,6 @@ class TicketPage extends Component {
         />
       </>
     );
-
   }
 
   componentDidMount() {
