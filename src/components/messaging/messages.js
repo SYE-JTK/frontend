@@ -6,6 +6,7 @@ import * as actions from '../../actions/messagesActions';
 import '../page_layout/page.css';
 import store from '../../store';
 import * as firebase from 'firebase';
+import './messaging.css';
 
 class Messages extends Component {
   state = {
@@ -97,8 +98,7 @@ class Messages extends Component {
   renderConversations() {
     const { conversations } = this.props;
     return (
-      <ul
-      >
+      <ul>
        {
          _.map(conversations, (value, key) => {
             return (
@@ -119,7 +119,46 @@ class Messages extends Component {
         }
       </ul>
     )
+  }
 
+  renderMessages = () => {
+    const { conversations } = this.props;
+    const { newMessageUser2, newMessageUser1 } = this.state;
+    return (
+      <div>
+       {
+         _.map(conversations, (value, key) => {
+            if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
+              return(
+                _.map(value.conversation, (value, key) => {
+                  console.log(value.content);
+                  if (value.sender === newMessageUser1) {
+                    console.log("sender");
+                    return(
+                      <>
+                      <div key={value.id} className='from-you'>
+                        You: {value.content}
+                      </div>
+                      <br/>
+                      </>
+                    )
+                  } else {
+                    return (
+                      <>
+                      <div key={value.id} className='from-them'>
+                        {newMessageUser2}: {value.content}
+                      </div>
+                      <br/>
+                      </>
+                    )
+                  }
+                })
+              );
+            }
+          })
+        }
+      </div>
+    )
   }
   
   render() {
@@ -131,6 +170,8 @@ class Messages extends Component {
         <div>
           {this.renderConversations()}
           <br/>
+          <br/>
+          {this.renderMessages()}
           <br/>
           <br/>
           {this.renderMessageField()}
