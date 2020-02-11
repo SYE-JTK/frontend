@@ -7,10 +7,10 @@ import '../page_layout/page.css';
 import store from '../../store';
 import * as firebase from 'firebase';
 import './messaging.css';
-
 import { getNameFromId } from '../../utils/getNameFromId';
 
 import Avatar from '@material-ui/core/Avatar';
+import ConversationSearch from './conversationSearch';
 
 class Messages extends Component {
   state = {
@@ -54,6 +54,12 @@ class Messages extends Component {
     this.setState({ newMessageContent: "" });
   };
 
+  onEnterPress = (e) => {
+    if(e.keyCode === 13 && e.shiftKey === false) {
+      this.handleFormSubmit(e)
+    }
+  }
+
   handleNewConversation = () => {
     const { newMessageUser2 } = this.state;
     const { user } = this.props;
@@ -86,40 +92,30 @@ class Messages extends Component {
     }
   }
 
-  componentDidMount() {
-    const { newMessageUser1 } = this.state;
-    // this.interval = setInterval(() => this.setState({ time: Date.now() }), 100);
-    if (newMessageUser1){
-      this.props.fetchConversations(newMessageUser1);
-    }
-  }
-
   componentDidUpdate() {
     this.scrollToBottom();
-  }
-
-  componentWillUnmount() {
-    // clearInterval(this.interval);
   }
 
   renderMessageField = () => {
     const { newMessageContent, newMessageUser2 , newMessageUser1} = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="input-field display-fc-c">
-            <div className='display-f-c margin-b-1'>
+        <form ref={el => this.myFormRef = el} onSubmit={this.handleFormSubmit}>
+          <div className="input-field display-fc-c w-100 mt-2">
+            <div className='display-f-c margin-b-1 w-100'>
               <textarea
+                ref={c=>this.textarea=c}
                 name='message_content'
-                className='input-main margin-r-1'
+                className='message-input'
                 value={newMessageContent}
                 onChange={this.handleNewMessageContent}
                 placeholder='message'
                 id="messageContent"
                 type="text"
                 key='message_content'
+                onKeyDown={this.onEnterPress}
               /> <br/>
-              <input className='button-main' type="submit" value="Send" key='send'></input>
+              <input className='button-blue' type="submit" value="Send" key='send'></input>
             </div>
           </div>
         </form>
@@ -149,30 +145,42 @@ class Messages extends Component {
     );
   };
 
-
   renderConversations() {
     const { conversations } = this.props;
     return (
-      <ul>
+      <div className='conversation-field' id='conversation-field'>
+        <ConversationSearch/>
        {
          _.map(conversations, (value, key) => {
+            const lastText = value.conversation[Object.keys(value.conversation)[Object.keys(value.conversation).length-1]]
+            const user = (value.user1 === firebase.auth().currentUser.uid) ? value.user2 : value.user1;
             return (
-              <>
-                {
-                  (value.user1 === firebase.auth().currentUser.uid) ?
-                  <li key={value.user2}>
-                    <button onClick={() => this.handlePickExistingUser(value.user2)}>{value.user2}</button>
-                  </li>
-                  :
-                  <li key={value.user2}>
-                    <button onClick={() => this.handlePickExistingUser(value.user1)}>{value.user1}</button>
-                  </li>
+              <div 
+                className={
+                  this.state.newMessageUser2 === user ? 'active single-conversation' : 'single-conversation'
                 }
-              </>
+                key={user}
+              >
+                <div className='chat_people'>
+                  <Avatar className='chat_img'>
+                    {getNameFromId(user).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'')}
+                  </Avatar>
+                  <button
+                    className='chat_ib'
+                    id={user}
+                    onClick={() => this.handlePickExistingUser(user)}
+                  >
+                    <h5>{getNameFromId(user)}</h5>
+                    <p>
+                      {lastText.content}
+                    </p>
+                  </button>
+                </div>
+              </div>
             )
           })
         }
-      </ul>
+      </div>
     )
   }
 
@@ -181,7 +189,7 @@ class Messages extends Component {
     const { newMessageUser2, newMessageUser1 } = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
-        <div onUpdate={this.scrollToBottom} className='message-box'>
+        <div className='message-box'>
           <div className='message-field'>
           {
             _.map(conversations, (value, key) => {
@@ -227,6 +235,12 @@ class Messages extends Component {
       )
     }
   }
+
+  componentDidMount() {
+    if (firebase.auth().currentUser.uid){
+      this.props.fetchConversations(firebase.auth().currentUser.uid);
+    }
+  }
   
   render() {
     const session = store.getState().session;
@@ -234,20 +248,18 @@ class Messages extends Component {
     return (
       <div className='main-content'>
         { session.currentUser ?
+        <div className='message-page'>
+          {this.renderConversations()}
           <div className='message-field-header'>
-            {this.handleNewConversation()}
-            <br/>
             {newMessageUser2 && (newMessageUser2 !== newMessageUser1) ?
-              <h5 className='mt-3'>Your conversation with {getNameFromId(newMessageUser2)}</h5>
+              <h5 className='mt-2'>{getNameFromId(newMessageUser2)}</h5>
               :
-              <h5 className='mt-3'>Pick Someone to Chat With</h5>
+              <h4 className='no-message-selected'>Pick Someone to Chat With</h4>
             }
-            <br/>
             {this.renderMessages()}
-            <br/>
             {this.renderMessageField()}
-            <br/>
           </div>
+        </div>
           :
           <h1>
             Login to see messages

@@ -15,8 +15,8 @@ import Button from 'react-bootstrap/Button'
 
 import withFirebaseAuth from 'react-with-firebase-auth';
 
-import { setUserId } from '../actions/sessionActions'
-import { addUser } from '../actions/userActions'
+import { setUserId } from '../actions'
+import { addUser } from '../actions'
 
 import store from '../store';
 

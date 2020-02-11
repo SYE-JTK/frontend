@@ -1,4 +1,5 @@
 import { messagesRef } from "../config/firebase";
+import { FETCH_CONVERSATIONS_ONE, FETCH_CONVERSATIONS_TWO } from "./types";
 
 export const startNewConversation = users => async dispatch => {
   let lowUID = (users.user1 < users.user2) ? users.user1 : users.user2;
@@ -27,13 +28,13 @@ export const sendMessage = newMessage => async dispatch => {
 export const fetchConversations = userId => async dispatch => {
   messagesRef.orderByChild('user1').equalTo(userId).on('value', snapshot => {
     dispatch({
-      type: 'FETCH_CONVERSATIONS_ONE',
+      type: FETCH_CONVERSATIONS_ONE,
       payload: snapshot.val()
     });
   });
   messagesRef.orderByChild('user2').equalTo(userId).on('value', snapshot => {
     dispatch({
-      type: 'FETCH_CONVERSATIONS_TWO',
+      type: FETCH_CONVERSATIONS_TWO,
       payload: snapshot.val()
     });
   });
