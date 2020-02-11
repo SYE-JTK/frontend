@@ -4,8 +4,9 @@ import App from "./App";
 import { bindActionCreators } from 'redux'
 
 import Users from './users'
+import Friends from './friends'
+
 import TicketPage from "./components/ticket/TicketPage";
-import Posts from "./components/posts/Posts";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
 import './components/page_layout/page.css';
 
@@ -91,9 +92,11 @@ class Root extends Component {
                 <Link className='header-text' to="/PostFeed">Posts</Link>
               </li>
               <li>
-                <Link className='header-text' to="/users">Users</Link>
-              </li>
+                <Link className='header-text' to="/users">People</Link>
+              </li> 
               <li>
+                <Link className='header-text' to="/friends"> Friends </Link>
+              </li>
                 <Link className='header-text' to="/messages">Messages</Link>
               </li>
               { admins[user] ?
@@ -113,6 +116,7 @@ class Root extends Component {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
+        <Route path="/Friends" component={Friends}/>
         <Route path="/messages" component={Messages} />
         <Route path ="/PostFeed" component={Posts}/>
         <Route path="/MyProfile" component={Profile}/>
