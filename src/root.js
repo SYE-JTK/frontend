@@ -97,6 +97,7 @@ class Root extends Component {
               <li>
                 <Link className='header-text' to="/friends"> Friends </Link>
               </li>
+              <li>
                 <Link className='header-text' to="/messages">Messages</Link>
               </li>
               { admins[user] ?
