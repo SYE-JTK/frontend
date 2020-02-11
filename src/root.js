@@ -89,9 +89,6 @@ class Root extends Component {
                 <Link className='header-text' to="/MyProfile">My Profile</Link>
               </li>
               <li>
-                <Link className='header-text' to="/PostFeed">Posts</Link>
-              </li>
-              <li>
                 <Link className='header-text' to="/users">People</Link>
               </li> 
               <li>
@@ -119,7 +116,6 @@ class Root extends Component {
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/Friends" component={Friends}/>
         <Route path="/messages" component={Messages} />
-        <Route path ="/PostFeed" component={Posts}/>
         <Route path="/MyProfile" component={Profile}/>
       </Router>
     )

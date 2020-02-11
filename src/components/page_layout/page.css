@@ -271,13 +271,13 @@ body {
 
 .header-text {
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  color: blue;
+  color: black;
   text-decoration: none;
   margin-right: 15px;
   
 }
 .header-text:hover{
-  color:red;
+  color: #696969;
   text-decoration: none;
 }
 
