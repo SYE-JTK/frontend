@@ -1,0 +1,65 @@
+
+.message-field-header {
+  text-align: center;
+}
+
+.from-you {
+  float: right;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 40%;
+}
+
+.from-them {
+  float: left;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  max-width: 40%;
+}
+
+.message-box {
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+}
+
+.message-field {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  overflow: auto;
+}
+
+.message-container {
+  float: left;
+}
+
+.message {
+  border-radius: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.speech-bubble-you {
+	position: relative;
+	background: #06E1D0;
+  border-radius: .4em;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding: 5px;
+}
+
+.speech-bubble-them {
+	position: relative;
+	background: #d3d3d3;
+  border-radius: .4em;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding: 5px;
+}
