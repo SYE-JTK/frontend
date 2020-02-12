@@ -11,7 +11,7 @@ import _ from "lodash";
 
 import { connect } from "react-redux";
 
-import * as actions from "../../actions/notesActions";
+import * as actions from "../../actions";
 
 import store from '../../store';
 
@@ -69,7 +69,7 @@ class NoteTaking extends React.Component {
     )
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchNotes();
   }
 

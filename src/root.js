@@ -16,11 +16,8 @@ import Profile from "./components/Profile/ProfileForm";
 
 import { connect } from 'react-redux';
 
-import { fetchConversations, sendMessage } from './actions/messagesActions';
-import { fetchNotes } from './actions/notesActions';
-import { fetchUsers } from './actions/userActions';
+import { fetchNotes, fetchUsers } from './actions';
 import Messages from "./components/messaging/messages";
-import * as firebase from 'firebase/app';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -129,7 +126,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchUsers, fetchNotes, fetchConversations, sendMessage }, dispatch)
+  return bindActionCreators({ fetchUsers, fetchNotes }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root)

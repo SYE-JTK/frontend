@@ -4,13 +4,15 @@ import session from './sessionReducer';
 import notes from './noteReducer';
 import user from './userReducer';
 import conversations from './messagesReducer';
+import currentConversation from './conversationReducer';
 
 const rootReducer = combineReducers({ 
   data,
   session,
   notes,
   user,
-  conversations
+  conversations,
+  currentConversation
 });
 
 export default rootReducer;

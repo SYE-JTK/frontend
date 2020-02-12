@@ -7,7 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 
 import { connect } from "react-redux";
 
-import * as actions from "../../actions/notesActions";
+import * as actions from "../../actions";
 
 import store from '../../store';
 

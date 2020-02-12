@@ -1,9 +1,7 @@
 import '../ticket/ToDoList.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import * as actions from '../../actions';
-import TicketColumn from '../ticket/TicketColumn.js';
 import '../ticket/ticketHomePage.css';
 import '../page_layout/page.css';
 import store from '../../store';
