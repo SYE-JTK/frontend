@@ -12,7 +12,8 @@ import './components/page_layout/page.css';
 
 import Header from './components/page_layout/Header';
 
-import Profile from "./components/Profile/ProfileForm";
+import ProfileForm from "./components/Profile/ProfileForm";
+import ProfilePage from "./components/Profile/ProfilePage";
 
 import { connect } from 'react-redux';
 
@@ -83,7 +84,7 @@ class Root extends Component {
                 <Link className='header-text' to="/">Home</Link>
               </li>
               <li>
-                <Link className='header-text' to="/MyProfile">My Profile</Link>
+                <Link className='header-text' to="/my-profile">My Profile</Link>
               </li>
               <li>
                 <Link className='header-text' to="/users">People</Link>
@@ -113,7 +114,8 @@ class Root extends Component {
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/Friends" component={Friends}/>
         <Route path="/messages" component={Messages} />
-        <Route path="/MyProfile" component={Profile}/>
+        <Route path="/edit-profile" component={ProfileForm}/>
+        <Route path="/my-profile" component={ProfilePage}/>
       </Router>
     )
   }
