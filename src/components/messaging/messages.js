@@ -189,12 +189,18 @@ class Messages extends Component {
                           <Avatar className="mt-1 mb-2">{av1}</Avatar>
                         </div>
                         :
-                        <div className='from-them'>
-                          <Avatar className="mt-1 mb-2">{av2}</Avatar>
-                          <div className='speech-bubble-them'>
-                            {value.content}
+                        <>
+                        { (newMessageUser2 === value.sender) ?
+                          <div className='from-them'>
+                            <Avatar className="mt-1 mb-2">{av2}</Avatar>
+                            <div className='speech-bubble-them'>
+                              {value.content}
+                            </div>
                           </div>
-                        </div>
+                          :
+                          <></>
+                        }
+                        </>
                       }
                     </div>
                     )
