@@ -1,6 +1,5 @@
 import { FETCH_CONVERSATIONS_ONE, FETCH_CONVERSATIONS_TWO } from "../actions/types";
 
-
 export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_CONVERSATIONS_ONE:
@@ -11,5 +10,3 @@ export default (state = {}, action) => {
         return state;
   }
 };
-
-

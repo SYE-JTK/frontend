@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import store from '../../store';
 import _ from 'lodash';
 
 class ConversationSearch extends Component {
@@ -61,7 +60,7 @@ class ConversationSearch extends Component {
     render() {
       return (
           <div>
-              <form autocomplete="off">
+              <form autoComplete="off">
                   <input
                     value={this.query}
                     className='search-field'

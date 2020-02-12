@@ -75,7 +75,6 @@ class TicketPage extends Component {
     const { addFormVisible, addFormValue, addFormDescription, addFormOwner, addFormOwnerEmail } = this.state;
     if (addFormVisible) {
       return (
-        // <div id="todo-add-form" className="col s10 offset-s1">
           <form onSubmit={this.handleFormSubmit}>
             <div className="input-field display-fc-c">
               <div className='display-f-c margin-b-1'>
@@ -122,7 +121,6 @@ class TicketPage extends Component {
               <input className='button-main' type="submit" value="Submit"></input>
             </div>
           </form>
-        // </div>
       );
     }
   };

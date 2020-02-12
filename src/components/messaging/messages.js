@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import * as actions from '../../actions/messagesActions';
+import * as actions from '../../actions';
 import '../page_layout/page.css';
 import store from '../../store';
 import * as firebase from 'firebase';
@@ -37,8 +37,12 @@ class Messages extends Component {
   };
 
   handlePickExistingUser = (id) => {
-    this.setState({ newMessageUser2: id });
+    this.setState({ newMessageUser2: id }, this.fetchAConversation);
   };
+
+  fetchAConversation = () => {
+    this.props.fetchSingleConversation(this.state.newMessageUser1, this.state.newMessageUser2);
+  }
 
   handleFormSubmit = event => {
     const { newMessageContent, newMessageUser1, newMessageUser2 } = this.state;
@@ -58,27 +62,6 @@ class Messages extends Component {
     if(e.keyCode === 13 && e.shiftKey === false) {
       this.handleFormSubmit(e)
     }
-  }
-
-  handleNewConversation = () => {
-    const { newMessageUser2 } = this.state;
-    const { user } = this.props;
-    return (
-      <>
-        <select value={newMessageUser2} onChange={this.handlePickUser}>
-        {
-          _.map(user, (value, key) => {
-            return (
-              <option value={value.id} key={value.id}>{value.email}</option>
-            )
-          })
-        }
-        </select>
-        <button className='button-main ml-3' onClick={this.handleCreateNewConversation}>
-          New Conversation
-        </button>
-      </>
-    )
   }
 
   handleCreateNewConversation = () => {
@@ -185,47 +168,39 @@ class Messages extends Component {
   }
 
   renderMessages = () => {
-    const { conversations } = this.props;
+    const { currentConversation } = this.props;
     const { newMessageUser2, newMessageUser1 } = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
         <div className='message-box'>
           <div className='message-field'>
-          {
-            _.map(conversations, (value, key) => {
-              if(newMessageUser2) {
-                if ((value.user1 === newMessageUser2) || (value.user2 === newMessageUser2)) {
+            {
+              _.map(currentConversation, (value, key) => {
+                if(newMessageUser2) {
                   const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
                   const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
                   return(
-                    _.map(value.conversation, (value, key) => {
-                      if (value.sender === newMessageUser1) {
-                        return(
-                          <div key={value.id} className='message-container'>
-                            <div className='from-you'>
-                              <div className='speech-bubble-you'>
-                                {value.content}
-                              </div>
-                              <Avatar className="mt-1 mb-2">{av1}</Avatar>
-                            </div>
+                    <div key={value.id} className='message-container'>
+                      {(value.sender === newMessageUser1) ?
+                        <div className='from-you'>
+                          <div className='speech-bubble-you'>
+                            {value.content}
                           </div>
-                        )
-                      } else {
-                        return (
-                          <div key={value.id} className='message-container'>
-                            <div className='from-them'>
-                              <Avatar className="mt-1 mb-2">{av2}</Avatar>
-                              <div className='speech-bubble-them'>
-                                {value.content}
-                              </div>
-                            </div>
+                          <Avatar className="mt-1 mb-2">{av1}</Avatar>
+                        </div>
+                        :
+                        <div className='from-them'>
+                          <Avatar className="mt-1 mb-2">{av2}</Avatar>
+                          <div className='speech-bubble-them'>
+                            {value.content}
                           </div>
-                        )
+                        </div>
                       }
-                    })
-                  );
+                    </div>
+                    )
+                  }
                 }
-            }})
+              )
             }
             <div style={{ float:"left", clear: "both" }}
                 ref={(el) => { this.messagesEnd = el; }}>
@@ -237,9 +212,7 @@ class Messages extends Component {
   }
 
   componentDidMount() {
-    if (firebase.auth().currentUser.uid){
-      this.props.fetchConversations(firebase.auth().currentUser.uid);
-    }
+    this.props.fetchConversations(this.state.newMessageUser1)
   }
   
   render() {
@@ -270,10 +243,10 @@ class Messages extends Component {
   }
 }
 
-const mapStateToProps = ({ conversations, user }) => {
+const mapStateToProps = ({ conversations, currentConversation }) => {
   return {
     conversations,
-    user
+    currentConversation
   };
 };
 
