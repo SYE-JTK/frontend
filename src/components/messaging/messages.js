@@ -83,7 +83,11 @@ class Messages extends Component {
     const { newMessageContent, newMessageUser2 , newMessageUser1} = this.state;
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
-        <form ref={el => this.myFormRef = el} onSubmit={this.handleFormSubmit}>
+        <form
+          className='message-field-input'
+          ref={el => this.myFormRef = el}
+          onSubmit={this.handleFormSubmit}
+        >
           <div className="input-field display-fc-c w-100 mt-2">
             <div className='display-f-c margin-b-1 w-100'>
               <textarea
@@ -173,45 +177,49 @@ class Messages extends Component {
     if (newMessageUser2 && (newMessageUser2 !== newMessageUser1)) {
       return (
         <div className='message-box'>
-          <div className='message-field'>
-            {
-              _.map(currentConversation, (value, key) => {
-                if(newMessageUser2) {
-                  const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                  const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                  return(
-                    <div key={value.id} className='message-container'>
-                      {(value.sender === newMessageUser1) ?
-                        <div className='from-you'>
-                          <div className='speech-bubble-you'>
+          {
+            _.map(currentConversation, (value, key) => {
+              if(newMessageUser2) {
+                const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                const av2 = getNameFromId(newMessageUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                return(
+                  <div key={value.id} className='message-container'>
+                    {(value.sender === newMessageUser1) ?
+                      <div className='from-you'>
+                        <div className='speech-bubble-you'>
+                          {value.content}
+                        </div>
+                        <Avatar className="mt-1 mb-2">{av1}</Avatar>
+                      </div>
+                      :
+                      <>
+                      { (newMessageUser2 === value.sender) ?
+                        <div className='from-them'>
+                          <Avatar className="mt-1 mb-2">{av2}</Avatar>
+                          <div className='speech-bubble-them'>
                             {value.content}
                           </div>
-                          <Avatar className="mt-1 mb-2">{av1}</Avatar>
                         </div>
                         :
-                        <>
-                        { (newMessageUser2 === value.sender) ?
-                          <div className='from-them'>
-                            <Avatar className="mt-1 mb-2">{av2}</Avatar>
-                            <div className='speech-bubble-them'>
-                              {value.content}
-                            </div>
-                          </div>
-                          :
-                          <></>
-                        }
-                        </>
+                        <></>
                       }
-                    </div>
-                    )
-                  }
+                      </>
+                    }
+                  </div>
+                  )
                 }
-              )
-            }
-            <div style={{ float:"left", clear: "both" }}
-                ref={(el) => { this.messagesEnd = el; }}>
-            </div>
+              }
+            )
+          }
+          <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
           </div>
+        </div>
+      )
+    } else {
+      return(
+        <div>
+          <h5 className='no-message-selected'>Pick Someone to Chat With</h5>
         </div>
       )
     }
@@ -229,15 +237,18 @@ class Messages extends Component {
         { session.currentUser ?
         <div className='message-page'>
           {this.renderConversations()}
-          <div className='message-field-header'>
+          <div className='message-field'>
             {newMessageUser2 && (newMessageUser2 !== newMessageUser1) ?
-              <h5 className='mt-2'>{getNameFromId(newMessageUser2)}</h5>
+              <div className='message-field-header'>
+                <h5 className='mt-2'>{getNameFromId(newMessageUser2)}</h5>
+              </div>
               :
-              <h4 className='no-message-selected'>Pick Someone to Chat With</h4>
+              <></>
             }
             {this.renderMessages()}
             {this.renderMessageField()}
           </div>
+          <div></div>
         </div>
           :
           <h1>
