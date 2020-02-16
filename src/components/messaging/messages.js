@@ -18,7 +18,7 @@ class Messages extends Component {
   state = {
     newMessageContent: "",
     newMessageUser1: firebase.auth().currentUser.uid,
-    newMessageUser2: "cfo1oGWQXhcHmg1DJMo5NU1RIAy2",
+    newMessageUser2: "",
     currentMessageId: "",
     time: Date.now(),
     messages: null
