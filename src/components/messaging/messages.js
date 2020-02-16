@@ -237,7 +237,6 @@ class Messages extends Component {
 
   componentDidMount() {
     this.props.fetchConversations()
-    this.handleCreateNewConversation()
   }
   
   render() {
