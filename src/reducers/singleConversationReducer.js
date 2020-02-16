@@ -5,6 +5,6 @@ export default (state = {}, action) => {
     case FETCH_CONVERSATIONS_SINGLE:
       return action.payload;
     default:
-        return state;
+      return state;
   }
 };
