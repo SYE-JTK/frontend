@@ -59,28 +59,28 @@ class ConversationSearch extends Component {
     }
     render() {
       return (
-          <div>
-              <form autoComplete="off">
-                  <input
-                    value={this.query}
-                    className='search-field'
-                    type="text" 
-                    id="filter" 
-                    placeholder="Search for friends..." 
-                    ref={input => this.search = input} 
-                    onChange={this.handleInputChange}
-                  />
-              </form>
-              <div className='suggestion-field'>
-                  {
-                      _.map(this.state.guesses, (value, key) => {
-                        return (
-                          <a href="#" className='suggestions'>{value}</a>
-                        )
-                      })
-                  }
-              </div>
+        <div className='conversation-search'>
+          <form autoComplete="off">
+              <input
+                value={this.query}
+                className='search-field'
+                type="text" 
+                id="filter" 
+                placeholder="Search for friends..." 
+                ref={input => this.search = input} 
+                onChange={this.handleInputChange}
+              />
+          </form>
+          <div className='suggestion-field'>
+              {
+                  _.map(this.state.guesses, (value, key) => {
+                    return (
+                      <a href="#" className='suggestions'>{value}</a>
+                    )
+                  })
+              }
           </div>
+        </div>
       )
     }
 }

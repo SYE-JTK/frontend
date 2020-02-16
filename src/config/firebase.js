@@ -16,4 +16,5 @@ export const notesRef = databaseRef.child("notes");
 
 export const userRef = databaseRef.child("users");
 
-export const messagesRef = databaseRef.child('messages');
+export const messagesRef = databaseRef.child("messages");
+

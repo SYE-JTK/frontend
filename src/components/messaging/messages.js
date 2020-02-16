@@ -8,6 +8,8 @@ import store from '../../store';
 import * as firebase from 'firebase';
 import './messaging.css';
 import { getNameFromId } from '../../utils/getNameFromId';
+import { getDisplayTime } from '../../utils/getDisplayTime';
+
 
 import Avatar from '@material-ui/core/Avatar';
 import ConversationSearch from './conversationSearch';
@@ -16,7 +18,8 @@ class Messages extends Component {
   state = {
     newMessageContent: "",
     newMessageUser1: firebase.auth().currentUser.uid,
-    newMessageUser2: "",
+    newMessageUser2: "cfo1oGWQXhcHmg1DJMo5NU1RIAy2",
+    currentMessageId: "",
     time: Date.now(),
     messages: null
   };
@@ -36,12 +39,12 @@ class Messages extends Component {
     this.setState({ newMessageUser2: event.target.value });
   };
 
-  handlePickExistingUser = (id) => {
-    this.setState({ newMessageUser2: id }, this.fetchAConversation);
+  handlePickExistingUser = (id, user2) => {
+    this.setState({ currentMessageId: id, newMessageUser2: user2 }, this.fetchAConversation);
   };
 
   fetchAConversation = () => {
-    this.props.fetchSingleConversation(this.state.newMessageUser1, this.state.newMessageUser2);
+    this.props.fetchSingleConversation(this.state.currentMessageId);
   }
 
   handleFormSubmit = event => {
@@ -67,6 +70,7 @@ class Messages extends Component {
   handleCreateNewConversation = () => {
     const { newMessageUser1, newMessageUser2 } = this.state;
     const { startNewConversation } = this.props;
+    console.log("Starting Conversation");
     if (newMessageUser2) {
       startNewConversation({
         user1: newMessageUser1,
@@ -134,12 +138,12 @@ class Messages extends Component {
 
   renderConversations() {
     const { conversations } = this.props;
+    const sorted = Object.values(conversations).sort((a, b) => (a.lastSentTime < b.lastSentTime) ? 1 : -1);
     return (
       <div className='conversation-field' id='conversation-field'>
         <ConversationSearch/>
        {
-         _.map(conversations, (value, key) => {
-            const lastText = value.conversation[Object.keys(value.conversation)[Object.keys(value.conversation).length-1]]
+         _.map(sorted, (value, key) => {
             const user = (value.user1 === firebase.auth().currentUser.uid) ? value.user2 : value.user1;
             return (
               <div 
@@ -154,15 +158,21 @@ class Messages extends Component {
                   </Avatar>
                   <button
                     className='chat_ib'
-                    id={user}
-                    onClick={() => this.handlePickExistingUser(user)}
+                    id={value.id}
+                    onClick={() => this.handlePickExistingUser(value.id, value.user2)}
                   >
-                    <h5>{getNameFromId(user)}</h5>
+                    <div className='single-conversation-first-line'>
+                      <h5>{getNameFromId(user)}</h5>
+                      <div className='timestamp-text'>
+                        {getDisplayTime(value.lastSentTime)}
+                      </div>
+                    </div>
                     <p>
-                      {lastText.content}
+                      {value.lastSentText}
                     </p>
                   </button>
                 </div>
+                
               </div>
             )
           })
@@ -226,7 +236,8 @@ class Messages extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchConversations(this.state.newMessageUser1)
+    this.props.fetchConversations()
+    this.handleCreateNewConversation()
   }
   
   render() {
