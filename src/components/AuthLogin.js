@@ -44,6 +44,7 @@ class AuthLogin extends Component {
     if (currUser && usersState) {
       let newUser = true;
       for (var key in usersState) {
+      
         if (usersState[key].email === currUser.email) {
           newUser = false;
           break;

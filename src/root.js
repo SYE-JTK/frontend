@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 
 import Users from './users'
 import Friends from './friends'
+import Requests from './requests'
 
 import TicketPage from "./components/ticket/TicketPage";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
@@ -19,6 +20,7 @@ import { connect } from 'react-redux';
 
 import { fetchNotes, fetchUsers } from './actions';
 import Messages from "./components/messaging/messages";
+// import * as firebase from 'firebase/app';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',
@@ -90,7 +92,10 @@ class Root extends Component {
                 <Link className='header-text' to="/users">People</Link>
               </li> 
               <li>
-                <Link className='header-text' to="/friends"> Friends </Link>
+                <Link className='header-text' to="/Friends"> Friends </Link>
+              </li>
+              <li>
+                <Link className='header-text' to="/Requests"> Requests </Link>
               </li>
               <li>
                 <Link className='header-text' to="/messages">Messages</Link>
@@ -113,6 +118,7 @@ class Root extends Component {
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/Friends" component={Friends}/>
+        <Route path="/Requests" component={Requests}/>
         <Route path="/messages" component={Messages} />
         <Route path="/edit-profile" component={ProfileForm}/>
         <Route path="/my-profile" component={ProfilePage}/>

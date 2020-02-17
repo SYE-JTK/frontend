@@ -5,6 +5,9 @@ import notes from './noteReducer';
 import user from './userReducer';
 import conversations from './messagesReducer';
 import currentConversation from './singleConversationReducer';
+import friends from './friendsReducer';
+import requests from './requestReducer';
+
 
 const rootReducer = combineReducers({ 
   data,
@@ -12,7 +15,9 @@ const rootReducer = combineReducers({
   notes,
   user,
   conversations,
-  currentConversation
+  currentConversation,
+  friends,
+  requests
 });
 
 export default rootReducer;
