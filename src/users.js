@@ -5,36 +5,46 @@ import _ from "lodash";
 import store from './store'
 import './components/page_layout/page.css';
 
-import * as firebase from 'firebase/app'
+import { getNameFromId } from './utils/getNameFromId';
+import * as firebase from "firebase/app";
 
-import {userRef} from './config/firebase'
+import { connect } from "react-redux";
+import * as actions from './actions/friendsActions'
 
+export const alreadyFriends = (id) => {
+  const friends = store.getState().friends;
+  for (var key in friends) {
+    
+    if (friends[key].id === id) {
+ 
+      return true;
+    }
+  }
+}
 
 class Users extends React.Component {
 
   state = {
-    name: ""
+    name: "",
+    id: "", 
+    
   }
   
-  handleAddFriend = event =>{
+  componentDidMount(){
+    this.props.fetchFriends();
+    this.props.fetchRequests();
+  };
+  
+  handleAddFriendRequest = event =>{
+    const { friendRequest } = this.props;
+    const anId = event.target.id; 
+    const currId = firebase.auth().currentUser.uid; 
+    const currName = getNameFromId(firebase.auth().currentUser.uid); 
+    friendRequest(anId, currId, currName);
+   
 
-    
-    const id = event.target.id;
-    this.setState({name: event.target.id});
-    const currUser = firebase.auth().currentUser;
-    console.log(currUser.uid)
-    var user = userRef.child(currUser.uid);
-    console.log(user)
-
-    user.update({
-       "friends": id
-    });
-
-    event.preventDefault();
-    console.log(id);
-  }
-
- 
+  };
+  
   displayUsers() {
     const usersState = store.getState().user;
     return (
@@ -43,12 +53,20 @@ class Users extends React.Component {
           <div key={ key }>
             <div className='note-container'>
               { value.email === store.getState().session.currentUser ?
-                <div className='note-title'>You ( { value.name } )</div>
+                <div></div>
                 :
+                <div>
                 <div className='note-title'>{ value.name }</div>
+                <div className='note-content'>{ value.email }</div>
+                {alreadyFriends(value.id)?
+              <div> </div>
+              :
+             
+              <button className= 'button-main' id= {value.id} name={value.name} onClick = {this.handleAddFriendRequest} >add friend</button>
+              } 
+                </div>
               }
-              <div className='note-content'>{ value.email }</div>
-              <button className= 'button-main' id= {value.name} onClick = {this.handleAddFriend} >ADD FRIEND</button>
+                       
             </div>
             <br/>
           </div>
@@ -70,6 +88,10 @@ class Users extends React.Component {
     );
   }
 }
+const mapStateToProps = ({ friends, requests }) => {
+  return {
+    friends, requests
+  };
+};
 
-
-export default Users;
+export default connect(mapStateToProps, actions)(Users);

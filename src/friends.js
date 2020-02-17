@@ -3,54 +3,56 @@ import React from 'react'
 import _ from "lodash";
 
 import store from './store'
+import * as actions from './actions/friendsActions'
 import './components/page_layout/page.css';
+import { connect } from "react-redux";
+// import Requests from './requests'
+
 
 
 class Friends extends React.Component {
 
-  displayFriends() {
-    const usersState = store.getState().user;
+  
+  componentDidMount(){
+    this.props.fetchFriends();
+  };
+
+  
+  displayFriends() {  
+    const friendsState = store.getState().friends;
+    
     return (
-      _.map(usersState, (value, key) => {
+      _.map(friendsState, (value, key) => {
         return (
           <div key={ key }>
-              <div>{ value.friends }</div>          
-            <br/>
+              <div>{ value.name}</div>                 
           </div>
         )
       })
     )
   };
 
-
-    render() {
-        return (
-          <div>
-            <h1>
-              Friends
-            </h1>
-            <div className= 'addFriends'>
-              Friend Requests
-              <li >
-                Tim Jones
-              </li>
-              <button className= 'button-main' >ADD FRIEND</button>
-              <li>
-                Kira Murphy
-              </li>
-              <button className= 'button-main' >ADD FRIEND</button>
-            </div>
-            <div className = 'listFriends'>
-                List of Friends
-                {this.displayFriends()}
-            </div>
-          </div>
-        );
-      }
+render() {
+    
+    return (
+      
+      <div>
+        <div>
+          <h3>Your Friends </h3>
+          {this.displayFriends()}
+        </div>
+      </div>
+    );
+  }
 
 }
+const mapStateToProps = ({friends}) => {
+  return {
+    friends
+  };
+};
 
-export default Friends;
+export default connect(mapStateToProps, actions)(Friends);
 
 
 
