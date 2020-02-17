@@ -36,13 +36,10 @@ class Users extends React.Component {
   };
   
   handleAddFriendRequest = event =>{
-
-    const anId = event.target.id; //their id
-    // const aName = event.target.name; //their name for test
     const { friendRequest } = this.props;
-    const currId = firebase.auth().currentUser.uid; //myid
+    const anId = event.target.id; 
+    const currId = firebase.auth().currentUser.uid; 
     const currName = getNameFromId(firebase.auth().currentUser.uid); 
-    // friendRequest(anId, anId, aName); //test
     friendRequest(anId, currId, currName);
    
 

@@ -19,8 +19,6 @@ export const fetchFriends = () => async dispatch => {
 };
 
 export const friendRequest = (id, myid, myname) => async dispatch => {
-  // console.log("hit");
-  // userRef.child(firebase.auth().currentUser.uid).child("requests").child(id).set({ id: myid, name: myname}); //test
   userRef.child(id).child("requests").child(firebase.auth().currentUser.uid).set({ id: myid, name: myname});
 };
 
