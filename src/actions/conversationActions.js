@@ -14,7 +14,8 @@ export const startNewConversation = users => async dispatch => {
     id: `${lowUID}@${highUID}`,
     user1: lowUID,
     user2: highUID,
-    lastSentTime: Date.now()
+    lastSentTime: Date.now(),
+    lastSentText: ""
   });
 
   if (messagesRef.child(`${lowUID}@${highUID}`)) {
