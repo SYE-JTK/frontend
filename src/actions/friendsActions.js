@@ -1,10 +1,15 @@
 
 import { userRef } from "../config/firebase";
 import * as firebase from "firebase/app";
+import { getNameFromId } from '../utils/getNameFromId';
 
 
 export const addFriends = newFriend => async dispatch => {
     userRef.child(firebase.auth().currentUser.uid).child("friends").child(newFriend.id).set(newFriend);
+    userRef.child(newFriend.id).child("friends").child(firebase.auth().currentUser.uid).set({
+      name: getNameFromId(firebase.auth().currentUser.uid),
+      id: firebase.auth().currentUser.uid
+      });
 };
 
 
