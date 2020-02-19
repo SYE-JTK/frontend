@@ -18,9 +18,8 @@ export const fetchFriends = () => async dispatch => {
     dispatch({
       type: 'FETCH_FRIENDS',
       payload: snapshot.val()
-      
     });
-  }) 
+  })
 };
 
 export const friendRequest = (id, myid, myname) => async dispatch => {
