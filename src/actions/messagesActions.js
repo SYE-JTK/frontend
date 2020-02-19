@@ -19,6 +19,11 @@ export const sendMessage = newMessage => async dispatch => {
     lastSentTime: Date.now(),
     lastSentText: newMessage.content
   })
+
+  userRef.child(newMessage.user2).child('conversations').child(`${less}@${more}`).update({
+    lastSentTime: Date.now(),
+    lastSentText: newMessage.content
+  })
 };
 
 
