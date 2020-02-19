@@ -14,7 +14,7 @@ export const startNewConversation = users => async dispatch => {
       console.log('exists');
     } else {
       console.log('adding to user 1');
-      user1ConversationsRef.set({
+      user1ConversationsRef.child(messageId).set({
         id: messageId,
         user1: lowUID,
         user2: highUID,
