@@ -1,14 +1,16 @@
 
-const initalState = {
-  currentUser: null
-}
 
-const session = (state = initalState, action) => {
+const session = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USERID':
       return (
+        {currentUser: action.payload}
+      )
+    case 'SET_CURRENT_CONVO':
+      return (
         {
-          currentUser: action.currentUser,
+          ...state,
+          currentUser2: action.payload
         }
       )
     default:
