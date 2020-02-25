@@ -1,5 +1,5 @@
 import { userRef, messagesRef } from "../config/firebase";
-import { FETCH_CONVERSATIONS_ONE, FETCH_CONVERSATIONS_TWO } from "./types";
+import { FETCH_CONVERSATIONS_ONE } from "./types";
 import * as firebase from 'firebase/app';
 
 export const startNewConversation = users => async dispatch => {
