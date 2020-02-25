@@ -6,13 +6,11 @@ import store from './store'
 import * as actions from './actions/friendsActions'
 import './components/page_layout/page.css';
 import { connect } from "react-redux";
-// import Requests from './requests'
 
 
 
 class Friends extends React.Component {
 
-  
   componentDidMount(){
     this.props.fetchFriends();
   };
@@ -20,7 +18,6 @@ class Friends extends React.Component {
   
   displayFriends() {  
     const friendsState = store.getState().friends;
-    
     return (
       _.map(friendsState, (value, key) => {
         return (
@@ -33,9 +30,7 @@ class Friends extends React.Component {
   };
 
 render() {
-    
     return (
-      
       <div>
         <div>
           <h3>Your Friends </h3>
@@ -44,8 +39,8 @@ render() {
       </div>
     );
   }
-
 }
+
 const mapStateToProps = ({friends}) => {
   return {
     friends

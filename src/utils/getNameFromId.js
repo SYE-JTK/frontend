@@ -1,7 +1,10 @@
 
-import store from '../store';
+import store from "../store";
+import {fetchUsers} from "../actions"
 
-export const getNameFromId = (id) => {
+export function getNameFromId(id) {
+  if (!store.getState().user) store.dispatch(fetchUsers())
+  
   const users = store.getState().user;
   for (var key in users) {
     if (users[key].id === id) {
@@ -9,4 +12,3 @@ export const getNameFromId = (id) => {
     }
   }
 }
-

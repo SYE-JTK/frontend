@@ -38,15 +38,15 @@ class ConversationSearch extends Component {
       fixedData.push(obj);
     })
     var searchString = this.state.query;
-    var newData = [];
     if(searchString.length > 0){
-      fixedData.filter(l => {
+      var newData = fixedData.filter(l => {
         if (l.name.toLowerCase().match(searchString.toLowerCase())) {
-          newData.push(l);
+          return l;
         }
+        return null;
       })
+      this.setState({guesses: newData})
     }
-    this.setState({guesses: newData})
   }
 
   componentDidMount() {
