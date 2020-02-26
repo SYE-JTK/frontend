@@ -57,7 +57,7 @@ class Users extends React.Component {
                 :
                 <div>
                 <div className='note-title'>{ value.name }</div>
-                <div className='note-content'>{ value.email }</div>
+                
                 {alreadyFriends(value.id)?
               <div> </div>
               :
