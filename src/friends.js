@@ -8,13 +8,11 @@ import { userRef } from "./config/firebase";
 import './components/page_layout/page.css';
 import './components/note/note.css';
 import { connect } from "react-redux";
-import Avatar from '@material-ui/core/Avatar';
 
 
 
 class Friends extends React.Component {
 
-  
   componentDidMount(){
     this.props.fetchFriends();
   };
@@ -67,9 +65,7 @@ class Friends extends React.Component {
 
 
 render() {
-    
     return (
-      
       <div>
         <div>
           <h3>Your Friends </h3>
@@ -78,8 +74,8 @@ render() {
       </div>
     );
   }
-
 }
+
 const mapStateToProps = ({friends}) => {
   return {
     friends

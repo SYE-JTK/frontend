@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 import '../page_layout/page.css';
 import * as firebase from 'firebase';
 import './messaging.css';
+import { getAvatarFromId } from '../../utils/getAvatarFromId';
 import { getNameFromId } from '../../utils/getNameFromId';
 import { getDisplayTime } from '../../utils/getDisplayTime';
 
@@ -114,7 +115,6 @@ class Messages extends Component {
   };
 
   renderNewConversationField = () => {
-    const {  } = this.state;
     const { session } = this.props;
     return (
         <form onSubmit={this.handleNewConversation}>
@@ -154,7 +154,7 @@ class Messages extends Component {
               >
                 <div className='chat_people'>
                   <Avatar className='chat_img'>
-                    {getNameFromId(user).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'')}
+                    {getAvatarFromId(user)}
                   </Avatar>
                   <button
                     className='chat_ib'
@@ -190,8 +190,8 @@ class Messages extends Component {
           {
             _.map(currentConversation, (value, key) => {
               if(session.currentUser2) {
-                const av1 = getNameFromId(newMessageUser1).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
-                const av2 = getNameFromId(session.currentUser2).split(/\s/).reduce((response,word)=> response+=word.slice(0,1),'');
+                const av1 = getAvatarFromId(newMessageUser1);
+                const av2 = getAvatarFromId(session.currentUser2);
                 return(
                   <div key={value.id} className='message-container'>
                     {(value.sender === newMessageUser1) ?
@@ -236,7 +236,8 @@ class Messages extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchConversations()
+    this.props.fetchUsers();
+    this.props.fetchConversations();
   }
   
   render() {
