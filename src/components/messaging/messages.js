@@ -180,6 +180,12 @@ class Messages extends Component {
           }
         </div>
       )
+    } else {
+      return (
+        <div className='conversation-field'>
+          <ConversationSearch/>
+        </div>
+      )
     }
   }
 
