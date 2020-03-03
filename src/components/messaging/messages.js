@@ -138,47 +138,55 @@ class Messages extends Component {
 
   renderConversations() {
     const { conversations } = this.props;
-    const sorted = Object.values(conversations).sort((a, b) => (a.lastSentTime < b.lastSentTime) ? 1 : -1);
-    return (
-      <div className='conversation-field' id='conversation-field'>
-        <ConversationSearch/>
-       {
-         _.map(sorted, (value, key) => {
-            const user = (value.user1 === firebase.auth().currentUser.uid) ? value.user2 : value.user1;
-            return (
-              <div 
-                className={
-                  this.props.session.currentUser2 === user ? 'active single-conversation' : 'single-conversation'
-                }
-                key={user}
-              >
-                <div className='chat_people'>
-                  <Avatar className='chat_img'>
-                    {getAvatarFromId(user)}
-                  </Avatar>
-                  <button
-                    className='chat_ib'
-                    id={value.id}
-                    onClick={() => this.handlePickExistingUser(value.id, user)}
-                  >
-                    <div className='single-conversation-first-line'>
-                      <h5>{getNameFromId(user)}</h5>
-                      <div className='timestamp-text'>
-                        {getDisplayTime(value.lastSentTime)}
+    if (conversations) {
+      const sorted = Object.values(conversations).sort((a, b) => (a.lastSentTime < b.lastSentTime) ? 1 : -1);
+      return (
+        <div className='conversation-field' id='conversation-field'>
+          <ConversationSearch/>
+        {
+          _.map(sorted, (value, key) => {
+              const user = (value.user1 === firebase.auth().currentUser.uid) ? value.user2 : value.user1;
+              return (
+                <div 
+                  className={
+                    this.props.session.currentUser2 === user ? 'active single-conversation' : 'single-conversation'
+                  }
+                  key={user}
+                >
+                  <div className='chat_people'>
+                    <Avatar className='chat_img'>
+                      {getAvatarFromId(user)}
+                    </Avatar>
+                    <button
+                      className='chat_ib'
+                      id={value.id}
+                      onClick={() => this.handlePickExistingUser(value.id, user)}
+                    >
+                      <div className='single-conversation-first-line'>
+                        <h5>{getNameFromId(user)}</h5>
+                        <div className='timestamp-text'>
+                          {getDisplayTime(value.lastSentTime)}
+                        </div>
                       </div>
-                    </div>
-                    <p>
-                      {value.lastSentText}
-                    </p>
-                  </button>
+                      <p>
+                        {value.lastSentText}
+                      </p>
+                    </button>
+                  </div>
+                  
                 </div>
-                
-              </div>
-            )
-          })
-        }
-      </div>
-    )
+              )
+            })
+          }
+        </div>
+      )
+    } else {
+      return (
+        <div className='conversation-field'>
+          <ConversationSearch/>
+        </div>
+      )
+    }
   }
 
   renderMessages = () => {
