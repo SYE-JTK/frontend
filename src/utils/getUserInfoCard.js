@@ -5,7 +5,7 @@ import _ from "lodash";
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
 
-export function getUserInfoCard(id, rightCol, leftCol) {
+export function getUserInfoCard(id) {
   const thisUserId = id;
   var thisUser = userRef.child(thisUserId);
   var name, smoker,  bio, birthday, gender, partier, imageURL;

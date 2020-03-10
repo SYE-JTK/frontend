@@ -99,13 +99,10 @@ class Root extends Component {
           { user ? 
             <div className='routes'>
               <li>
-                <Link className='header-text' to="/home">Actual Home</Link>
+                <Link className='header-text' to="/home">Home</Link>
               </li>
               <li>
                 <Link className='header-text' to="/Friends"> Friends </Link>
-              </li>
-              <li>
-                <Link className='header-text' to="/Requests"> Requests </Link>
               </li>
               <li>
                 <Link className='header-text' to="/messages">Messages</Link>
@@ -131,7 +128,7 @@ class Root extends Component {
                 </Link>
               </span>
               <span>
-                <Link className='right-group log-in-out' to="/">Log Out</Link>
+                <Link className='log-in-out' to="/">Log Out</Link>
               </span>
             </>
             :
@@ -149,7 +146,6 @@ class Root extends Component {
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
         <Route path="/friends" component={Friends}/>
-        <Route path="/requests" component={Requests}/>
         <Route path="/messages" component={Messages} />
         <Route path="/edit-profile" component={ProfileForm}/>
         <Route path="/my-profile" component={ProfilePage}/>
