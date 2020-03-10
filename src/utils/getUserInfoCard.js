@@ -4,6 +4,7 @@ import _ from "lodash";
 
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
+import { getDisplayTime } from './getDisplayTime';
 
 export function getUserInfoCard(id) {
   const thisUserId = id;
@@ -28,7 +29,7 @@ export function getUserInfoCard(id) {
           <img src={imageURL} className="avatar actual-img"></img>  
         </div>
         <ul className='user-card-answers list-group'>
-          <li className='list-group-item'>Birthday: <span className='float-right'>{birthday}</span></li>
+          <li className='list-group-item'>Birthday: <span className='float-right'>{getDisplayTime(birthday)}</span></li>
           <li className='list-group-item'>Do I like to party? <span className='float-right'>{partier}</span></li>
           <li className='list-group-item'>Do I smoke? <span className='float-right'>{smoker}</span></li>
           <li className='list-group-item'>Gender: <span className='float-right'>{gender}</span></li>
