@@ -11,6 +11,8 @@ import * as firebase from "firebase/app";
 import { connect } from "react-redux";
 import * as actions from './actions/friendsActions'
 
+import getAvatar from "./utils/generateAvatar.js"
+
 export const alreadyFriends = (id) => {
   const friends = store.getState().friends;
   for (var key in friends) {
@@ -56,8 +58,8 @@ class Users extends React.Component {
                 <div></div>
                 :
                 <div>
+                {getAvatar(value.name, value.avatarURL)}
                 <div className='note-title'>{ value.name }</div>
-                
                 {alreadyFriends(value.id)?
               <div> </div>
               :

@@ -18,8 +18,16 @@ import ProfilePage from "./components/Profile/ProfilePage";
 
 import { connect } from 'react-redux';
 
+import Avatar from '@material-ui/core/Avatar';
+import * as firebase from "firebase/app";
+
 import { fetchNotes, fetchUsers } from './actions';
 import Messages from "./components/messaging/messages";
+import { userRef } from "./config/firebase";
+
+import store from './store';
+
+
 // import * as firebase from 'firebase/app';
 
 const admins = {
@@ -66,17 +74,27 @@ window.addEventListener('appinstalled', (evt) => {
   a2hsBtn.style.display = 'none';
 });
 
+
+
+
 class Root extends Component {
 
-  state = { students: null }
+  state = { students: null, url:"" }
 
   async componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchNotes();
+    const currUser = firebase.auth().currentUser;
+    var user = userRef.child(currUser.uid);
+    user.on('value', snapshot => {
+      this.setState({ url: snapshot.child("avatarURL").val()})
+    });
+    
   }
 
   render() {
     const { user } = this.props;
+    
     return(
       <Router>
         <Header text='jtk-sye'>
@@ -84,9 +102,6 @@ class Root extends Component {
             <div className='routes'>
               <li>
                 <Link className='header-text' to="/">Home</Link>
-              </li>
-              <li>
-                <Link className='header-text' to="/my-profile">My Profile</Link>
               </li>
               <li>
                 <Link className='header-text' to="/users">People</Link>
@@ -107,13 +122,27 @@ class Root extends Component {
                 :
                 <></>
               }
+              <li>
+                <Link to="/my-profile">
+                  <Avatar src={this.state.url} className='avatar'></Avatar>
+                </Link>
+              </li>
+              
+              
             </div>
+            
+            
             :<> </>
           }
+          
+          
+          
+          
           <button id="ad2hs-prompt" className="button-main download-app-button">
             Download Web App
           </button>
         </Header>
+        
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
