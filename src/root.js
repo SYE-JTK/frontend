@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 
 import Users from './users'
 import Friends from './friends'
-import Requests from './requests'
 
 import TicketPage from "./components/ticket/TicketPage";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
@@ -24,9 +23,7 @@ import * as firebase from "firebase/app";
 import { fetchNotes, fetchUsers } from './actions';
 import Messages from "./components/messaging/messages";
 import { userRef } from "./config/firebase";
-import store from './store';
 import HomePage from "./components/home/HomePage";
-// import * as firebase from 'firebase/app';
 
 const admins = {
   "jonaspeek@gmail.com": 'jonas',

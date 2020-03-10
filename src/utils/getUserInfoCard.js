@@ -1,7 +1,5 @@
 import React from 'react'
 
-import _ from "lodash";
-
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
 import { getDisplayTime } from './getDisplayTime';
@@ -26,7 +24,7 @@ export function getUserInfoCard(id) {
       <h3 className='user-card-name'>{name}</h3>
       <div className='user-card border rounded p-3 bg-light'>
         <div className='user-card-img'> 
-          <img src={imageURL} className="avatar actual-img"></img>  
+          <img src={imageURL} className="avatar actual-img" alt=''/>  
         </div>
         <ul className='user-card-answers list-group'>
           <li className='list-group-item'>Birthday: <span className='float-right'>{getDisplayTime(birthday)}</span></li>
