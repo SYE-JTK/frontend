@@ -281,5 +281,9 @@ body {
   text-decoration: none;
 }
 
+.avatar{
+  justify-content: flex-end;
+}
+
 
 

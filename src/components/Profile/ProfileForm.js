@@ -15,13 +15,13 @@ import * as firebase from 'firebase/app';
 
 import FileUploader from "react-firebase-file-uploader";
 
-
+import DatePicker from 'react-date-picker';
 import { userRef } from "../../config/firebase";
 
 class ProfileForm extends Component {
 
   state = {
-    addBirthday: "",
+    date: new Date(),
     addGender: "",
     addSmoking: "",
     addPartying: "",
@@ -38,7 +38,7 @@ class ProfileForm extends Component {
     user.on('value', snapshot => {
       this.setState({ addName: snapshot.child("name").val() });
       this.setState({ avatarURL: snapshot.child("avatarURL").val() });
-      this.setState({ addBirthday: snapshot.child("birthday").val() });
+      this.setState({ date: new Date(snapshot.child("birthday").val()) });
       this.setState({ addGender: snapshot.child("gender").val() });
       this.setState({ addSmoking: snapshot.child("smoker").val() });
       this.setState({ addPartying: snapshot.child("partier").val() });
@@ -52,9 +52,9 @@ class ProfileForm extends Component {
     this.getUserInformation();
   }
 
-  handleBirthdayChange = event => {
-    this.setState({ addBirthday: event.target.value });
-  };
+  onBirthdayChange = date => this.setState({ date })
+
+ 
   handleGenderChange = event => {
     this.setState({ addGender: event.target.value });
   };
@@ -92,12 +92,12 @@ class ProfileForm extends Component {
 
 
   handleFormSubmit = event => {
-    const { addBirthday, addGender, addSmoking, addPartying, avatarURL, addBio } = this.state;
+    const { date, addGender, addSmoking, addPartying, avatarURL, addBio } = this.state;
     const currUser = firebase.auth().currentUser;
     var user = userRef.child(currUser.uid);
 
     user.update({
-      "birthday": addBirthday,
+      "birthday": date,
       "gender": addGender,
       "smoker": addSmoking,
       "partier": addPartying,
@@ -108,93 +108,105 @@ class ProfileForm extends Component {
     event.preventDefault();
     this.setState({ isUploading: false });
     this.setState({ progress: 0 });
+    this.props.history.push('/my-profile');
   };
 
 
   renderAddForm = () => {
 
-    const { addBirthday, addGender, addSmoking, addPartying, addBio } = this.state;
+    const { date, addGender, addSmoking, addPartying, addBio } = this.state;
     const currUser = firebase.auth().currentUser;
     return (
-      // <div id="todo-add-form" className="col s10 offset-s1">
+
       <form onSubmit={this.handleFormSubmit}>
         <h1 className="heading">Edit Profile</h1>
 
-        <div className="input-field display-fc-c">
-          
-          <div className='display-f-c margin-b-1'>
-            <p className="mr-2 pt-2">Birthday: </p>
-            <input
-              name='user_birthday'
-              className='input-main margin-r-1'
-              value={addBirthday}
-              onChange={this.handleBirthdayChange}
-              placeholder = 'Enter Birthday'
-              id="birthday"
-              type="text"
-            /> <br />
-          </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm border rounded p-3">
+              <h2 className="bg-secondary border rounded text-light text-sm text-center">Profile Photo</h2>
+              {this.state.isUploading && <p>Progress: {this.state.progress} %</p>}
+              {this.state.avatarURL && <img className="rounded" src={this.state.avatarURL} style={{ width: '100%', height: 'auto', }} />}
+              <br></br>
+              <div className="mt-3 ml-7">
+                <FileUploader
+                  accept="image/*"
+                  name="avatar"
+                  randomizeFilename
+                  storageRef={firebase.storage().ref("images/" + currUser.uid)}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccess}
+                  onProgress={this.handleProgress}
+                />
+              </div>
+            </div>
 
-          <div className='display-f-c margin-b-1'>
-            <p className="mr-2 pt-2">Gender:</p>
-            <input
-              name='user_gender'
-              className='input-main margin-r-1'
-              value={addGender}
-              onChange={this.handleGenderChange}
-              placeholder='Enter Gender'
-              id="gender"
-              type="text"
-            /> <br />
+            <div className="col-sm border rounded p-3 ml-1">
+              <h2 className="bg-secondary border rounded text-light text-sm text-center">Basic Info</h2>
+              <div>
+                <p className="">Birthday: </p>
+                <DatePicker
+                  onChange={this.onBirthdayChange}
+                  value={date}
+                />
+              </div>
+
+
+
+              <div className='form-group mt-3'>
+                <label className="">Gender:</label>
+                <input
+                  name='user_gender'
+                  className='form-control'
+                  value={addGender}
+                  onChange={this.handleGenderChange}
+                  placeholder='Enter Gender'
+                  id="gender"
+                  type="text"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="">
+                  Do you smoke? &nbsp;
+              <select className="form-control" value={addSmoking} onChange={this.handleSmokingChange}>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+              </div>
+
+              <label className="">
+                Do you like to party? &nbsp;
+              <select className="form-control" value={addPartying} onChange={this.handlePartyingChange}>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+              </label>
+            </div>
           </div>
-          <label>
-            Do you smoke? &nbsp;
-            <select value={addSmoking} onChange={this.handleSmokingChange}>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <label>
-            Do you like to party? &nbsp;
-            <select value={addPartying} onChange={this.handlePartyingChange}>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <label>Profile Photo:</label>
-          {this.state.isUploading && <p>Progress: {this.state.progress} %</p>}
-          {this.state.avatarURL && <img src={this.state.avatarURL} style={{width:200, height:200,}} />}
-          <br></br>
-          <div className="text-center">
-          <FileUploader
-            accept="image/*"
-            name="avatar"
-            randomizeFilename
-            storageRef={firebase.storage().ref("images/" + currUser.uid)}
-            onUploadStart={this.handleUploadStart}
-            onUploadError={this.handleUploadError}
-            onUploadSuccess={this.handleUploadSuccess}
-            onProgress={this.handleProgress}
-          />
-          </div>
-          <br></br>
-          <p className="text-center ">Bio:</p>
-          <div className='display-f-c margin-b-1'>
+        </div>
+
+        <div className="d-flex justify-content-center mt-3">
+
+          <div className='form-group'>
+            <h2 className="bg-secondary border rounded text-light text-sm text-center">Bio</h2>
             <textarea
               name='user_bio'
-              className='inputlg'
+              className='form-control'
               value={addBio}
               onChange={this.handleBioChange}
               placeholder='Enter a bit about yourself!'
               id="bio"
               type="text"
-              style={{width:400, height:200}}
-            /> <br />
+              style={{ width: 400, height: 200 }}
+            />
           </div>
-          <br></br>
-          <input className='btn btn-dark' type="submit" value="Update"></input>
+        </div>
 
-          <Link to="/my-profile" className="btn btn-dark mt-3">Save and Return to Profile</Link>
+        <div className="d-flex justify-content-center">
+          <button className='btn btn-dark mt-2 text-center' type="submit" value="Update">Save and Return to Profile</button>
         </div>
       </form>
 

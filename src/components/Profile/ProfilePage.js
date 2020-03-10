@@ -14,7 +14,7 @@ class ProfilePage extends Component {
         super(props);
         this.state = {
             name: "",
-            birthday: "",
+            date: "",
             gender: "",
             smoker: "",
             partier: "",
@@ -36,7 +36,7 @@ class ProfilePage extends Component {
         user.on('value', snapshot => {
             this.setState({ name: snapshot.child("name").val() });
             this.setState({ avatarURL: snapshot.child("avatarURL").val() });
-            this.setState({ birthday: snapshot.child("birthday").val() });
+            this.setState({ date: snapshot.child("birthday").val()});
             this.setState({ gender: snapshot.child("gender").val() });
             this.setState({ smoker: snapshot.child("smoker").val() });
             this.setState({ partier: snapshot.child("partier").val() });
@@ -62,7 +62,7 @@ class ProfilePage extends Component {
                         
                     </div>
                     <div className="col-sm">
-                        <p> Birthday: {this.state.birthday} <br></br>
+                        <p> Birthday: {this.state.date} <br></br>
                             Gender: {this.state.gender} <br></br>
                             Smoker: {this.state.smoker} <br></br>
                             Partier: {this.state.partier}
