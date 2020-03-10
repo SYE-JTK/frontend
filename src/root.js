@@ -24,10 +24,8 @@ import * as firebase from "firebase/app";
 import { fetchNotes, fetchUsers } from './actions';
 import Messages from "./components/messaging/messages";
 import { userRef } from "./config/firebase";
-
 import store from './store';
-
-
+import HomePage from "./components/home/HomePage";
 // import * as firebase from 'firebase/app';
 
 const admins = {
@@ -101,16 +99,10 @@ class Root extends Component {
           { user ? 
             <div className='routes'>
               <li>
-                <Link className='header-text' to="/">Home</Link>
+                <Link className='header-text' to="/home">Home</Link>
               </li>
-              <li>
-                <Link className='header-text' to="/users">People</Link>
-              </li> 
               <li>
                 <Link className='header-text' to="/Friends"> Friends </Link>
-              </li>
-              <li>
-                <Link className='header-text' to="/Requests"> Requests </Link>
               </li>
               <li>
                 <Link className='header-text' to="/messages">Messages</Link>
@@ -122,32 +114,38 @@ class Root extends Component {
                 :
                 <></>
               }
-              <li>
-                <Link to="/my-profile">
-                  <Avatar src={this.state.url} className='avatar'></Avatar>
-                </Link>
-              </li>
               
               
             </div>
-            
-            
-            :<> </>
+            :
+            <></>
           }
-          
-          
-          
-          
+          { user ?
+            <> 
+              <span>
+                <Link to="/my-profile">
+                  <Avatar src={this.state.url} className='avatar'></Avatar>
+                </Link>
+              </span>
+              <span>
+                <Link className='log-in-out' to="/">Log Out</Link>
+              </span>
+            </>
+            :
+            <span>
+              <Link className='log-in-out' to="/">Log In</Link>
+            </span>
+          }
           <button id="ad2hs-prompt" className="button-main download-app-button">
             Download Web App
           </button>
         </Header>
         
         <Route exact path="/" component={App} />
+        <Route path="/home" component={HomePage} />
         <Route path="/users" component={Users} />
         <Route path="/ticket-tracker" component={TicketPage} />
-        <Route path="/Friends" component={Friends}/>
-        <Route path="/Requests" component={Requests}/>
+        <Route path="/friends" component={Friends}/>
         <Route path="/messages" component={Messages} />
         <Route path="/edit-profile" component={ProfileForm}/>
         <Route path="/my-profile" component={ProfilePage}/>

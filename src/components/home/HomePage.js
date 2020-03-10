@@ -1,22 +1,23 @@
 import React from 'react'
 import _ from "lodash";
-import * as actions from './actions/friendsActions'
+import * as actions from '../../actions'
 import { connect } from "react-redux";
-import { getUserInfoCard } from './utils/getUserInfoCard';
-import Requests from './requests';
+import { getUserInfoCard } from '../../utils/getUserInfoCard';
+import Requests from '../../requests';
 
-class Friends extends React.Component {
+class HomePage extends React.Component {
+
   componentDidMount(){
-    this.props.fetchFriends();
+    this.props.fetchUsers();
   };
-
-  displayFriends() {  
-    const { friends } = this.props;
+  
+  displayUsers() {  
+    const { user } = this.props;
     return (
-      _.map(friends, (value, key) => {
+      _.map(user, (value, key) => {
         return (
           <div key={ key }>
-            {getUserInfoCard(value.id)}                                
+            {getUserInfoCard(value.id)}                          
           </div>
         )
       })
@@ -29,7 +30,7 @@ class Friends extends React.Component {
       <div className='row mb-4 mt-3'>
         <div className={requests ? 'col-1' : 'col-2'}></div>
         <div className={requests ? 'col-7' : 'col-8'}>
-          {this.displayFriends()}
+          {this.displayUsers()}
         </div>
         { requests ?
           <>
@@ -46,11 +47,11 @@ class Friends extends React.Component {
   }
 }
 
-const mapStateToProps = ({friends, requests}) => {
+const mapStateToProps = ({user, requests}) => {
   return {
-    friends,
+    user,
     requests
   };
 };
 
-export default connect(mapStateToProps, actions)(Friends);
+export default connect(mapStateToProps, actions)(HomePage);

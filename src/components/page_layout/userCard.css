@@ -1,0 +1,25 @@
+
+.user-card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+  margin-bottom: 10px;
+}
+
+.user-card-img {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+.actual-img {
+  width: 100%;
+  max-height: none !important;
+}
+
+.user-card-answers { grid-area: 1 / 2 / 2 / 3; }
+.user-card-bio { grid-area: 1 / 3 / 2 / 4; }
+
+.user-card-name {
+  text-align: center;
+}

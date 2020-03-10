@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase/app';
-
 import { userRef } from "../../config/firebase";
-
 import { Link } from 'react-router-dom';
 
-
-
-
 class ProfilePage extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -20,11 +14,8 @@ class ProfilePage extends Component {
             partier: "",
             avatarURL: "",
             bio: ""
-
         }
-
     }
-
 
     componentDidMount() {
         this.getUserInformation();
@@ -45,13 +36,10 @@ class ProfilePage extends Component {
         });
     }
 
-
-
     render() {
         return (
             <div className="container">
                 <h1 className="text-center">{this.state.name}</h1>
-
                 <div className="row text-left">
                     <div className="col-sm">
                         <img
@@ -59,7 +47,6 @@ class ProfilePage extends Component {
                             src={this.state.avatarURL}
                             onError={(e) => { e.target.onerror = null; e.target.src = "images/not_found.png" }}
                         />
-                        
                     </div>
                     <div className="col-sm">
                         <p> Birthday: {this.state.date} <br></br>
@@ -70,14 +57,12 @@ class ProfilePage extends Component {
                         <div>
                             {this.state.bio}
                         </div>
-
                     </div>
                 </div>
                 <div className="text-center">
                     <Link to="/edit-profile" className="btn btn-dark ml-2 mt-3">Edit Profile</Link>
                 </div>
             </div>
-
         )
     }
 }
