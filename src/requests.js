@@ -1,14 +1,9 @@
 import React from 'react'
-
 import _ from "lodash";
-
 import store from './store'
-
 import * as actions from './actions/friendsActions'
 import './components/page_layout/page.css';
 import { connect } from "react-redux";
-
-
 
 class Requests extends React.Component {
   state = {
@@ -17,12 +12,11 @@ class Requests extends React.Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.fetchRequests();
   };
   
-  handleClick = event =>{
-    
+  handleClick = event => {
     const anId = event.target.id;
     const aName = event.target.name;
   
@@ -33,12 +27,13 @@ class Requests extends React.Component {
     addFriends({
       name: aName,
       id: anId
-      }); 
-      event.preventDefault();
+    }); 
+    
+    event.preventDefault();
   }
   
 
-  displayRequests(){ 
+  displayRequests() { 
     const requestState = store.getState().requests;
     return (
       _.map(requestState, (value, key) => {
@@ -57,7 +52,7 @@ render() {
     return (
       <div>
         <div>
-          <h3>People who added you</h3>
+          <h4>Friend Requests</h4>
           {this.displayRequests()}       
         </div>
       </div>
