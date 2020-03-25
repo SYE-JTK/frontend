@@ -1,13 +1,9 @@
 import React from 'react'
-
 import _ from "lodash";
-
 import store from './store'
 import './components/page_layout/page.css';
-
 import { getNameFromId } from './utils/getNameFromId';
 import * as firebase from "firebase/app";
-
 import { connect } from "react-redux";
 import * as actions from './actions/friendsActions'
 
