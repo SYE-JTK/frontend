@@ -43,6 +43,7 @@ class ProfilePage extends Component {
                 <div className="row text-left">
                     <div className="col-sm">
                         <img
+                            alt=''
                             className="rounded"
                             src={this.state.avatarURL}
                             onError={(e) => { e.target.onerror = null; e.target.src = "images/not_found.png" }}

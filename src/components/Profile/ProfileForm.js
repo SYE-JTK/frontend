@@ -9,8 +9,6 @@ import '../page_layout/page.css';
 import store from '../../store';
 import './profile.css';
 
-import { Link } from 'react-router-dom';
-
 import * as firebase from 'firebase/app';
 
 import FileUploader from "react-firebase-file-uploader";
@@ -126,7 +124,7 @@ class ProfileForm extends Component {
             <div className="col-sm border rounded p-3">
               <h2 className="bg-secondary border rounded text-light text-sm text-center">Profile Photo</h2>
               {this.state.isUploading && <p>Progress: {this.state.progress} %</p>}
-              {this.state.avatarURL && <img className="rounded" src={this.state.avatarURL} style={{ width: '100%', height: 'auto', }} />}
+              {this.state.avatarURL && <img alt='' className="rounded" src={this.state.avatarURL} style={{ width: '100%', height: 'auto', }} />}
               <br></br>
               <div className="mt-3 ml-7">
                 <FileUploader

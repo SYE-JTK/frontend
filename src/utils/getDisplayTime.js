@@ -5,6 +5,11 @@ const isToday = (someDate) => {
   return someDate.setHours(0,0,0,0) === today.setHours(0,0,0,0)
 }
 
+const isThisYear = (someDate) => {
+  const today = new Date();
+  return someDate.getFullYear() === today.getFullYear()
+}
+
 
 export const getDisplayTime = (time) => {
   const date = new Date(time);
@@ -18,8 +23,10 @@ export const getDisplayTime = (time) => {
         timeHours.length)
       }
     `;
-  } else {
+  } else if (isThisYear(date)) {
     return readable.slice(0, readable.lastIndexOf('/'));
+  } else {
+    return readable.slice(0, readable.indexOf(','));
   }
 }
 
