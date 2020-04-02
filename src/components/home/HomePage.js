@@ -14,13 +14,22 @@ export const alreadyFriends = (id) => {
   for (var key in friends) {
     
     if (friends[key].id === id) {
- 
-      return true;
+      return true
     }
   }
+  return false
 }
 
 class HomePage extends React.Component {
+
+  displayButton(id){
+    if(alreadyFriends(id)){
+      return(<div>Already Friends</div>)
+    } else{
+      return (<button className= 'button-main' id= {id}  
+      onClick = {this.handleAddFriendRequest} >add friend</button>);
+    }
+  };
 
   componentDidMount(){
     this.props.fetchUsers();
@@ -44,11 +53,12 @@ class HomePage extends React.Component {
       _.map(user, (value, key) => {
         return (
           <div key={ key }>
-            {getUserInfoCard(value.id)}
             {alreadyFriends(value.id)?
             <div></div>
             :
-            <button className= 'button-main' id= {value.id} name={value.name} onClick = {this.handleAddFriendRequest} >add friend</button>}                          
+            <div>{getUserInfoCard(value.id, this.displayButton(value.id))}</div>
+            }
+               
           </div>
         )
       })

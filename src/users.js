@@ -54,14 +54,9 @@ class Users extends React.Component {
                 <div></div>
                 :
                 <div>
-                {getAvatar(value.name, value.avatarURL)}
+                {getAvatar(value.name, alreadyFriends(value.id))}
                 <div className='note-title'>{ value.name }</div>
-                {alreadyFriends(value.id)?
-              <div> </div>
-              :
-             
-              <button className= 'button-main' id= {value.id} name={value.name} onClick = {this.handleAddFriendRequest} >add friend</button>
-              } 
+                {} 
                 </div>
               }
                        
