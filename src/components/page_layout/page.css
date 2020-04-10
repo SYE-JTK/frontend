@@ -170,6 +170,17 @@ body {
   list-style-type: none;
 }
 
+.button-sent{
+  border-radius:5px;
+	border:1px solid #B22222;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Trebuchet MS;
+	font-size:15px;
+  padding:5px 19px;
+  align-self: center;
+}
+
 /* Right */
 .push-right {
   position: absolute!important;
