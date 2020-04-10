@@ -4,6 +4,7 @@ import React from 'react'
 
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
+import * as firebase from "firebase/app";
 
 
 
@@ -27,7 +28,7 @@ export function getUserInfoCard(id, isFriend) {
     imageURL = snapshot.child("avatarURL").val();  
   });
   
- 
+  if(id !== firebase.auth().currentUser.uid){
   return(
     <div>
       <h3 className='user-card-name'>{name}</h3>
@@ -50,5 +51,5 @@ export function getUserInfoCard(id, isFriend) {
         </div>
       </div>
     </div>
-  )
+  )}
 };
