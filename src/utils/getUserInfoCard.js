@@ -26,6 +26,7 @@ export function getUserInfoCard(id, isFriend) {
     partier = snapshot.child("partier").val();
     imageURL = snapshot.child("avatarURL").val();  
   });
+  
  
   return(
     <div>
@@ -39,7 +40,7 @@ export function getUserInfoCard(id, isFriend) {
           <li className='list-group-item'>Do I like to party? <span className='float-right'>{partier}</span></li>
           <li className='list-group-item'>Do I smoke? <span className='float-right'>{smoker}</span></li>
           <li className='list-group-item'>Gender: <span className='float-right'>{gender}</span></li>
-          <li className='list-group-item'><span className='float-right'>{isFriend}</span></li>
+          {isFriend}
           
           
         </ul>
