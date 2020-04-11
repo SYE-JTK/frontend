@@ -11,7 +11,7 @@ class ProfilePage extends Component {
         return (
             <div className="container">
                 <div>
-                    {getUserInfoCard(firebase.auth().currentUser.uid)}
+                    {getUserInfoCard(firebase.auth().currentUser.uid, false)}
                 </div>
                 <div className="text-center">
                     <Link to="/edit-profile" className="btn btn-dark ml-2 mt-3">Edit Profile</Link>

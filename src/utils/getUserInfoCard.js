@@ -4,9 +4,6 @@ import React from 'react'
 
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
-import * as firebase from "firebase/app";
-
-
 
 
 
@@ -27,8 +24,17 @@ export function getUserInfoCard(id, isFriend) {
     partier = snapshot.child("partier").val();
     imageURL = snapshot.child("avatarURL").val();  
   });
+
+  function getBirthday(str){
+    if(str){
+      var bday = new Date(str)
+      return bday.toString().slice(4,15)
+    }else{
+      return ''
+    }
+
+  }
   
-  if(id !== firebase.auth().currentUser.uid){
   return(
     <div>
       <h3 className='user-card-name'>{name}</h3>
@@ -37,7 +43,7 @@ export function getUserInfoCard(id, isFriend) {
           <img src={imageURL} alt="" className="avatar actual-img"></img>  
         </div>
         <ul className='user-card-answers list-group'>
-          <li className='list-group-item'>Birthday: <span className='float-right'>{birthday}</span></li>
+          <li className='list-group-item'>Birthday: <span className='float-right'>{getBirthday(birthday)}</span></li>
           <li className='list-group-item'>Do I like to party? <span className='float-right'>{partier}</span></li>
           <li className='list-group-item'>Do I smoke? <span className='float-right'>{smoker}</span></li>
           <li className='list-group-item'>Gender: <span className='float-right'>{gender}</span></li>
@@ -52,4 +58,3 @@ export function getUserInfoCard(id, isFriend) {
       </div>
     </div>
   )}
-};
