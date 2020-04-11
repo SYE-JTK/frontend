@@ -15,6 +15,7 @@ import FileUploader from "react-firebase-file-uploader";
 
 import DatePicker from 'react-date-picker';
 import { userRef } from "../../config/firebase";
+import { thisExpression } from '@babel/types';
 
 class ProfileForm extends Component {
 
@@ -28,6 +29,9 @@ class ProfileForm extends Component {
     progress: 0,
     avatarURL: "",
     addBio: "",
+    addCleanliness:"", 
+    addWakeUp:"",
+    addBedTime: ""
   };
 
   getUserInformation() {
@@ -41,6 +45,9 @@ class ProfileForm extends Component {
       this.setState({ addSmoking: snapshot.child("smoker").val() });
       this.setState({ addPartying: snapshot.child("partier").val() });
       this.setState({ addBio: snapshot.child("bio").val() });
+      this.setState({ addCleanliness: snapshot.child("cleanliness").val() });
+      this.setState({ addWakeUp: snapshot.child("wakeup").val() });
+      this.setState({ addBedTime: snapshot.child("bedtime").val()});
 
 
     });
@@ -52,7 +59,7 @@ class ProfileForm extends Component {
 
   onBirthdayChange = date => this.setState({ date })
 
- 
+
   handleGenderChange = event => {
     this.setState({ addGender: event.target.value });
   };
@@ -63,6 +70,18 @@ class ProfileForm extends Component {
 
   handlePartyingChange = event => {
     this.setState({ addPartying: event.target.value });
+  };
+
+  handleCleanlinessChange = event => {
+    this.setState({ addCleanliness: event.target.value });
+  };
+
+  handleWakeUpChange = event => {
+    this.setState({ addWakeUp : event.target.value });
+  };
+
+  handleBedTimeChange = event => {
+    this.setState({ addBedTime : event.target.value });
   };
 
   handleBioChange = event => {
@@ -90,7 +109,7 @@ class ProfileForm extends Component {
 
 
   handleFormSubmit = event => {
-    const { date, addGender, addSmoking, addPartying, avatarURL, addBio } = this.state;
+    const { date, addGender, addSmoking, addPartying, avatarURL, addBio, addCleanliness, addWakeUp, addBedTime } = this.state;
     const currUser = firebase.auth().currentUser;
     var user = userRef.child(currUser.uid);
 
@@ -99,8 +118,11 @@ class ProfileForm extends Component {
       "gender": addGender,
       "smoker": addSmoking,
       "partier": addPartying,
+      "cleanliness": addCleanliness,
       "avatarURL": avatarURL,
-      "bio": addBio
+      "bio": addBio, 
+      "wakeup": addWakeUp,
+      "bedtime": addBedTime,
     });
 
     event.preventDefault();
@@ -112,7 +134,7 @@ class ProfileForm extends Component {
 
   renderAddForm = () => {
 
-    const { date, addGender, addSmoking, addPartying, addBio } = this.state;
+    const { date, addGender, addSmoking, addPartying, addBio, addCleanliness, addWakeUp, addBedTime } = this.state;
     const currUser = firebase.auth().currentUser;
     return (
 
@@ -174,14 +196,126 @@ class ProfileForm extends Component {
                   </select>
                 </label>
               </div>
+              <div className="form-group">
+                <label className="">
+                  Do you like to party? &nbsp;
+                <select className="form-control" value={addPartying} onChange={this.handlePartyingChange}>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </label>
+              </div>
+              <div className="form-group">
+                <label className="">
+                  How clean are you? &nbsp;
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="Clean"
+                        checked={addCleanliness === "Clean"}
+                        className="form-check-input"
+                        onChange={this.handleCleanlinessChange}
+                      />
+                      Clean
+                      </label>
+                  </div>
 
-              <label className="">
-                Do you like to party? &nbsp;
-              <select className="form-control" value={addPartying} onChange={this.handlePartyingChange}>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </label>
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="So-so"
+                        checked={addCleanliness === "So-so"}
+                        className="form-check-input"
+                        onChange={this.handleCleanlinessChange}
+                      />
+                      So-so
+                      </label>
+                  </div>
+
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="Messy"
+                        checked={addCleanliness === "Messy"}
+                        className="form-check-input"
+                        onChange={this.handleCleanlinessChange}
+                      />
+                      Messy
+                      </label>
+                  </div>
+                </label>
+              </div>
+              <div className="form-group">
+                <label className="">
+                  Do you wake up early? &nbsp;
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="Yes"
+                        checked={addWakeUp === "Yes"}
+                        className="form-check-input"
+                        onChange={this.handleWakeUpChange}
+                      />
+                      Yes
+                      </label>
+                  </div>
+
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="No"
+                        checked={addWakeUp === "No"}
+                        className="form-check-input"
+                        onChange={this.handleWakeUpChange}
+                      />
+                      No
+                      </label>
+                  </div>
+                </label>
+              </div>
+
+              <div className="form-group">
+                <label className="">
+                  Do you go to bed late? &nbsp;
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="Yes"
+                        checked={addBedTime === "Yes"}
+                        className="form-check-input"
+                        onChange={this.handleBedTimeChange}
+                      />
+                      Yes
+                      </label>
+                  </div>
+
+                  <div className="form-check">
+                    <label>
+                      <input
+                        type="radio"
+                        name=""
+                        value="No"
+                        checked={addBedTime === "No"}
+                        className="form-check-input"
+                        onChange={this.handleBedTimeChange}
+                      />
+                      No
+                      </label>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>

@@ -80,10 +80,13 @@ class Root extends Component {
     this.props.fetchUsers();
     this.props.fetchNotes();
     const currUser = firebase.auth().currentUser;
-    var user = userRef.child(currUser.uid);
-    user.on('value', snapshot => {
-      this.setState({ url: snapshot.child("avatarURL").val()})
-    });
+  
+    if (currUser !== null){
+      var user = userRef.child(currUser.uid);
+      user.on('value', snapshot => {
+        this.setState({ url: snapshot.child("avatarURL").val()})
+      });
+    }
     
   }
 
