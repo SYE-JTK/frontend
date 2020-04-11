@@ -76,7 +76,7 @@ class HomePage extends React.Component {
       _.map(user, (value, key) => {
         return (
           <div key={ key }>
-            {alreadyFriends(value.id)|| value.id == firebase.auth().currentUser.uid ?
+            {alreadyFriends(value.id)|| value.id === firebase.auth().currentUser.uid ?
             <></>
             :
             <div>{getUserInfoCard(value.id, this.displayButton(value.id))}</div>
