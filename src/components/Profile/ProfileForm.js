@@ -15,7 +15,6 @@ import FileUploader from "react-firebase-file-uploader";
 
 import DatePicker from 'react-date-picker';
 import { userRef } from "../../config/firebase";
-import { thisExpression } from '@babel/types';
 
 class ProfileForm extends Component {
 
