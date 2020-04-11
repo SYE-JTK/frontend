@@ -5,11 +5,6 @@ import { Link } from 'react-router-dom';
 import { getUserInfoCard } from '../../utils/getUserInfoCard';
 
 class ProfilePage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-
 
 
     render() {
