@@ -14,7 +14,6 @@ export const alreadyFriends = (id) => {
   
   const friends = store.getState().friends;
   for (var key in friends) {
-    
     if (friends[key].id === id) {
       userRef.child(firebase.auth().currentUser.uid).child("requests").child(id).remove();    
       return true
