@@ -6,7 +6,6 @@ import { getUserInfoCard } from '../../utils/getUserInfoCard';
 import Requests from '../../requests';
 import store from '../../store'
 import * as firebase from "firebase/app";
-import { getNameFromId } from '../../utils/getNameFromId';
 import { userRef } from "../../config/firebase";
 
 
