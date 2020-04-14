@@ -1,19 +1,14 @@
 import React from 'react'
 
-// import _ from "lodash";
-
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
+import StartConversation from './startConversation';
+import AddFriend from './addFriend';
 
-
-
-
-export function getUserInfoCard(id, isFriend) {
-  
-  
+export function getUserInfoCard(id, isFriend) {  
   const thisUserId = id;
   var thisUser = userRef.child(thisUserId);
-  var name, smoker,  bio, birthday, gender, partier, imageURL;
+  var name, smoker, bio, birthday, gender, partier, imageURL;
 
   thisUser.on('value', snapshot => {
     name = snapshot.child("name").val();
@@ -47,13 +42,18 @@ export function getUserInfoCard(id, isFriend) {
           <li className='list-group-item'>Do I like to party? <span className='float-right'>{partier}</span></li>
           <li className='list-group-item'>Do I smoke? <span className='float-right'>{smoker}</span></li>
           <li className='list-group-item'>Gender: <span className='float-right'>{gender}</span></li>
-          {isFriend}
-          
-          
+          <li className='list-group-item'><span className='float-right'>{isFriend}</span></li>
         </ul>
         <div className='user-card-bio'>        
           <h4 className="mb-1">BIO:</h4>     
           <div className="note-content float-left">{bio}</div>
+        </div>
+        <div className='mt-2'>
+          { isFriend?
+            <StartConversation id={thisUserId}/>
+            :
+            <AddFriend id={thisUserId}/>
+          }
         </div>
       </div>
     </div>

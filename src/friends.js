@@ -16,7 +16,7 @@ class Friends extends React.Component {
       _.map(friends, (value, key) => {
         return (
           <div key={ key }>
-            {getUserInfoCard(value.id, null)}                                
+            {getUserInfoCard(value.id, true)}                                
           </div>
         )
       })
