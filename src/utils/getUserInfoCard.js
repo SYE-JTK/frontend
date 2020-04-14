@@ -1,4 +1,5 @@
 import React from 'react'
+import * as firebase from 'firebase';
 
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
@@ -6,8 +7,7 @@ import StartConversation from './startConversation';
 import AddFriend from './addFriend';
 
 export function getUserInfoCard(id, isFriend) {  
-  const thisUserId = id;
-  var thisUser = userRef.child(thisUserId);
+  var thisUser = userRef.child(id);
   var name, smoker, bio, birthday, gender, partier, imageURL;
 
   thisUser.on('value', snapshot => {
@@ -24,10 +24,9 @@ export function getUserInfoCard(id, isFriend) {
     if(str){
       var bday = new Date(str)
       return bday.toString().slice(4,15)
-    }else{
+    } else {
       return ''
     }
-
   }
   
   return(
@@ -49,10 +48,16 @@ export function getUserInfoCard(id, isFriend) {
           <div className="note-content float-left">{bio}</div>
         </div>
         <div className='mt-2'>
-          { isFriend?
-            <StartConversation id={thisUserId}/>
+          { id === firebase.auth().currentUser.uid ?
+            <></>
             :
-            <AddFriend id={thisUserId}/>
+            <>
+            { isFriend?
+              <StartConversation id={id}/>
+              :
+              <AddFriend id={id}/>
+            }
+            </>
           }
         </div>
       </div>
