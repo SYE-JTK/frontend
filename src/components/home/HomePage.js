@@ -19,7 +19,12 @@ export const alreadyFriends = (id) => {
       return true
     }
   }
-  return false
+  if (id === firebase.auth().currentUser.uid) {
+    console.log(id);
+    return true
+  } else {
+    return false
+  }
 }
 
 export const requestSent = (id) => {
@@ -46,9 +51,8 @@ class HomePage extends React.Component {
         <li className='list-group-item'><div className = 'button-sent'>request sent</div></li>
       );
     } else{
-      return (
-        <li className='list-group-item'><span className='float-none'><button className = 'button-main' id= {id}  
-      onClick = {this.handleAddFriendRequest} >add friend</button></span></li>);
+      return (<button className='button-main' id= {id}  
+      onClick = {this.handleAddFriendRequest} >add friend</button>);
     }
   };
  
@@ -56,16 +60,6 @@ class HomePage extends React.Component {
     this.props.fetchUsers();
     this.props.fetchRequests();
     this.props.fetchFriends();
-  };
-
-  handleAddFriendRequest = event =>{
-    const { friendRequest } = this.props;
-    const anId = event.target.id; 
-    const currId = firebase.auth().currentUser.uid; 
-    const currName = getNameFromId(firebase.auth().currentUser.uid); 
-    friendRequest(anId, currId, currName);
-   
-
   };
   
   displayUsers() {  
@@ -75,10 +69,10 @@ class HomePage extends React.Component {
       _.map(user, (value, key) => {
         return (
           <div key={ key }>
-            {alreadyFriends(value.id)|| value.id === firebase.auth().currentUser.uid ?
-            <></>
-            :
-            <div>{getUserInfoCard(value.id, this.displayButton(value.id))}</div>
+            {alreadyFriends(value.id) ?
+              <></>
+              :
+              <div>{getUserInfoCard(value.id, false)}</div>
             }
                
           </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as firebase from 'firebase';
 
 import { getNameFromId } from './getNameFromId';
@@ -12,19 +12,24 @@ class StartConversation extends Component {
     currUserName: "",
     userTwo: this.props.id,
     currentMessageId: "",
+    redirect: false,
   };
 
   handlePickExistingUser = () => {
-    let newMessage = {user1: this.state.currUser, user2: this.state.userTwo}
-    let less = (newMessage.user1 < newMessage.user2) ? newMessage.user1 : newMessage.user2;
-    let more = (newMessage.user1 > newMessage.user2) ? newMessage.user1 : newMessage.user2;
-    this.props.setCurrentConvo(this.state.userTwo);
-    
-    this.setState({currentMessageId: `${less}@${more}`}, this.fetchAConversation);
+    const {currUser, userTwo} = this.state;
+    const less = (currUser < userTwo) ? currUser : userTwo;
+    const more = (currUser > userTwo) ? currUser : userTwo;
+    const messageId = `${less}@${more}`
+    this.setState({currentMessageId: messageId}, this.fetchAConversation);
   };
 
   fetchAConversation = () => {
-    this.props.fetchSingleConversation(this.state.currentMessageId);
+    const {currUser, userTwo, currentMessageId} = this.state;
+    const users = {'user1': currUser, 'user2': userTwo};
+    this.props.startNewConversation(users);
+    this.props.setCurrentConvo(userTwo);
+    this.props.fetchSingleConversation(currentMessageId);
+    this.setState({redirect: true});
   }
 
   render() {
@@ -32,14 +37,13 @@ class StartConversation extends Component {
       <div>
         <ul>
           { 
-            this.state.userTwo ?
-            <li className='button-main'>
-              <Link onClick={this.handlePickExistingUser} to="/messages">
-                Message {getNameFromId(this.state.currentMessageId)}
-              </Link>
+            this.state.userTwo &&
+            <li onClick={this.handlePickExistingUser} className='button-main'>
+              Message {getNameFromId(this.state.currentMessageId)}
             </li>
-            :
-            <div>There is no id associated with this user</div>
+          }
+          { this.state.redirect &&
+            <Redirect to='/messages'/>
           }
         </ul>
       </div>

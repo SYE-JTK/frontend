@@ -2,11 +2,13 @@ import React from 'react'
 
 import { userRef } from "../config/firebase";
 import '../components/page_layout/userCard.css';
+import StartConversation from './startConversation';
+import AddFriend from './addFriend';
 
 export function getUserInfoCard(id, isFriend) {  
   const thisUserId = id;
   var thisUser = userRef.child(thisUserId);
-  var name, smoker,  bio, birthday, gender, partier, imageURL;
+  var name, smoker, bio, birthday, gender, partier, imageURL;
 
   thisUser.on('value', snapshot => {
     name = snapshot.child("name").val();
@@ -45,6 +47,13 @@ export function getUserInfoCard(id, isFriend) {
         <div className='user-card-bio'>        
           <h4 className="mb-1">BIO:</h4>     
           <div className="note-content float-left">{bio}</div>
+        </div>
+        <div className='mt-2'>
+          { isFriend?
+            <StartConversation id={thisUserId}/>
+            :
+            <AddFriend id={thisUserId}/>
+          }
         </div>
       </div>
     </div>

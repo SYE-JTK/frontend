@@ -11,7 +11,7 @@ export const startNewConversation = users => async dispatch => {
 
   user1ConversationsRef.once('value', function(snapshot) {
     if (snapshot.hasChild(messageId)) {
-      console.log('exists');
+      console.log('message exists in user1');
     } else {
       console.log('adding to user 1');
       user1ConversationsRef.child(messageId).set({
@@ -26,9 +26,8 @@ export const startNewConversation = users => async dispatch => {
 
   user2ConversationsRef.once('value', function(snapshot) {
     if (snapshot.hasChild(messageId)) {
-      console.log('exists');
+      console.log('message exists in user2');
     } else {
-      console.log('adding to user 2');
       user2ConversationsRef.child(messageId).set({
         id: messageId,
         user1: lowUID,
@@ -41,9 +40,8 @@ export const startNewConversation = users => async dispatch => {
 
   messagesRef.once('value', function(snapshot) {
     if (snapshot.hasChild(messageId)) {
-      console.log('exists');
+      console.log('conversation exists in messages');
     } else {
-      console.log('setting up message');
       messagesRef.child(messageId).set({
         user1: lowUID,
         user2: highUID
