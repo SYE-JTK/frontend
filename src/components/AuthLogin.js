@@ -7,7 +7,6 @@ import 'firebase/auth';
 import { FirebaseConfig } from "../config/keys";
 
 import { GoogleLoginButton }from 'react-social-login-buttons';
-import { FacebookLoginButton } from "react-social-login-buttons";
 
 import logo from '../images/logo512.png';
 
@@ -28,15 +27,13 @@ const firebaseAppAuth = firebase.auth();
 
 const providers ={
   googleProvider: new firebase.auth.GoogleAuthProvider(),
-  facebookProvider: new firebase.auth.FacebookAuthProvider(),
 };
 
 
 
 class AuthLogin extends Component {
 
-  signInWithFacebook = () =>
-    this.auth.signInWithPopup(this.facebookProvider);
+ 
 
   async componentDidUpdate() {
     const usersState = store.getState().user;
@@ -60,8 +57,7 @@ class AuthLogin extends Component {
     const{
       user,
       signOut,
-      signInWithGoogle,
-      signInWithFacebook
+      signInWithGoogle
     } = this.props;
 
     return (
@@ -85,7 +81,6 @@ class AuthLogin extends Component {
               ? <Button className="btn btn-lg btn-primary btn-block" onClick={signOut}>Sign out</Button>
               : <div>
                   <GoogleLoginButton className='button-main margin-t-1 form-label-group' onClick={signInWithGoogle}>Sign in with Google</GoogleLoginButton>
-                  <FacebookLoginButton className='form-label-group' onClick={signInWithFacebook}>Sign in with Facebook</FacebookLoginButton>
                 </div>
             }
           </div>
