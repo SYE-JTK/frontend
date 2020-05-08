@@ -15,6 +15,8 @@ import Header from './components/page_layout/Header';
 import ProfileForm from "./components/Profile/ProfileForm";
 import ProfilePage from "./components/Profile/ProfilePage";
 
+import AboutPage from "./components/about/AboutPage";
+
 import { connect } from 'react-redux';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -96,8 +98,9 @@ class Root extends Component {
     return(
       <Router>
         <Header text='jtk-sye'>
+          <div className='routes'>
           { user ? 
-            <div className='routes'>
+            <>
               <li>
                 <Link className='header-text' to="/home">Home</Link>
               </li>
@@ -116,10 +119,14 @@ class Root extends Component {
               }
               
               
-            </div>
+            </>
             :
             <></>
           }
+            <li>
+              <Link className='header-text' to="/about">About</Link>
+            </li>
+          </div>
           { user ?
             <> 
               <span>
@@ -149,6 +156,7 @@ class Root extends Component {
         <Route path="/messages" component={Messages} />
         <Route path="/edit-profile" component={ProfileForm}/>
         <Route path="/my-profile" component={ProfilePage}/>
+        <Route path="/about" component={AboutPage}/>
       </Router>
     )
   }
